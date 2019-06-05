@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		ECBCE9BF22A85E1800971796 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECBCE9BE22A85E1800971796 /* main.swift */; };
+		ECBCE9C622A863BD00971796 /* Spoon.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECBCE9C522A863BD00971796 /* Spoon.swift */; };
+		ECBCE9C822A8660300971796 /* Developer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECBCE9C722A8660300971796 /* Developer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +27,8 @@
 /* Begin PBXFileReference section */
 		ECBCE9BB22A85E1800971796 /* HungryDevelopers */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = HungryDevelopers; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECBCE9BE22A85E1800971796 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		ECBCE9C522A863BD00971796 /* Spoon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spoon.swift; sourceTree = "<group>"; };
+		ECBCE9C722A8660300971796 /* Developer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Developer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +62,8 @@
 			isa = PBXGroup;
 			children = (
 				ECBCE9BE22A85E1800971796 /* main.swift */,
+				ECBCE9C522A863BD00971796 /* Spoon.swift */,
+				ECBCE9C722A8660300971796 /* Developer.swift */,
 			);
 			path = HungryDevelopers;
 			sourceTree = "<group>";
@@ -119,7 +125,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECBCE9C822A8660300971796 /* Developer.swift in Sources */,
 				ECBCE9BF22A85E1800971796 /* main.swift in Sources */,
+				ECBCE9C622A863BD00971796 /* Spoon.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,6 +254,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 66AJPZAPLQ;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -256,6 +265,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 66AJPZAPLQ;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};

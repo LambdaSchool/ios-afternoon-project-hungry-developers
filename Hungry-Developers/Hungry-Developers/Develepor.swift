@@ -9,6 +9,13 @@
 import Foundation
 
 class Developer {
+	
+	let name: String
+	
+	init(name: String) {
+		self.name = name
+	}
+	
 	let leftSpoon = Spoon()
 	let rightSpoon = Spoon()
 	

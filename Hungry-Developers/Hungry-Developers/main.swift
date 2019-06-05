@@ -8,11 +8,39 @@
 
 import Foundation
 
+/*Create 5 Spoons and 5 Developers giving each developer a
+left and right spoon. Note that developers will of course share
+spoons. Ever developer's right spoon is the next developer's left spoon.
+*/
+
+
+
+
+
+
+
+
+
+
 class Main {
 	
+	func createDev(name: String) {
+		let dev = Developer(name: name)
+		
+		developers.append(dev)
+	}
+	
+//	func AddDeveloperToTable(dev: Developer, left: Spoon, rightt: Spoon) {
+//		
+//	}
+	
+	private (set) var developers: [Developer] = []
 }
 
-let devs: [Developer] = [Developer(), Developer(), Developer(), Developer(), Developer(),]
+
+
+
+
 
 var i = 0
 let lock = NSLock()
@@ -20,8 +48,9 @@ let lock = NSLock()
 DispatchQueue.concurrentPerform(iterations: 5) { _ in
 	lock.lock()
 	print("\(i) ------------------")
-	devs[i].run()
+	
 	i += 1
+	
 	lock.unlock()
 }
 

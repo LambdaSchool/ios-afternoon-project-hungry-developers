@@ -16,10 +16,10 @@ class Developer {
 	func think() {
 		//both spoons are held so think for a time
 		
-		let ran = useconds_t.random(in: 1_000_000...5_000_000)
-		usleep(ran)
-
+		sleeper()
 		self.leftSpoon.pickUp()
+		
+		sleeper()
 		self.rightSpoon.pickUp()
 		print("picked up left and right spoon")
 		
@@ -31,11 +31,13 @@ class Developer {
 		//putDown()
 		
 		
-		
-		let ran = useconds_t.random(in: 1_000_000...5_000_000)
-		usleep(ran)
+		sleeper()
 		self.leftSpoon.putDown()
+		
+		sleeper()
 		self.rightSpoon.putDown()
+		
+		
 		print("put down left and right spoon")
 
 	}
@@ -45,6 +47,13 @@ class Developer {
 		
 		think()
 		eat()
+	}
+	
+	
+	private func sleeper() {
+		let ran = useconds_t.random(in: 1_000_000...5_000_000)
+		usleep(ran)
+		print(ran)
 	}
 	
 }

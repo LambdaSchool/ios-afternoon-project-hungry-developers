@@ -26,13 +26,24 @@ class Main {
 	
 	func createDev(name: String) {
 		let dev = Developer(name: name)
-		
 		developers.append(dev)
 	}
 	
 //	func AddDeveloperToTable(dev: Developer, left: Spoon, rightt: Spoon) {
-//		
+//
 //	}
+	
+	func createDevs() {
+		createDev(name: "Hector")
+		createDev(name: "Chris")
+		createDev(name: "Micheal")
+		createDev(name: "Josh")
+		createDev(name: "Ben")
+	}
+	
+	init() {
+		createDevs()
+	}
 	
 	private (set) var developers: [Developer] = []
 }

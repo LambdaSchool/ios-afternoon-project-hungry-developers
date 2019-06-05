@@ -12,7 +12,16 @@ class Main {
 	
 }
 
-let dev = Developer()
+let devs: [Developer] = [Developer(), Developer(), Developer(), Developer(), Developer(),]
 
-dev.think()
-dev.eat()
+var i = 0
+let lock = NSLock()
+
+DispatchQueue.concurrentPerform(iterations: 5) { _ in
+	lock.lock()
+	print("\(i) ------------------")
+	devs[i].run()
+	i += 1
+	lock.unlock()
+}
+

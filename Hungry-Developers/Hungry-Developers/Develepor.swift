@@ -18,10 +18,11 @@ class Developer {
 		
 		sleeper()
 		self.leftSpoon.pickUp()
+		print("picked up left  spoon")
 		
 		sleeper()
 		self.rightSpoon.pickUp()
-		print("picked up left and right spoon")
+		print("picked up right spoon")
 		
 		
 	}
@@ -33,18 +34,16 @@ class Developer {
 		
 		sleeper()
 		self.leftSpoon.putDown()
+		print("put down left  spoon")
 		
 		sleeper()
 		self.rightSpoon.putDown()
-		
-		
-		print("put down left and right spoon")
+		print("put down right spoon")
 
 	}
 	
 	func run() {
 		//should call think() then eat() over and over again forever.
-		
 		think()
 		eat()
 	}
@@ -53,7 +52,7 @@ class Developer {
 	private func sleeper() {
 		let ran = useconds_t.random(in: 1_000_000...5_000_000)
 		usleep(ran)
-		print(ran)
+		//print(ran)
 	}
 	
 }

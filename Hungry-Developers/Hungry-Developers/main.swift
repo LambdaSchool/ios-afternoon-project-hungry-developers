@@ -12,3 +12,7 @@ class Main {
 	
 }
 
+let dev = Developer()
+
+dev.think()
+dev.eat()

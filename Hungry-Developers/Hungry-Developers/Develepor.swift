@@ -60,7 +60,7 @@ class Developer {
 	
 	
 	private func sleeper(completion: @escaping () -> ()) {
-		let ran = useconds_t.random(in: 2_450_000...3_980_100)
+		let ran = useconds_t.random(in: 200...300)
 		usleep(ran)
 		completion()
 		

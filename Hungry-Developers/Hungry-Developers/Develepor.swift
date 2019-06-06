@@ -22,7 +22,7 @@ class Developer {
 		
 		sleeper()
 		rightSpoon.pickUp()
-		print("\(name) finished thinking 📝📝")
+		print("\(name) finished thinking 📝🍔")
 		
 	}
 	
@@ -33,7 +33,7 @@ class Developer {
 		
 		sleeper()
 		rightSpoon.putDown()
-		print("\(name) finished eating 🍔🍔")
+		print("\(name) finished eating 🍔 📝")
 
 	}
 	
@@ -54,7 +54,7 @@ class Developer {
 	
 	
 	private func sleeper() {
-		let ran = useconds_t.random(in: 1_450_000...3_000_100)
+		let ran = useconds_t.random(in: 2_450_000...8_980_100)
 		usleep(ran)
 		
 	}

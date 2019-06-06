@@ -34,8 +34,8 @@ class Main {
 	}
 	
 	func addDevToTable(dev: inout Developer, leftSpoon: Spoon, rightSpoon: Spoon) {
-		dev.leftSpoon = rightSpoon
-		dev.rightSpoon = leftSpoon
+		dev.leftSpoon = leftSpoon
+		dev.rightSpoon = rightSpoon
 		
 	}
 	
@@ -50,8 +50,11 @@ class Main {
 //		developers[0].leftSpoon = developers[4].rightSpoon
 //		developers[0].rightSpoon = developers[1].leftSpoon
 
-		addDevToTable(dev: &developers[0], leftSpoon: developers[0].leftSpoon,
-					  rightSpoon: developers[1].rightSpoon)
+		
+		
+//		addDevToTable(dev: &developers[0],
+//					  leftSpoon: developers[0].leftSpoon = Spoon(name: ""),
+//					  rightSpoon: developers[1].rightSpoon = Spoon(name: ""))
 		
 	}
 	
@@ -62,7 +65,7 @@ class Main {
 	init() {
 		createDevs()
 		createTable()
-		print(developers[0].name, developers[0].rightSpoon.name, developers[0].leftSpoon.name)
+		//print(developers[0].name, developers[0].rightSpoon.name, developers[0].leftSpoon.name)
 	}
 	
 	private (set) var developers: [Developer] = []

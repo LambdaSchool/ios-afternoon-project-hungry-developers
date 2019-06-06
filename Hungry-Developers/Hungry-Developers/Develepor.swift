@@ -11,14 +11,19 @@ import Foundation
 class Developer {
 	
 	let name: String
-	var leftSpoon: Spoon?
-	var rightSpoon: Spoon?
+	private (set) var leftSpoon: Spoon?
+	private (set) var rightSpoon: Spoon?
 	
 	init(name: String ) {
 		self.name = name
 	}
 	
 	
+	func setLeftRightSpoon(leftName: String, rightName: String) {
+		leftSpoon = Spoon(name: leftName)
+		rightSpoon = Spoon(name: rightName)
+	}
+
 	
 	func think() {
 		guard let leftSpoon = leftSpoon else { return }
@@ -48,12 +53,14 @@ class Developer {
 
 	}
 	
+	/// run infinite loop
 	func run() {
 		//should call think() then eat() over and over again forever.
 		
-		//while {1}
-		think()
-		eat()
+		while true {
+			think()
+			eat()
+		}
 	}
 	
 	

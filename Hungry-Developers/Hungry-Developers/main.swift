@@ -36,16 +36,37 @@ class Main {
 	func createTable() {
 		/*
 		
-		[4]-> <- [0] -> <- [1] -> <- [2]-> <- [3] -> <- [4] -> <- [0] ->
+		<- [4: Ben]-> <- [0: Hector] -> <- [1: Chris] -> <- [2: Micheal]-> <- [3: Josh] -> <- [4: Ben] -> <- [0: Hector] ->
 		
 		*/
+		//developers[0].rightSpoon.name = "\(developers[1].name) right spoon"
 		
-//		developers[0].leftSpoon = developers[4].rightSpoon
-//		developers[0].rightSpoon = developers[1].leftSpoon
-
+		developers[4].leftSpoon = Spoon(name: "\(developers[4].name) right spoon")
+		developers[1].rightSpoon = Spoon(name: "\(developers[1].name) left spoon")
 		developers[0].seatAtTable(left: developers[4].leftSpoon, right: developers[1].rightSpoon)
+
+
+
+
+//		developers[1].seatAtTable(left: developers[0].leftSpoon, right: developers[2].rightSpoon)
+//		developers[1].leftSpoon.name = "\(developers[0].name) left spoon"
+//		developers[1].rightSpoon.name = "\(developers[2].name) right spoon"
+//
+//
+//		developers[2].seatAtTable(left: developers[1].leftSpoon, right: developers[3].rightSpoon)
+//		developers[2].leftSpoon.name = "\(developers[1].name) left spoon"
+//		developers[2].rightSpoon.name = "\(developers[3].name) right spoon"
+//
+//
+//		developers[3].seatAtTable(left: developers[2].leftSpoon, right: developers[4].rightSpoon)
+//		developers[3].leftSpoon.name = "\(developers[2].name) left spoon"
+//		developers[3].rightSpoon.name = "\(developers[4].name) right spoon"
 		
 		
+		
+//		developers[4].seatAtTable(left: developers[3].leftSpoon, right: developers[0].rightSpoon)
+//		developers[4].leftSpoon.name = "\(developers[3].name) left spoon"
+//		developers[4].rightSpoon.name = "\(developers[0].name) right spoon"
 		
 	}
 	
@@ -56,7 +77,13 @@ class Main {
 	init() {
 		createDevs()
 		createTable()
-		//print(developers[0].name, developers[0].rightSpoon.name, developers[0].leftSpoon.name)
+		
+		for dev in developers {
+			guard let right = dev.rightSpoon, let left = dev.leftSpoon else { return }
+			
+			
+			print("\(dev.name) has acces to: \(left.name)'s and  \(right.name)'s")
+		}
 	}
 	
 	private (set) var developers: [Developer] = []

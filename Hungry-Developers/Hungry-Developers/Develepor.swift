@@ -11,20 +11,28 @@ import Foundation
 class Developer {
 	
 	let name: String
-	private (set) var leftSpoon = Spoon(name: "")
-	private (set) var rightSpoon = Spoon(name: "")
+	
+	var leftSpoon: Spoon?
+	var rightSpoon: Spoon?
 	
 	init(name: String ) {
 		self.name = name
 	}
 	
 	/// will set left and right spoon respectively
-	func seatAtTable(left: Spoon, right: Spoon) {
-		leftSpoon = left
-		rightSpoon = right
+	func seatAtTable(left: Spoon?, right: Spoon?) {
+		if let left = left {
+			leftSpoon = left
+		}
+		
+		if let right = right {
+			rightSpoon = right
+		}
 	}
 	
 	func think() {
+		guard let leftSpoon = leftSpoon, let rightSpoon = rightSpoon else { return }
+		
 		sleeper()
 		leftSpoon.pickUp()
 		print("picked up left  spoon")
@@ -35,6 +43,8 @@ class Developer {
 	}
 	
 	func eat() {
+		guard let leftSpoon = leftSpoon, let rightSpoon = rightSpoon else { return }
+		
 		sleeper()
 		leftSpoon.putDown()
 		print("put down left  spoon")
@@ -47,8 +57,6 @@ class Developer {
 	
 	/// run infinite loop
 	func run() {
-		//should call think() then eat() over and over again forever.
-		
 		while true {
 			think()
 			eat()

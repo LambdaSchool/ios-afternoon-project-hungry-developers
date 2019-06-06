@@ -15,26 +15,29 @@ class Developer {
 	}
 	
 	func think() {
-		
-		print("\(name) is thinking 📝")
-		sleeper()
-		leftSpoon.pickUp()
-		
-		sleeper()
-		rightSpoon.pickUp()
-		print("\(name) finished thinking 📝🍔")
-		
+	
+			sleeper{
+				self.leftSpoon.pickUp()
+				print("\(self.name) is thinking 📝")
+			}
+			
+			sleeper{
+				self.rightSpoon.pickUp()
+				print("\(self.name) finished thinking 📝🍔")
+			}
+
 	}
 	
 	func eat() {
-		print("\(name) is eating 🍔")
-		sleeper()
-		leftSpoon.putDown()
+		sleeper{
+			self.leftSpoon.putDown()
+			print("\(self.name) is eating 🍔")
+		}
 		
-		sleeper()
-		rightSpoon.putDown()
-		print("\(name) finished eating 🍔 📝")
-
+		sleeper{
+			self.rightSpoon.putDown()
+			print("\(self.name) finished eating 🍔 📝")
+		}
 	}
 	
 	/// run infinite loop
@@ -44,18 +47,22 @@ class Developer {
 			group.enter()
 			DispatchQueue.global().async {
 				self.lock.lock()
+				
 				self.think()
 				self.eat()
+				
 				self.lock.unlock()
+				
 				group.leave()
 			}
 		}
 	}
 	
 	
-	private func sleeper() {
-		let ran = useconds_t.random(in: 2_450_000...8_980_100)
+	private func sleeper(completion: @escaping () -> ()) {
+		let ran = useconds_t.random(in: 2_450_000...3_980_100)
 		usleep(ran)
+		completion()
 		
 	}
 	

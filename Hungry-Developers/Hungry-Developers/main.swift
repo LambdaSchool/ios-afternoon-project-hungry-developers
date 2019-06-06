@@ -33,6 +33,11 @@ class Main {
 		[ "Hector", "Chris", "Micheal", "Josh", "Ben"].forEach( { createDev(name: $0) })
 	}
 	
+	func addDevToTable(dev: inout Developer, left: Spoon, right: Spoon) {
+		
+	}
+	
+	
 	func createTable() {
 		/*
 		
@@ -43,10 +48,10 @@ class Main {
 		developers[0].leftSpoon = developers[4].rightSpoon
 		developers[0].rightSpoon = developers[1].leftSpoon
 		
-		
-		
-		
 	}
+	
+	
+	
 	
 	
 	init() {

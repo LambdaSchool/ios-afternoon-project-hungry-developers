@@ -14,17 +14,6 @@ class Developer {
 		self.name = name
 	}
 	
-	/// will set left and right spoon respectively
-	func seatAtTable(left: Spoon?, right: Spoon?) {
-		if let left = left {
-			leftSpoon = left
-		}
-		
-		if let right = right {
-			rightSpoon = right
-		}
-	}
-	
 	func think() {
 		//guard let leftSpoon = leftSpoon, let rightSpoon = rightSpoon else { return }
 		
@@ -68,9 +57,7 @@ class Developer {
 	
 	
 	private func sleeper() {
-		
-		
-		let ran = useconds_t.random(in: 450_000...1_000_100)
+		let ran = useconds_t.random(in: 1_450_000...3_000_100)
 		usleep(ran)
 		
 	}

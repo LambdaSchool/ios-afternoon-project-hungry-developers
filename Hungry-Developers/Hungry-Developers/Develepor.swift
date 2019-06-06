@@ -33,7 +33,7 @@ class Developer {
 	func think() {
 		//guard let leftSpoon = leftSpoon, let rightSpoon = rightSpoon else { return }
 		
-		sleeper()
+		//sleeper()
 		leftSpoon.pickUp()
 		print("\(name) picked up left  spoon")
 		
@@ -65,7 +65,7 @@ class Developer {
 	
 	
 	private func sleeper() {
-		let ran = useconds_t.random(in: 1_000_000...3_000_100)
+		let ran = useconds_t.random(in: 2_450_000...4_000_100)
 		usleep(ran)
 		//print(ran)
 	}

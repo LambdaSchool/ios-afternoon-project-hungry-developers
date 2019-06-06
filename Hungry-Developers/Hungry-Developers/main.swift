@@ -22,7 +22,7 @@ class Main {
 	}
 	
 	func createDevs() {
-		[ "Hector", "Chris", "Micheal", "Josh", "Ben" ].forEach( { createDev(name: $0) })
+		[ "Hector", "Chris", "Micheal", "Josh", "Ben****"].forEach( { createDev(name: $0) })
 	}
 	
 	func createSpoons() {
@@ -71,9 +71,8 @@ let devs = main.developers
 
 var i = 0
 let lock = NSLock()
-DispatchQueue.concurrentPerform(iterations: 5) { 
+DispatchQueue.concurrentPerform(iterations: 5) {
 	
-	print("\(i) ------------------")
 	devs[ $0 ].run()
 
 }

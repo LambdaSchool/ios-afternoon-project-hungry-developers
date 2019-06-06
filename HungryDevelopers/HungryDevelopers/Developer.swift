@@ -9,34 +9,35 @@
 import Foundation
 
 class Developer {
-    let name: String
-    let id: Int
-    let leftSpoon: Spoon
-    let rightSpoon: Spoon
+    let spoons: Spoon
+    let index: Int
     
-    init(name: String, id: Int, leftSpoon: Spoon, rightSpoon: Spoon) {
-        self.name = name
-        self.id = id
-        self.leftSpoon = leftSpoon
-        self.rightSpoon = rightSpoon
+    var leftIndex = -1
+    var rightIndex = -1
+    
+    init(index: Int) {
+        self.leftIndex = index
+        self.rightIndex = index - 1
+        
+        if rightIndex < 0 {
+            rightIndex += 5
+        }
+        
+        self.spoons = Spoon(leftIndex: leftIndex, rightIndex: rightIndex)
+        self.index = index
+        
+        print("Developer has an index of: \(self.index) left: \(leftIndex) right: \(rightIndex)")
     }
     
     func think() {
-//        print("\(name) picking up left spoon")
-        leftSpoon.pickUp()
-//        print("\(name) picking up right spoon")
-        rightSpoon.pickUp()
+        spoons.pickUp()
     }
     
     func eat() {
         let timeToEat = UInt32.random(in: 1...10)
-        print("\(name) is eating")
+        print("Developer with index of \(self.index) is eating")
         usleep(timeToEat * 1_000_000)
-//        print("\(name) putting down left spoon")
-        leftSpoon.putDown()
-//        print("\(name) putting downp right spoon")
-        rightSpoon.putDown()
-        usleep(timeToEat * 1_000_000)
+        spoons.putDown()
     }
     
     func run() {

@@ -15,26 +15,24 @@ class Developer {
 	}
 	
 	func think() {
-		//guard let leftSpoon = leftSpoon, let rightSpoon = rightSpoon else { return }
 		
 		print("\(name) is thinking 📝")
-
 		sleeper()
 		leftSpoon.pickUp()
+		
 		sleeper()
 		rightSpoon.pickUp()
-
 		print("\(name) finished thinking 📝📝")
+		
 	}
 	
 	func eat() {
-		//guard let leftSpoon = leftSpoon, let rightSpoon = rightSpoon else { return }
 		print("\(name) is eating 🍔")
 		sleeper()
 		leftSpoon.putDown()
+		
 		sleeper()
 		rightSpoon.putDown()
-		
 		print("\(name) finished eating 🍔🍔")
 
 	}
@@ -50,7 +48,6 @@ class Developer {
 				self.eat()
 				self.lock.unlock()
 				group.leave()
-				
 			}
 		}
 	}
@@ -64,9 +61,6 @@ class Developer {
 	
 	private let lock = NSLock()
 	let name: String
-	
 	var leftSpoon: Spoon = Spoon(name: "")
 	var rightSpoon: Spoon = Spoon(name: "")
-	
-	
 }

@@ -35,11 +35,11 @@ class Developer {
 		
 		sleeper()
 		leftSpoon.pickUp()
-		print("picked up left  spoon")
+		print("\(name) picked up left  spoon")
 		
 		sleeper()
 		rightSpoon.pickUp()
-		print("picked up right spoon")
+		print("\(name) picked up right spoon")
 	}
 	
 	func eat() {
@@ -47,11 +47,11 @@ class Developer {
 		
 		sleeper()
 		leftSpoon.putDown()
-		print("put down left  spoon")
+		print("\(name) put down left  spoon")
 		
 		sleeper()
 		rightSpoon.putDown()
-		print("put down right spoon")
+		print("\(name) put down right spoon")
 
 	}
 	

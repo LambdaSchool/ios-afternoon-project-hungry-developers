@@ -43,13 +43,14 @@ class Main {
 		
 		developers[3].leftSpoon = spoons[2]
 		developers[3].rightSpoon = spoons[3]
-		
+
 		developers[4].leftSpoon = spoons[3]
 		developers[4].rightSpoon = spoons[4]
 	}
 
 	init() {
 		createDevs()
+		createSpoons()
 		createTable()
 		
 		for dev in developers {
@@ -59,20 +60,21 @@ class Main {
 		}
 	}
 	
-	private (set) var developers: [Developer] = []
+	var developers: [Developer] = []
 }
 
-let main = Main()
 
-//var i = 0
-//let lock = NSLock()
-//
-//DispatchQueue.concurrentPerform(iterations: 5) { _ in
-//	lock.lock()
-//	print("\(i) ------------------")
-//
-//	i += 1
-//
-//	lock.unlock()
-//}
+
+let main = Main()
+let devs = main.developers
+
+
+var i = 0
+let lock = NSLock()
+DispatchQueue.concurrentPerform(iterations: 5) { 
+	
+	print("\(i) ------------------")
+	devs[ $0 ].run()
+
+}
 

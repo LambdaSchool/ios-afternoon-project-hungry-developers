@@ -9,12 +9,7 @@
 import Foundation
 
 class Developer {
-	
-	let name: String
-	
-	var leftSpoon: Spoon = Spoon(name: "")
-	var rightSpoon: Spoon = Spoon(name: "")
-	
+
 	init(name: String ) {
 		self.name = name
 	}
@@ -33,41 +28,58 @@ class Developer {
 	func think() {
 		//guard let leftSpoon = leftSpoon, let rightSpoon = rightSpoon else { return }
 		
-		//sleeper()
+		print("\(name) is thinking 🤪")
+
+		sleeper()
 		leftSpoon.pickUp()
-		print("\(name) picked up left  spoon")
-		
 		sleeper()
 		rightSpoon.pickUp()
-		print("\(name) picked up right spoon")
+
+		print("\(name) finished thinking 🤪🤪")
 	}
 	
 	func eat() {
 		//guard let leftSpoon = leftSpoon, let rightSpoon = rightSpoon else { return }
-		
+		print("\(name) is eating 🤯")
 		sleeper()
 		leftSpoon.putDown()
-		print("\(name) put down left  spoon")
-		
 		sleeper()
 		rightSpoon.putDown()
-		print("\(name) put down right spoon")
+		
+		print("\(name) finished eating 🤯🤯")
 
 	}
 	
 	/// run infinite loop
 	func run() {
+		let group = DispatchGroup()
 		while true {
-			think()
-			eat()
+			group.enter()
+			DispatchQueue.global().async {
+				self.lock.lock()
+				self.think()
+				self.eat()
+				self.lock.unlock()
+				group.leave()
+				
+			}
 		}
 	}
 	
 	
 	private func sleeper() {
-		let ran = useconds_t.random(in: 2_450_000...4_000_100)
+		
+		
+		let ran = useconds_t.random(in: 1_450_000...12_000_100)
 		usleep(ran)
-		//print(ran)
+		
 	}
+	
+	private let lock = NSLock()
+	let name: String
+	
+	var leftSpoon: Spoon = Spoon(name: "")
+	var rightSpoon: Spoon = Spoon(name: "")
+	
 	
 }

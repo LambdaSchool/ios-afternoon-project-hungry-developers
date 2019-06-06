@@ -71,9 +71,11 @@ let devs = main.developers
 
 var i = 0
 let lock = NSLock()
-DispatchQueue.concurrentPerform(iterations: 5) {
-	
-	devs[ $0 ].run()
-
+DispatchQueue.concurrentPerform(iterations: 5) { count in
+	devs[count].run()
+	DispatchQueue.main.async {
+		print(count)
+		
+	}
 }
 

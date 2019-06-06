@@ -16,13 +16,14 @@ class Developer {
 	
 	func think() {
 	
-			sleeper{
-				self.leftSpoon.pickUp()
-				print("\(self.name) is thinking 📝")
-			}
+			//sleeper{
+				//self.leftSpoon.pickUp()
+			//	print("\(self.name) is thinking 📝")
+			//}
 			
 			sleeper{
 				self.rightSpoon.pickUp()
+				self.leftSpoon.pickUp()
 				print("\(self.name) finished thinking 📝🍔")
 			}
 
@@ -58,9 +59,8 @@ class Developer {
 		}
 	}
 	
-	
 	private func sleeper(completion: @escaping () -> ()) {
-		let ran = useconds_t.random(in: 200...300)
+		let ran = useconds_t.random(in: 1_000_000...3_000_000)
 		usleep(ran)
 		completion()
 		

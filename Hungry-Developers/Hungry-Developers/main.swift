@@ -50,7 +50,8 @@ class Main {
 //		developers[0].leftSpoon = developers[4].rightSpoon
 //		developers[0].rightSpoon = developers[1].leftSpoon
 
-		addDevToTable(dev: &developers[0], leftSpoon: developers[0].leftSpoon, rightSpoon: developers[1].rightSpoon)
+		addDevToTable(dev: &developers[0], leftSpoon: developers[0].leftSpoon,
+					  rightSpoon: developers[1].rightSpoon)
 		
 	}
 	
@@ -61,8 +62,7 @@ class Main {
 	init() {
 		createDevs()
 		createTable()
-		print(developers[0])
-		
+		print(developers[0].name, developers[0].rightSpoon.name, developers[0].leftSpoon.name)
 	}
 	
 	private (set) var developers: [Developer] = []

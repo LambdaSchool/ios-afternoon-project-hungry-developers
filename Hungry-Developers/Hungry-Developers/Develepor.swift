@@ -16,8 +16,8 @@ class Developer {
 		self.name = name
 	}
 	
-	let leftSpoon = Spoon()
-	let rightSpoon = Spoon()
+	var leftSpoon = Spoon()
+	var rightSpoon = Spoon()
 	
 	
 	func think() {

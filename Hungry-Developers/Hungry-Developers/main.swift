@@ -29,17 +29,25 @@ class Main {
 		developers.append(dev)
 	}
 	
-//	func AddDeveloperToTable(dev: Developer, left: Spoon, rightt: Spoon) {
-//
-//	}
-	
 	func createDevs() {
-		createDev(name: "Hector")
-		createDev(name: "Chris")
-		createDev(name: "Micheal")
-		createDev(name: "Josh")
-		createDev(name: "Ben")
+		[ "Hector", "Chris", "Micheal", "Josh", "Ben"].forEach( { createDev(name: $0) })
 	}
+	
+	func createTable() {
+		/*
+		
+		[4]-> <- [0] -> <- [1] -> <- [2]-> <- [3] -> <- [4] -> <- [0] ->
+		
+		*/
+		
+		developers[0].leftSpoon = developers[4].rightSpoon
+		developers[0].rightSpoon = developers[1].leftSpoon
+		
+		
+		
+		
+	}
+	
 	
 	init() {
 		createDevs()

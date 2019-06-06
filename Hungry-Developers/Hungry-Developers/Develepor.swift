@@ -11,34 +11,39 @@ import Foundation
 class Developer {
 	
 	let name: String
+	var leftSpoon: Spoon?
+	var rightSpoon: Spoon?
 	
-	init(name: String) {
+	init(name: String ) {
 		self.name = name
 	}
 	
-	var leftSpoon = Spoon(name: "left")
-	var rightSpoon = Spoon(name: "right")
 	
 	
 	func think() {
+		guard let leftSpoon = leftSpoon else { return }
+		guard let rightSpoon = rightSpoon else { return }
+		
 		sleeper()
-		self.leftSpoon.pickUp()
+		leftSpoon.pickUp()
 		print("picked up left  spoon")
 		
 		sleeper()
-		self.rightSpoon.pickUp()
+		rightSpoon.pickUp()
 		print("picked up right spoon")
 		
 		
 	}
 	
 	func eat() {
+		guard let leftSpoon = leftSpoon else { return }
+		guard let rightSpoon = rightSpoon else { return }
 		sleeper()
-		self.leftSpoon.putDown()
+		leftSpoon.putDown()
 		print("put down left  spoon")
 		
 		sleeper()
-		self.rightSpoon.putDown()
+		rightSpoon.putDown()
 		print("put down right spoon")
 
 	}

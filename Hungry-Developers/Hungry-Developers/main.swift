@@ -27,19 +27,34 @@ class Main {
 	func createTable() {
 		/*
 		
-		<- [4: Ben] -> [spoon] <- [0: Hector] -> [spoon] <- [1: Chris] -> [spoon] <- [2: Micheal]-> [spoon] <- [3: Josh] -> [spoon] <- [4: Ben] ->[spoon] <- [0: Hector] -> [spoon]
+		<- [4: Ben] -> [spoon 1] <- [0: Hector] -> [spoon 2] <- [1: Chris] -> [spoon] <- [2: Micheal]-> [spoon] <- [3: Josh] -> [spoon] <- [4: Ben] ->[spoon] <- [0: Hector] -> [spoon]
 		
 		*/
+		
+		
+		developers[0].leftSpoon = developers[4].rightSpoon
+		developers[0].leftSpoon = Spoon(name: "spoon 1")
+		
+		developers[0].rightSpoon = developers[1].leftSpoon
+		developers[0].rightSpoon = Spoon(name: "spoon 2")
+		
+		developers[1].leftSpoon = developers[0].rightSpoon
+		developers[1].rightSpoon = developers[2].leftSpoon
+		developers[1].rightSpoon = Spoon(name: "spoon 3")
+		
+		developers[2].leftSpoon = developers[1].rightSpoon
+		
+		
 		//developers[0].rightSpoon.name = "\(developers[1].name) right spoon"
 		
-		developers[4].leftSpoon = Spoon(name: "\(developers[4].name) and \(developers[0].name) shared spoon")
-		developers[1].rightSpoon = Spoon(name: "\(developers[0].name) and \(developers[1].name) shared spoon")
-		developers[0].seatAtTable(left: developers[4].leftSpoon, right: developers[1].rightSpoon)
+//		developers[4].rightSpoon = Spoon(name: "\(developers[4].name) and \(developers[0].name) shared spoon")
+//		developers[1].leftSpoon = Spoon(name: "\(developers[0].name) and \(developers[1].name) shared spoon")
+//		developers[0].seatAtTable(left: developers[4].leftSpoon, right: developers[1].leftSpoon)
 
 		
-//		developers[0].leftSpoon = Spoon(name: "\(developers[4].name) and \(developers[0].name)")
-//		developers[2].rightSpoon = Spoon(name: "\(developers[4].name) and \(developers[0].name)")
-//		developers[1].seatAtTable(left: developers[0].rightSpoon, right: developers[2].leftSpoon)
+//		developers[0].leftSpoon = Spoon(name: "\(developers[4].name) and \(developers[0].name) shared spoon")
+//		developers[2].rightSpoon = Spoon(name: "\(developers[4].name) and \(developers[0].name) shared spoon")
+		//developers[1].seatAtTable(left: nil, right: developers[2].leftSpoon)
 		
 //
 //		developers[1].leftSpoon = Spoon(name: "\(developers[1].name) right spoon")
@@ -75,8 +90,9 @@ class Main {
 		createTable()
 		
 		for dev in developers {
-			guard let right = dev.rightSpoon, let left = dev.leftSpoon else { return }
-			print("\(dev.name) has acces to: \(left.name)'s and  \(right.name)'s")
+			let right = dev.rightSpoon
+			let left = dev.leftSpoon
+			print("\(dev.name) has acces to: [\(left.name)] and  [\(right.name)]")
 		}
 	}
 	

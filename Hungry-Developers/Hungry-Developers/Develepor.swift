@@ -12,8 +12,8 @@ class Developer {
 	
 	let name: String
 	
-	var leftSpoon: Spoon?
-	var rightSpoon: Spoon?
+	var leftSpoon: Spoon = Spoon(name: "")
+	var rightSpoon: Spoon = Spoon(name: "")
 	
 	init(name: String ) {
 		self.name = name
@@ -31,7 +31,7 @@ class Developer {
 	}
 	
 	func think() {
-		guard let leftSpoon = leftSpoon, let rightSpoon = rightSpoon else { return }
+		//guard let leftSpoon = leftSpoon, let rightSpoon = rightSpoon else { return }
 		
 		sleeper()
 		leftSpoon.pickUp()
@@ -43,7 +43,7 @@ class Developer {
 	}
 	
 	func eat() {
-		guard let leftSpoon = leftSpoon, let rightSpoon = rightSpoon else { return }
+		//guard let leftSpoon = leftSpoon, let rightSpoon = rightSpoon else { return }
 		
 		sleeper()
 		leftSpoon.putDown()

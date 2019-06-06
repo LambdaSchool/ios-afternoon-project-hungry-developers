@@ -25,63 +25,44 @@ class Main {
 	}
 	
 	func createTable() {
-		/*
+	
+		var spoons: [Spoon] = []
+		for i in 1...5 {
+			spoons.append(Spoon(name: "Spoon \(i)"))
+		}
 		
-		<- [4: Ben] -> [spoon 1] <- [0: Hector] -> [spoon 2] <- [1: Chris] -> [spoon] <- [2: Micheal]-> [spoon] <- [3: Josh] -> [spoon] <- [4: Ben] ->[spoon] <- [0: Hector] -> [spoon]
+		developers[0].leftSpoon = spoons[4]
+		developers[0].rightSpoon = spoons[0]
 		
-		*/
+		developers[1].leftSpoon = spoons[0]
+		developers[1].rightSpoon = spoons[1]
 		
+		developers[2].leftSpoon = spoons[1]
+		developers[2].rightSpoon = spoons[2]
 		
-		developers[0].leftSpoon = developers[4].rightSpoon
-		developers[0].leftSpoon = Spoon(name: "spoon 1")
+		developers[3].leftSpoon = spoons[2]
+		developers[3].rightSpoon = spoons[3]
 		
-		developers[0].rightSpoon = developers[1].leftSpoon
-		developers[0].rightSpoon = Spoon(name: "spoon 2")
-		
-		developers[1].leftSpoon = developers[0].rightSpoon
-		developers[1].rightSpoon = developers[2].leftSpoon
-		developers[1].rightSpoon = Spoon(name: "spoon 3")
-		
-		developers[2].leftSpoon = developers[1].rightSpoon
-		
-		
-		//developers[0].rightSpoon.name = "\(developers[1].name) right spoon"
-		
-//		developers[4].rightSpoon = Spoon(name: "\(developers[4].name) and \(developers[0].name) shared spoon")
-//		developers[1].leftSpoon = Spoon(name: "\(developers[0].name) and \(developers[1].name) shared spoon")
-//		developers[0].seatAtTable(left: developers[4].leftSpoon, right: developers[1].leftSpoon)
-
-		
-//		developers[0].leftSpoon = Spoon(name: "\(developers[4].name) and \(developers[0].name) shared spoon")
-//		developers[2].rightSpoon = Spoon(name: "\(developers[4].name) and \(developers[0].name) shared spoon")
-		//developers[1].seatAtTable(left: nil, right: developers[2].leftSpoon)
-		
+		developers[4].leftSpoon = spoons[3]
+		developers[4].rightSpoon = spoons[4]
 //
-//		developers[1].leftSpoon = Spoon(name: "\(developers[1].name) right spoon")
-//		developers[3].rightSpoon = Spoon(name: "\(developers[3].name) left spoon")
-//		developers[2].seatAtTable(left: developers[1].leftSpoon, right: developers[3].rightSpoon)
-
-		
-
-//		developers[1].seatAtTable(left: developers[0].leftSpoon, right: developers[2].rightSpoon)
-//		developers[1].leftSpoon.name = "\(developers[0].name) left spoon"
-//		developers[1].rightSpoon.name = "\(developers[2].name) right spoon"
+//		developers[0].leftSpoon = developers[4].rightSpoon
+//		developers[0].leftSpoon = Spoon(name: "spoon 1")
 //
+//		developers[0].rightSpoon = developers[1].leftSpoon
+//		developers[0].rightSpoon = Spoon(name: "spoon 2")
 //
-//		developers[2].seatAtTable(left: developers[1].leftSpoon, right: developers[3].rightSpoon)
-//		developers[2].leftSpoon.name = "\(developers[1].name) left spoon"
-//		developers[2].rightSpoon.name = "\(developers[3].name) right spoon"
+//		developers[1].leftSpoon = developers[0].rightSpoon
+//		developers[1].rightSpoon = developers[2].leftSpoon
+//		developers[1].rightSpoon = Spoon(name: "spoon 3")
 //
+//		developers[2].leftSpoon = developers[1].rightSpoon
+//		developers[2].rightSpoon = Spoon(name: "spoon 4")
 //
-//		developers[3].seatAtTable(left: developers[2].leftSpoon, right: developers[4].rightSpoon)
-//		developers[3].leftSpoon.name = "\(developers[2].name) left spoon"
-//		developers[3].rightSpoon.name = "\(developers[4].name) right spoon"
+//		developers[3].leftSpoon = developers[2].rightSpoon
+//		developers[3].rightSpoon = Spoon(name: "spoon 5")
 		
 		
-		
-//		developers[4].seatAtTable(left: developers[3].leftSpoon, right: developers[0].rightSpoon)
-//		developers[4].leftSpoon.name = "\(developers[3].name) left spoon"
-//		developers[4].rightSpoon.name = "\(developers[0].name) right spoon"
 		
 	}
 

@@ -28,25 +28,25 @@ class Developer {
 	func think() {
 		//guard let leftSpoon = leftSpoon, let rightSpoon = rightSpoon else { return }
 		
-		print("\(name) is thinking 🤪")
+		print("\(name) is thinking 📝")
 
 		sleeper()
 		leftSpoon.pickUp()
 		sleeper()
 		rightSpoon.pickUp()
 
-		print("\(name) finished thinking 🤪🤪")
+		print("\(name) finished thinking 📝📝")
 	}
 	
 	func eat() {
 		//guard let leftSpoon = leftSpoon, let rightSpoon = rightSpoon else { return }
-		print("\(name) is eating 🤯")
+		print("\(name) is eating 🍔")
 		sleeper()
 		leftSpoon.putDown()
 		sleeper()
 		rightSpoon.putDown()
 		
-		print("\(name) finished eating 🤯🤯")
+		print("\(name) finished eating 🍔🍔")
 
 	}
 	
@@ -70,7 +70,7 @@ class Developer {
 	private func sleeper() {
 		
 		
-		let ran = useconds_t.random(in: 1_450_000...12_000_100)
+		let ran = useconds_t.random(in: 450_000...1_000_100)
 		usleep(ran)
 		
 	}

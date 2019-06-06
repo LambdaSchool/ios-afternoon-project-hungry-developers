@@ -35,17 +35,17 @@ class Main {
 		developers[0].leftSpoon = spoons[4]
 		developers[0].rightSpoon = spoons[0]
 		
-		developers[1].leftSpoon = spoons[0]
+		developers[1].leftSpoon = developers[0].rightSpoon
 		developers[1].rightSpoon = spoons[1]
 		
-		developers[2].leftSpoon = spoons[1]
+		developers[2].leftSpoon = developers[1].rightSpoon
 		developers[2].rightSpoon = spoons[2]
 		
-		developers[3].leftSpoon = spoons[2]
+		developers[3].leftSpoon = developers[2].rightSpoon
 		developers[3].rightSpoon = spoons[3]
 
-		developers[4].leftSpoon = spoons[3]
-		developers[4].rightSpoon = spoons[4]
+		developers[4].leftSpoon = developers[3].rightSpoon
+		developers[4].rightSpoon = developers[0].leftSpoon
 	}
 
 	init() {
@@ -71,11 +71,12 @@ let devs = main.developers
 
 var i = 0
 let lock = NSLock()
-DispatchQueue.concurrentPerform(iterations: 5) { count in
-	devs[count].run()
-	DispatchQueue.main.async {
-		print(count)
-		
-	}
+
+
+print(devs.count)
+
+
+DispatchQueue.concurrentPerform(iterations: devs.count) { count in
+	main.developers[count].run()
 }
 

@@ -11,24 +11,20 @@ import Foundation
 class Developer {
 	
 	let name: String
-	private (set) var leftSpoon: Spoon?
-	private (set) var rightSpoon: Spoon?
+	private (set) var leftSpoon = Spoon(name: "")
+	private (set) var rightSpoon = Spoon(name: "")
 	
 	init(name: String ) {
 		self.name = name
 	}
 	
-	
-	func setLeftRightSpoon(leftName: String, rightName: String) {
-		leftSpoon = Spoon(name: leftName)
-		rightSpoon = Spoon(name: rightName)
+	/// will set left and right spoon respectively
+	func seatAtTable(left: Spoon, right: Spoon) {
+		leftSpoon = left
+		rightSpoon = right
 	}
-
 	
 	func think() {
-		guard let leftSpoon = leftSpoon else { return }
-		guard let rightSpoon = rightSpoon else { return }
-		
 		sleeper()
 		leftSpoon.pickUp()
 		print("picked up left  spoon")
@@ -36,13 +32,9 @@ class Developer {
 		sleeper()
 		rightSpoon.pickUp()
 		print("picked up right spoon")
-		
-		
 	}
 	
 	func eat() {
-		guard let leftSpoon = leftSpoon else { return }
-		guard let rightSpoon = rightSpoon else { return }
 		sleeper()
 		leftSpoon.putDown()
 		print("put down left  spoon")

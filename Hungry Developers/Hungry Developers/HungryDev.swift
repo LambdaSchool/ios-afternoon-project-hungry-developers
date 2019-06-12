@@ -76,11 +76,11 @@ class ViewController: UIViewController {
                 leftSpoon.pickUp()
                 print("\(name) picked up his left spoon")
                 hasLeft = true
-                if rightSpoon.beingUsed == false && rightSpoon.index < leftSpoon.index {
-                    rightSpoon.pickUp()
-                    print("\(name) picked up his right spoon")
-                    hasRight = true
-                }
+            }
+            if rightSpoon.beingUsed == false && rightSpoon.index < leftSpoon.index {
+                rightSpoon.pickUp()
+                print("\(name) picked up his right spoon")
+                hasRight = true
             }
             if hasLeft == true && hasRight == true {
                 print("\(name) has both of his spoons and is about to eat.")

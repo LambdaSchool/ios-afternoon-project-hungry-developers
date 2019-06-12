@@ -17,8 +17,22 @@ class Developer {
     }
 
     func think() {
-        rightSpoon.pickUp()
-        leftSpoon.pickUp()
+
+        let lowSpoon: Spoon
+        let highSpoon: Spoon
+
+        if  leftSpoon.index < rightSpoon.index {
+            lowSpoon = leftSpoon
+            highSpoon = rightSpoon
+        } else {
+            lowSpoon = rightSpoon
+            highSpoon = leftSpoon
+        }
+
+        lowSpoon.pickUp()
+        highSpoon.pickUp()
+
+        usleep(2)
 
     }
 
@@ -28,6 +42,7 @@ class Developer {
         print("\(self.name) is eating")
         rightSpoon.putDown()
         leftSpoon.putDown()
+        print("\(self.name) has finished eating")
     }
 
     func run() {
@@ -38,10 +53,6 @@ class Developer {
     }
 
     let name: String
-
-
-
-
     var leftSpoon: Spoon
     var rightSpoon: Spoon
 

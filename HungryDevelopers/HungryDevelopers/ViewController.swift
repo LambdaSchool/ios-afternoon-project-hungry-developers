@@ -24,11 +24,11 @@ class ViewController: UIViewController {
 
 
     func setUpDevelopers() -> [Developer] {
-        let spoon1 = Spoon()
-        let spoon2 = Spoon()
-        let spoon3 = Spoon()
-        let spoon4 = Spoon()
-        let spoon5 = Spoon()
+        let spoon1 = Spoon(1)
+        let spoon2 = Spoon(2)
+        let spoon3 = Spoon(3)
+        let spoon4 = Spoon(4)
+        let spoon5 = Spoon(5)
 
         let jon = Developer(leftSpoon: spoon1, rightSpoon: spoon2, name: "Jon")
         let james = Developer(leftSpoon: spoon2, rightSpoon: spoon3, name: "James")

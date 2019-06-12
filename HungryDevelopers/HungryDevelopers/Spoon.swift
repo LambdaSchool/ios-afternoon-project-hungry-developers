@@ -10,6 +10,11 @@ import Foundation
 
 class Spoon {
 
+    init(_ index: Int) {
+        self.index = index
+    }
+
+    var index: Int
     private let lock = NSLock()
 
     func pickUp() {

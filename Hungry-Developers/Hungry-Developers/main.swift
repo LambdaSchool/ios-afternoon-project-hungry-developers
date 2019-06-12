@@ -21,17 +21,19 @@ class Main {
 		developers.append(dev)
 	}
 	
-	func createDevs() {
-		[ "1.Hector", "2.Chris", "3.Micheal", "4.Josh", "5.Ben"].forEach( { createDev(name: $0) })
-	}
+	
 	
 	func createSpoons() {
+	
+	}
+	
+	func createTableFor5() {
+		[ "1.Hector", "2.Chris", "3.Micheal", "4.Josh", "5.Ben"].forEach( { createDev(name: $0) })
+		
 		for i in 1...5 {
 			spoons.append(Spoon(name: "Spoon \(i)"))
 		}
-	}
-	
-	func createTable() {
+		
 		developers[0].leftSpoon = spoons[4]
 		developers[0].rightSpoon = spoons[0]
 		
@@ -47,11 +49,33 @@ class Main {
 		developers[4].leftSpoon = developers[3].rightSpoon
 		developers[4].rightSpoon = developers[0].leftSpoon
 	}
+	
+	func createTableFor4() {
+		[ "1.Hector", "2.Chris", "3.Micheal", "4.Josh"].forEach( { createDev(name: $0) })
+		
+		for i in 0...3 {
+			spoons.append(Spoon(name: "Spoon \(i)"))
+		}
+		
+		developers[0].leftSpoon = spoons[3]
+		developers[0].rightSpoon = spoons[0]
+		
+		developers[1].leftSpoon = developers[0].rightSpoon
+		developers[1].rightSpoon = spoons[1]
+		
+		developers[2].leftSpoon = developers[1].rightSpoon
+		developers[2].rightSpoon = spoons[2]
+		
+		developers[3].leftSpoon = developers[2].rightSpoon
+		developers[3].rightSpoon = developers[0].leftSpoon
+
+	}
 
 	init() {
-		createDevs()
-		createSpoons()
-		createTable()
+		
+//		createTableFor5()
+		
+		createTableFor4()
 		
 		for dev in developers {
 			let right = dev.rightSpoon
@@ -68,7 +92,7 @@ class Main {
 let main = Main()
 
 
-DispatchQueue.concurrentPerform(iterations: 5) {
+DispatchQueue.concurrentPerform(iterations: 4) {
 	main.developers[$0].run()
 }
 

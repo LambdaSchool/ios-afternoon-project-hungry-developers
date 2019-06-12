@@ -15,27 +15,30 @@ class Developer {
 	}
 	
 	func think() {
-	
-			sleeper{
-				self.leftSpoon.pickUp()
-				print("\(self.name) is thinking 📝")
-			}
+		sleeper {
 			
-			sleeper{
-				self.rightSpoon.pickUp()
-//				self.leftSpoon.pickUp()
-				print("\(self.name) finished thinking 📝🍔")
-			}
+			self.leftSpoon.pickUp()
+			print("\(self.name) is thinking 📝")
+			
+			
+			self.rightSpoon.pickUp()
+			print("\(self.name) finished thinking 📝🍔")
+		}
+		
+			
 
 	}
 	
 	func eat() {
+		
+		
+//		sleeper{
+//		}
+//
 		sleeper{
 			self.leftSpoon.putDown()
 			print("\(self.name) is eating 🍔")
-		}
-		
-		sleeper{
+			self.leftSpoon.putDown()
 			self.rightSpoon.putDown()
 			print("\(self.name) finished eating 🍔 📝")
 		}
@@ -46,16 +49,16 @@ class Developer {
 		let group = DispatchGroup()
 		while true {
 			group.enter()
-			DispatchQueue.global().async {
-				self.lock.lock()
+//			DispatchQueue.global().async {
+				//self.lock.lock()
 				
 				self.think()
 				self.eat()
 				
-				self.lock.unlock()
+				//self.lock.unlock()
 				
 				group.leave()
-			}
+//			}
 		}
 	}
 	

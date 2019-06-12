@@ -14,18 +14,11 @@ spoons. Ever developer's right spoon is the next developer's left spoon.
 */
 
 class Main {
-	var spoons: [Spoon] = []
-	
 	func createDev(name: String) {
 		let dev = Developer(name: name)
 		developers.append(dev)
 	}
 	
-	
-	
-	func createSpoons() {
-	
-	}
 	
 	func createTableFor5() {
 		[ "1.Hector", "2.Chris", "3.Micheal", "4.Josh", "5.Ben"].forEach( { createDev(name: $0) })
@@ -51,7 +44,7 @@ class Main {
 	}
 	
 	func createTableFor4() {
-		[ "1.Hector", "2.Chris", "3.Micheal", "4.Josh"].forEach( { createDev(name: $0) })
+		["1.Hector", "2.Chris", "3.Micheal", "4.Josh"].forEach( { createDev(name: $0) })
 		
 		for i in 0...3 {
 			spoons.append(Spoon(name: "Spoon \(i)"))
@@ -68,31 +61,26 @@ class Main {
 		
 		developers[3].leftSpoon = developers[2].rightSpoon
 		developers[3].rightSpoon = developers[0].leftSpoon
-
 	}
 
 	init() {
-		
-//		createTableFor5()
-		
-		createTableFor4()
+		createTableFor5()
+//		createTableFor4()
 		
 		for dev in developers {
 			let right = dev.rightSpoon
 			let left = dev.leftSpoon
-			print("\(dev.name) has acces to: [\(left.name)] and  [\(right.name)]")
+			print("\(dev.name) has access to: [\(left.name)] and  [\(right.name)]")
 		}
 	}
 	
+	var spoons: [Spoon] = []
 	var developers: [Developer] = []
 }
 
-
-
 let main = Main()
 
-
-DispatchQueue.concurrentPerform(iterations: 4) {
+DispatchQueue.concurrentPerform(iterations: 5) {
 	main.developers[$0].run()
 }
 

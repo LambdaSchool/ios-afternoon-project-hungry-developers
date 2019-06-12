@@ -16,57 +16,31 @@ class Developer {
 	
 	func think() {
 		sleeper {
-			
 			self.leftSpoon.pickUp()
-			//print("\(self.name) is thinking 📝")
-			
-			
 			self.rightSpoon.pickUp()
 			print("\(self.name) finished thinking 📝🍔")
 		}
-		
-			
-
 	}
 	
 	func eat() {
-		
-		
-//		sleeper{
-//		}
-//
 		sleeper{
 			self.leftSpoon.putDown()
-			//print("\(self.name) is eating 🍔")
-			
 			self.rightSpoon.putDown()
 			print("\(self.name) finished eating 🍔 📝")
 		}
 	}
 	
-	/// run infinite loop
 	func run() {
-		let group = DispatchGroup()
 		while true {
-			group.enter()
-//			DispatchQueue.global().async {
-				//self.lock.lock()
-				
-				self.think()
-				self.eat()
-				
-				//self.lock.unlock()
-				
-				group.leave()
-//			}
+			self.think()
+			self.eat()
 		}
 	}
 	
 	private func sleeper(completion: @escaping () -> ()) {
-		let ran = useconds_t.random(in: 4_000_000...7_000_000)
-		usleep(ran)
+		let randomMicroseconds = useconds_t.random(in: 1_000_000...2_000_000)
+		usleep(randomMicroseconds)
 		completion()
-		
 	}
 	
 	private let lock = NSLock()

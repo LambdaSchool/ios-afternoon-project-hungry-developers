@@ -47,17 +47,13 @@ class ViewController: UIViewController {
         var name: String
         var leftSpoon: Spoon
         var rightSpoon: Spoon
-        var hasLeft: Bool
-        var hasRight: Bool
         var runScenario: Bool = true
         let lock = NSLock()
         
-        init(name: String, leftSpoon: Spoon, rightSpoon: Spoon, hasLeft: Bool = false, hasRight: Bool = true) {
+        init(name: String, leftSpoon: Spoon, rightSpoon: Spoon) {
             self.name = name
             self.leftSpoon = leftSpoon
             self.rightSpoon = rightSpoon
-            self.hasLeft = hasLeft
-            self.hasRight = hasRight
         }
         
         func think() {
@@ -82,10 +78,8 @@ class ViewController: UIViewController {
             print("\(name) is eating")
             usleep(100)
             leftSpoon.putDown()
-            hasLeft = false
             print("\(name) put down his left spoon")
             rightSpoon.putDown()
-            hasRight = false
             print("\(name) put down his right spoon")
         }
         

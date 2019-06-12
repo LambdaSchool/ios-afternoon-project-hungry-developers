@@ -1,16 +1,10 @@
-//
-//  ViewController.swift
-//  Hungry Developers
-//
-//  Created by Mitchell Budge on 6/12/19.
-//  Copyright © 2019 Mitchell Budge. All rights reserved.
-//
-
 import UIKit
 
 class ViewController: UIViewController {
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
         let spoon1 = Spoon(index: 1)
         let spoon2 = Spoon(index: 2)
         let spoon3 = Spoon(index: 3)
@@ -32,7 +26,6 @@ class ViewController: UIViewController {
     class Spoon {
         
         let lock = NSLock()
-        var beingUsed: Bool = false
         var index: Int
         
         init(index: Int) {
@@ -41,13 +34,9 @@ class ViewController: UIViewController {
         
         func pickUp() {
             lock.lock()
-            beingUsed = true
-            lock.unlock()
         }
         
         func putDown() {
-            lock.lock()
-            beingUsed = false
             lock.unlock()
         }
     }
@@ -61,6 +50,7 @@ class ViewController: UIViewController {
         var hasLeft: Bool
         var hasRight: Bool
         var runScenario: Bool = true
+        let lock = NSLock()
         
         init(name: String, leftSpoon: Spoon, rightSpoon: Spoon, hasLeft: Bool = false, hasRight: Bool = true) {
             self.name = name
@@ -72,30 +62,31 @@ class ViewController: UIViewController {
         
         func think() {
             print("\(name) is thinking")
-            if leftSpoon.beingUsed == false && leftSpoon.index < rightSpoon.index {
-                leftSpoon.pickUp()
-                print("\(name) picked up his left spoon")
-                hasLeft = true
-            }
-            if rightSpoon.beingUsed == false && rightSpoon.index < leftSpoon.index {
-                rightSpoon.pickUp()
-                print("\(name) picked up his right spoon")
-                hasRight = true
-            }
-            if hasLeft == true && hasRight == true {
-                print("\(name) has both of his spoons and is about to eat.")
-                eat()
-            }
             
+            if leftSpoon.index > rightSpoon.index {
+                
+                self.leftSpoon.pickUp()
+                print("\(name) picked up his left spoon")
+                self.rightSpoon.pickUp()
+                print("\(name) picked up his right spoon")
+                
+            } else {
+                self.rightSpoon.pickUp()
+                print("\(name) picked up his right spoon")
+                self.leftSpoon.pickUp()
+                print("\(name) picked up his left spoon")
+            }
         }
         
         func eat() {
             print("\(name) is eating")
             usleep(100)
             leftSpoon.putDown()
-            print("\(name) put down their left spoon")
+            hasLeft = false
+            print("\(name) put down his left spoon")
             rightSpoon.putDown()
-            print("\(name) put down their right spoon")
+            hasRight = false
+            print("\(name) put down his right spoon")
         }
         
         func run() {

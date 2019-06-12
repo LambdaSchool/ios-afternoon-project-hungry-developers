@@ -16,14 +16,14 @@ class Developer {
 	
 	func think() {
 	
-			//sleeper{
-				//self.leftSpoon.pickUp()
-			//	print("\(self.name) is thinking 📝")
-			//}
+			sleeper{
+				self.leftSpoon.pickUp()
+				print("\(self.name) is thinking 📝")
+			}
 			
 			sleeper{
 				self.rightSpoon.pickUp()
-				self.leftSpoon.pickUp()
+//				self.leftSpoon.pickUp()
 				print("\(self.name) finished thinking 📝🍔")
 			}
 

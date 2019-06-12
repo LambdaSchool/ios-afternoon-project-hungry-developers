@@ -62,8 +62,8 @@
 			isa = PBXGroup;
 			children = (
 				E8D2CC0222A85C7B0010F959 /* main.swift */,
-				E8D2CC0922A85DD30010F959 /* Spoon.swift */,
 				E8D2CC0B22A85EDA0010F959 /* Develepor.swift */,
+				E8D2CC0922A85DD30010F959 /* Spoon.swift */,
 			);
 			path = "Hungry-Developers";
 			sourceTree = "<group>";

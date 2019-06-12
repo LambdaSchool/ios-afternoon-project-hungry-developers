@@ -9,13 +9,9 @@
 import Foundation
 
 class Spoon {
-	var name: String
-	
 	init(name: String) {
 		self.name = name
 	}
-	
-	private let spoonLock = NSLock()
 	
 	func pickUp() {
 		spoonLock.lock()
@@ -24,6 +20,9 @@ class Spoon {
 	func putDown() {
 		spoonLock.unlock()
 	}
+	
+	private let spoonLock = NSLock()
+	var name: String
 }
 
 

@@ -18,7 +18,7 @@ class Developer {
 		sleeper {
 			
 			self.leftSpoon.pickUp()
-			print("\(self.name) is thinking 📝")
+			//print("\(self.name) is thinking 📝")
 			
 			
 			self.rightSpoon.pickUp()
@@ -37,8 +37,8 @@ class Developer {
 //
 		sleeper{
 			self.leftSpoon.putDown()
-			print("\(self.name) is eating 🍔")
-			self.leftSpoon.putDown()
+			//print("\(self.name) is eating 🍔")
+			
 			self.rightSpoon.putDown()
 			print("\(self.name) finished eating 🍔 📝")
 		}
@@ -63,7 +63,7 @@ class Developer {
 	}
 	
 	private func sleeper(completion: @escaping () -> ()) {
-		let ran = useconds_t.random(in: 1_000_000...3_000_000)
+		let ran = useconds_t.random(in: 4_000_000...7_000_000)
 		usleep(ran)
 		completion()
 		

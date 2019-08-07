@@ -32,15 +32,15 @@ class Developer {
         let (lowerSpoon, higherSpoon) = leftSpoon.index < rightSpoon.index ? (leftSpoon, rightSpoon) : (rightSpoon, leftSpoon)
         
         lowerSpoon.pickUp()
-        print("\(name) is attempting to pick up the spoon to their left.")
+        print("\(name) is attempting to pick up the lower spoon.")
         
         higherSpoon.pickUp()
-        print("\(name) is attempting to pick up the spoon to their right.")
+        print("\(name) is attempting to pick up the higher spoon.")
       
     }
     
     func eat() {
-        let time = UInt32.random(in: 5..<50)
+        let time = UInt32.random(in: 1..<10)
         usleep(time)
         print("\(name) has started eating their meal. It took them \(time) seconds to get their food.")
         
@@ -56,13 +56,13 @@ class Developer {
         while true {
             think()
             eat()
-            usleep(1)
         }
     }
 }
 
 
 func dine() {
+    
     let spoon1 = Spoon(1)
     let spoon2 = Spoon(2)
     let spoon3 = Spoon(3)
@@ -79,7 +79,9 @@ func dine() {
     
     DispatchQueue.concurrentPerform(iterations: 5) {
         print("Dinner is served!")
+        
         developers[$0].run()
+        
     }
 }
 

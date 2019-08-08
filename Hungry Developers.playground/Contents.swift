@@ -81,12 +81,9 @@ func dine() {
     
     DispatchQueue.concurrentPerform(iterations: 5) { thread in
         print("Dinner is served!")
-        let group = DispatchGroup()
-        group.enter()
-        DispatchQueue.global().async {
+        
             developers[thread].run()
-            group.leave()
-        }
+        
     }
 }
 

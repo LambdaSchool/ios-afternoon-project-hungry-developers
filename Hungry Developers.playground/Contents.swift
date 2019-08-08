@@ -1,55 +1,74 @@
 import UIKit
 
 class Spoon {
-    let index: Int
-    private let lock = NSLock()
     
-    init(_ index: Int) {
-        self.index = index
+    static let semaphore: [DispatchSemaphore] = Array(repeating: DispatchSemaphore(value: 1), count: 5)
+    let leftSpoon: DispatchSemaphore
+    let rightSpoon: DispatchSemaphore
+    
+//    let index: Int
+//    private let lock = NSLock()
+//
+    init(leftSpoonIndex: Int, rightSpoonIndex: Int) {
+        if leftSpoonIndex > rightSpoonIndex {
+            leftSpoon = Spoon.semaphore[leftSpoonIndex]
+            rightSpoon = Spoon.semaphore[rightSpoonIndex]
+        } else {
+            leftSpoon = Spoon.semaphore[rightSpoonIndex]
+            rightSpoon = Spoon.semaphore[leftSpoonIndex]
+        }
     }
     
     func pickUp() {
-        lock.lock()
+        leftSpoon.wait()
+        rightSpoon.wait()
     }
     
     func putDown() {
-        lock.unlock()
+        leftSpoon.signal()
+        rightSpoon.signal()
     }
 }
 
 class Developer {
     let name: String
-    var leftSpoon: Spoon
-    var rightSpoon: Spoon
+    let spoons: Spoon
+    let index: Int
     
+    var leftIndex = -1
+    var rightIndex = -1
     
-    init(name: String, leftSpoon: Spoon, rightSpoon: Spoon) {
+    init(name: String, index: Int) {
         self.name = name
-        self.leftSpoon = leftSpoon
-        self.rightSpoon = rightSpoon
+        self.leftIndex = index
+        self.rightIndex = index - 1
+        
+        if rightIndex < 0 {
+            rightIndex += 5
+        }
+        
+        self.spoons = Spoon(leftSpoonIndex: leftIndex, rightSpoonIndex: rightIndex)
+        self.index = index
+        
     }
     
     func think() {
-        let (lowerSpoon, higherSpoon) = leftSpoon.index < rightSpoon.index ? (leftSpoon, rightSpoon) : (rightSpoon, leftSpoon)
-        
-        lowerSpoon.pickUp()
-        print("\(name) is attempting to pick up the lower spoon.")
-        
-        higherSpoon.pickUp()
-        print("\(name) is attempting to pick up the higher spoon.")
-      
+        spoons.pickUp()
+        print("\(name) has picked up spoons \(leftIndex + 1) & \(rightIndex + 1)")
     }
     
     func eat() {
         let time = UInt32.random(in: 1_000_000..<10_000_000)
         usleep(time)
-        print("\(name) has started eating their meal. It took them \(time) milliseconds to get their food.")
         
-        self.leftSpoon.putDown()
-        print("\(self.name) is putting down the spoon to their left.")
+        if name == "Kat" || name == "Ariel" {
+            print("\(name) has started eating her meal.")
+        } else {
+            print("\(name) has started eating his meal.")
+        }
         
-        self.rightSpoon.putDown()
-        print("\(self.name) is putting down the spoon to their right.")
+        spoons.putDown()
+        print("\(name) has put down spoons \(leftIndex + 1) & \(rightIndex + 1)")
         
     }
     
@@ -62,29 +81,22 @@ class Developer {
     }
 }
 
-
 func dine() {
-    
-    let spoon1 = Spoon(1)
-    let spoon2 = Spoon(2)
-    let spoon3 = Spoon(3)
-    let spoon4 = Spoon(4)
-    let spoon5 = Spoon(5)
-    
-    let developer1 = Developer(name: "Kat", leftSpoon: spoon1, rightSpoon: spoon5)
-    let developer2 = Developer(name: "Jack", leftSpoon: spoon2, rightSpoon: spoon1)
-    let developer3 = Developer(name: "Mark", leftSpoon: spoon3, rightSpoon: spoon2)
-    let developer4 = Developer(name: "Ariel", leftSpoon: spoon4, rightSpoon: spoon3)
-    let developer5 = Developer(name: "Tom", leftSpoon: spoon5, rightSpoon: spoon4)
-    
-    let developers = [developer1, developer2, developer3, developer4, developer5]
-    
-    DispatchQueue.concurrentPerform(iterations: 5) { thread in
-        print("Dinner is served!")
-        
-            developers[thread].run()
-        
+
+    let names = ["Kat", "Jack", "Mark", "Ariel", "Tom"]
+    let semaphore = DispatchSemaphore(value: 0)
+    for index in 0...4 {
+        DispatchQueue.global(qos: .background).async {
+            let developers = Developer(name: "\(names[index])", index: index)
+            developers.run()
+        }
     }
+
+    for semaphore in Spoon.semaphore {
+        semaphore.signal()
+    }
+
+    semaphore.wait()
 }
 
 

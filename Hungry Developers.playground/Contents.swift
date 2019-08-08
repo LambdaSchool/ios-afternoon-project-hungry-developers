@@ -22,6 +22,7 @@ class Developer {
     var leftSpoon: Spoon
     var rightSpoon: Spoon
     
+    
     init(name: String, leftSpoon: Spoon, rightSpoon: Spoon) {
         self.name = name
         self.leftSpoon = leftSpoon
@@ -40,15 +41,15 @@ class Developer {
     }
     
     func eat() {
-        let time = UInt32.random(in: 1..<10)
+        let time = UInt32.random(in: 1_000_000..<10_000_000)
         usleep(time)
-        print("\(name) has started eating their meal. It took them \(time) seconds to get their food.")
+        print("\(name) has started eating their meal. It took them \(time) milliseconds to get their food.")
         
-        leftSpoon.putDown()
-        print("\(name) is putting down the spoon to their left.")
+        self.leftSpoon.putDown()
+        print("\(self.name) is putting down the spoon to their left.")
         
-        rightSpoon.putDown()
-        print("\(name) is putting down the spoon to their right.")
+        self.rightSpoon.putDown()
+        print("\(self.name) is putting down the spoon to their right.")
         
     }
     
@@ -56,6 +57,7 @@ class Developer {
         while true {
             think()
             eat()
+            usleep(5_000_000)
         }
     }
 }
@@ -77,11 +79,14 @@ func dine() {
     
     let developers = [developer1, developer2, developer3, developer4, developer5]
     
-    DispatchQueue.concurrentPerform(iterations: 5) {
+    DispatchQueue.concurrentPerform(iterations: 5) { thread in
         print("Dinner is served!")
-        
-        developers[$0].run()
-        
+        let group = DispatchGroup()
+        group.enter()
+        DispatchQueue.global().async {
+            developers[thread].run()
+            group.leave()
+        }
     }
 }
 

@@ -15,7 +15,11 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        var spoonIndex = 1
+        for spoon in spoons {
+            spoon.index = spoonIndex
+            spoonIndex += 1
+        }
         for (index, developer) in developers.enumerated() {
             if index < 4 {
                 developer.rightSpoon = spoons[index]

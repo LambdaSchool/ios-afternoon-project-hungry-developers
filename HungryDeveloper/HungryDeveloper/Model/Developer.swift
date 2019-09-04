@@ -15,8 +15,11 @@ class Developer {
     
     func think() {
         print("developer thinking")
-        leftSpoon.pickUp()
-        rightSpoon.pickUp()
+        if leftSpoon.index > rightSpoon.index {
+            rightSpoon.pickUp()
+        } else {
+            leftSpoon.pickUp()
+        }
         return
     }
     

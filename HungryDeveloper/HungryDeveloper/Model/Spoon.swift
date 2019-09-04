@@ -10,6 +10,8 @@ import Foundation
 
 class Spoon {
     
+    var index: Int!
+    
     private let lock = NSLock()
     
     func pickUp() {

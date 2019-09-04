@@ -2,8 +2,13 @@ import UIKit
 
 class Spoon {
 
+	let group = DispatchGroup()
+
+	private let lock = NSLock()
+
 	func pickup() {
-		
+		lock.lock()
+
 	}
 
 	func putDown() {
@@ -12,8 +17,9 @@ class Spoon {
 }
 
 class Developer {
-	let lock = NSLock()
-	let group = DispatchGroup()
+
+	let devs = [DeveloperOne()]
+
 	let spoon = Spoon()
 
 	init(rightSpoon: Bool = false, leftSpoon: Bool = false) {

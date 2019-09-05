@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		37136E52232069080039FA17 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37136E51232069080039FA17 /* main.swift */; };
+		37136E52232069080039FA17 /* Spoon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37136E51232069080039FA17 /* Spoon.swift */; };
+		37136E59232069C80039FA17 /* Developer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37136E58232069C80039FA17 /* Developer.swift */; };
+		37136E5B23206F190039FA17 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37136E5A23206F190039FA17 /* main.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,7 +26,9 @@
 
 /* Begin PBXFileReference section */
 		37136E4E232069080039FA17 /* HungryDevelopers - Command Line */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "HungryDevelopers - Command Line"; sourceTree = BUILT_PRODUCTS_DIR; };
-		37136E51232069080039FA17 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		37136E51232069080039FA17 /* Spoon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spoon.swift; sourceTree = "<group>"; };
+		37136E58232069C80039FA17 /* Developer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Developer.swift; sourceTree = "<group>"; };
+		37136E5A23206F190039FA17 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +61,9 @@
 		37136E50232069080039FA17 /* HungryDevelopers - Command Line */ = {
 			isa = PBXGroup;
 			children = (
-				37136E51232069080039FA17 /* main.swift */,
+				37136E51232069080039FA17 /* Spoon.swift */,
+				37136E58232069C80039FA17 /* Developer.swift */,
+				37136E5A23206F190039FA17 /* main.swift */,
 			);
 			path = "HungryDevelopers - Command Line";
 			sourceTree = "<group>";
@@ -119,7 +125,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				37136E52232069080039FA17 /* main.swift in Sources */,
+				37136E5B23206F190039FA17 /* main.swift in Sources */,
+				37136E59232069C80039FA17 /* Developer.swift in Sources */,
+				37136E52232069080039FA17 /* Spoon.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

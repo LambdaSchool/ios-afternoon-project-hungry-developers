@@ -12,16 +12,16 @@ class Spoon {
     private var spoonLock = NSLock()
     func pickUp() {
         if !isBeingUsed {
-           spoonLock.lock()
+           //spoonLock.lock() devs picked up same spoon
             isBeingUsed = true
-            spoonLock.unlock()
+            //spoonLock.unlock()
         }
     }
     
     func putDown() {
-        spoonLock.lock()
+        //spoonLock.lock()
         isBeingUsed = false
-        spoonLock.unlock()
+       // spoonLock.unlock()
     }
 }
 
@@ -46,26 +46,27 @@ class Developer {
     
     func think() {
         if !leftSpoon.isBeingUsed && !rightSpoon.isBeingUsed {
-            //lock.lock()
+            lock.lock()
             leftSpoon.pickUp()
             print("\(name) picked up left spoon")
             rightSpoon.pickUp()
             print("\(name) picked up right spoon")
-           //lock.unlock()
+            lock.unlock()
             eat()
         } else {
             print("\(name) is thinking")
+            return
         }
     }
     
     func eat() {
         developerEating(developer: "\(name)")
-        //lock.lock()
+        lock.lock()
         leftSpoon.putDown()
         print("\(name) put leftSpoon Down")
         rightSpoon.putDown()
         print("\(name) put rightSpoon Down")
-        //lock.unlock()
+        lock.unlock()
         print("\(name) is finished eating.")
     }
     

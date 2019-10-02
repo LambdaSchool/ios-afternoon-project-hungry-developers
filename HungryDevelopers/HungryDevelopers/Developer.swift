@@ -9,8 +9,8 @@
 import Foundation
 
 class Developer {
-    var leftSpoon
-    var rightSpoon
+    var leftSpoon = Spoon()
+    var rightSpoon = Spoon()
     
     func think() {
         

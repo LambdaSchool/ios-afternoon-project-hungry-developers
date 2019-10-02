@@ -1,6 +1,7 @@
 import UIKit
 
-func developerEating() {
+func developerEating(developer: String) {
+    print("\(developer) is eating.")
     sleep(2)
 }
 
@@ -8,16 +9,19 @@ let lock = NSLock()
 
 class Spoon {
     var isBeingUsed = false
+    private var spoonLock = NSLock()
     func pickUp() {
         if !isBeingUsed {
+           spoonLock.lock()
             isBeingUsed = true
-        } else {
-            return
+            spoonLock.unlock()
         }
     }
     
     func putDown() {
+        spoonLock.lock()
         isBeingUsed = false
+        spoonLock.unlock()
     }
 }
 
@@ -42,10 +46,12 @@ class Developer {
     
     func think() {
         if !leftSpoon.isBeingUsed && !rightSpoon.isBeingUsed {
-            lock.lock()
+            //lock.lock()
             leftSpoon.pickUp()
+            print("\(name) picked up left spoon")
             rightSpoon.pickUp()
-            lock.unlock()
+            print("\(name) picked up right spoon")
+           //lock.unlock()
             eat()
         } else {
             print("\(name) is thinking")
@@ -53,18 +59,21 @@ class Developer {
     }
     
     func eat() {
-        lock.lock()
-        print("\(name) is eating")
-        developerEating()
+        developerEating(developer: "\(name)")
+        //lock.lock()
         leftSpoon.putDown()
+        print("\(name) put leftSpoon Down")
         rightSpoon.putDown()
+        print("\(name) put rightSpoon Down")
+        //lock.unlock()
         print("\(name) is finished eating.")
-        lock.unlock()
     }
     
     func run() {
-        think()
-        eat()
+        while self != nil {
+            think()
+            eat()
+        }
     }
 }
 
@@ -76,12 +85,6 @@ let sevenOclockDev  = Developer(name: "sevenOclockDev", rightSpoon: sixOclockSpo
 let tenOclockDev    = Developer(name: "tenOclockDev", rightSpoon: nineOclockSpoon, leftSpoon: elevenOclockSpoon)
 let developers: [Developer] = [twelveOclockDev, twoOclockDev, fiveOclockDev, sevenOclockDev, tenOclockDev]
 
-DispatchQueue.concurrentPerform(iterations: 10) {_ in
-    //developers[$0].run()
-    twelveOclockDev.run()
-    twoOclockDev.run()
-    fiveOclockDev.run()
-    sevenOclockDev.run()
-    tenOclockDev.run()
-    
+DispatchQueue.concurrentPerform(iterations: 10) {
+    developers[$0].run()
 }

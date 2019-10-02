@@ -2,14 +2,18 @@ import UIKit
 
 func developerEating(developer: String) {
     print("\(developer) is eating.")
-    sleep(2)
+    usleep(1_000_000)
 }
 
 let lock = NSLock()
 
 class Spoon {
     var isBeingUsed = false
-   
+    var index: Int
+    
+    init(index: Int) {
+        self.index = index
+    }
     func pickUp() {
         if !isBeingUsed {
             isBeingUsed = true
@@ -22,11 +26,11 @@ class Spoon {
 }
 
 // 5 Spoons
-let oneOclockSpoon    = Spoon()
-let threeOclockSpoon  = Spoon()
-let sixOclockSpoon    = Spoon()
-let nineOclockSpoon   = Spoon()
-let elevenOclockSpoon = Spoon()
+let oneOclockSpoon    = Spoon(index: 1)
+let threeOclockSpoon  = Spoon(index: 2)
+let sixOclockSpoon    = Spoon(index: 3)
+let nineOclockSpoon   = Spoon(index: 4)
+let elevenOclockSpoon = Spoon(index: 5)
 let spoons: [Spoon] = [oneOclockSpoon, threeOclockSpoon, sixOclockSpoon, nineOclockSpoon, elevenOclockSpoon]
 
 class Developer {
@@ -43,10 +47,13 @@ class Developer {
     func think() {
         lock.lock()
         if !leftSpoon.isBeingUsed && !rightSpoon.isBeingUsed {
-            leftSpoon.pickUp()
-            print("\(name) picked up left spoon")
-            rightSpoon.pickUp()
-            print("\(name) picked up right spoon")
+            if leftSpoon.index < rightSpoon.index {
+                leftSpoon.pickUp()
+                print("\(name) picked up left spoon")
+            } else {
+                rightSpoon.pickUp()
+                print("\(name) picked up right spoon")
+            }
             lock.unlock()
             eat()
         } else {
@@ -84,6 +91,6 @@ let tenOclockDev    = Developer(name: "tenOclockDev", rightSpoon: nineOclockSpoo
 let developers: [Developer] = [twelveOclockDev, twoOclockDev, fiveOclockDev, sevenOclockDev, tenOclockDev]
 
 
-DispatchQueue.concurrentPerform(iterations: 10) {
+DispatchQueue.concurrentPerform(iterations: 5) {
     developers[$0].run()
 }

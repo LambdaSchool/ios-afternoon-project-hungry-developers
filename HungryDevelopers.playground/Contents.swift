@@ -9,19 +9,15 @@ let lock = NSLock()
 
 class Spoon {
     var isBeingUsed = false
-    private var spoonLock = NSLock()
+   
     func pickUp() {
         if !isBeingUsed {
-           //spoonLock.lock() devs picked up same spoon
             isBeingUsed = true
-            //spoonLock.unlock()
         }
     }
     
     func putDown() {
-        //spoonLock.lock()
         isBeingUsed = false
-       // spoonLock.unlock()
     }
 }
 
@@ -45,8 +41,8 @@ class Developer {
     }
     
     func think() {
+        lock.lock()
         if !leftSpoon.isBeingUsed && !rightSpoon.isBeingUsed {
-            lock.lock()
             leftSpoon.pickUp()
             print("\(name) picked up left spoon")
             rightSpoon.pickUp()
@@ -55,13 +51,14 @@ class Developer {
             eat()
         } else {
             print("\(name) is thinking")
+            lock.unlock()
             return
         }
     }
     
     func eat() {
-        developerEating(developer: "\(name)")
         lock.lock()
+        developerEating(developer: "\(name)")
         leftSpoon.putDown()
         print("\(name) put leftSpoon Down")
         rightSpoon.putDown()
@@ -85,6 +82,7 @@ let fiveOclockDev   = Developer(name: "fiveOclockDev", rightSpoon: threeOclockSp
 let sevenOclockDev  = Developer(name: "sevenOclockDev", rightSpoon: sixOclockSpoon, leftSpoon: nineOclockSpoon)
 let tenOclockDev    = Developer(name: "tenOclockDev", rightSpoon: nineOclockSpoon, leftSpoon: elevenOclockSpoon)
 let developers: [Developer] = [twelveOclockDev, twoOclockDev, fiveOclockDev, sevenOclockDev, tenOclockDev]
+
 
 DispatchQueue.concurrentPerform(iterations: 10) {
     developers[$0].run()

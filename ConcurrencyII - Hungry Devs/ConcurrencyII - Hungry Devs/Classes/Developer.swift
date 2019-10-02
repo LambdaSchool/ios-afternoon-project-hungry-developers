@@ -21,28 +21,44 @@ class Developer {
         self.rightSpoon = rightSpoon
         self.leftSpoon = leftSpoon
     }
-
+    
     func think() {
-        //  think() should pick up both spoons before returning.
-        leftSpoon.pickUp()
-        rightSpoon.pickUp()
+        
+        if leftSpoon.identifier < rightSpoon.identifier {
+            leftSpoon.pickUp()
+            print("\(name) picks up left spoon")
+            rightSpoon.pickUp()
+            print("\(name) picks up right spoon")
+
+        } else {
+            rightSpoon.pickUp()
+            print("\(name) picks up right spoon")
+            leftSpoon.pickUp()
+            print("\(name) picks up left spoon")
+
+        }
     }
     
     func eat() {
         // Write eat() so that a developer will always pick up their lower-numbered spoon first. (The order in which they put them down doesn't matter.)
-        NSLog("Is eating")
-        usleep(10)
+        print("\(name) starts eating")
+        usleep(1000000)
         leftSpoon.putDown()
+        print("\(name) puts down left spoon")
         rightSpoon.putDown()
-        NSLog("Is done eating")
+        print("\(name) puts down right spoon")
+        
+        isEating = !isEating
     }
     
     func run() {
+        print("Running...")
         let isTrue = true
         
         if isTrue == true {
-        think()
-        eat()
+            think()
+            eat()
+            run()
         }
     }
 }

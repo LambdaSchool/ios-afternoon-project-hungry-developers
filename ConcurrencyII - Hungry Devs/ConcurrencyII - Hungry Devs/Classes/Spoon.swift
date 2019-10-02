@@ -12,6 +12,8 @@ class Spoon {
     
     let identifier: Int
     
+    var isPickedUp: Bool = false
+    
     init(identifier: Int) {
         self.identifier = identifier
     }
@@ -20,9 +22,11 @@ class Spoon {
     
     func pickUp() {
         lock.lock()
+        isPickedUp = true
     }
     
     func putDown() {
         lock.unlock()
+        isPickedUp = false
     }
 }

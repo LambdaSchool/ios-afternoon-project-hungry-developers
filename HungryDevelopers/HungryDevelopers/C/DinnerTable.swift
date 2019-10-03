@@ -9,11 +9,11 @@
 import Foundation
 
 //Properties
-let spoon1 = Spoon()
-let spoon2 = Spoon()
-let spoon3 = Spoon()
-let spoon4 = Spoon()
-let spoon5 = Spoon()
+let spoon1 = Spoon(spoonNumber: 1)
+let spoon2 = Spoon(spoonNumber: 2)
+let spoon3 = Spoon(spoonNumber: 3)
+let spoon4 = Spoon(spoonNumber: 4)
+let spoon5 = Spoon(spoonNumber: 5)
 
 let developer1 = Developer(name: "1", leftSpoon: spoon1, rightSpoon: spoon2)
 let developer2 = Developer(name: "2", leftSpoon: spoon2, rightSpoon: spoon3)

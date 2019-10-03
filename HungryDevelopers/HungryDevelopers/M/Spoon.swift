@@ -12,6 +12,11 @@ class Spoon {
     
     //Properties
     private let lock = NSLock()
+    let spoonNumber: Int
+    
+    init(spoonNumber: Int) {
+        self.spoonNumber = spoonNumber
+    }
     
     func pickUp() {
         lock.lock()

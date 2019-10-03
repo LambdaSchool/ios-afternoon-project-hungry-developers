@@ -25,17 +25,25 @@ class Developer {
     
     //Functions
     func think() {
-        leftSpoon?.pickUp()
+        guard let leftSpoon = leftSpoon,
+            let rightSpoon = rightSpoon else {return}
+        if leftSpoon.spoonNumber < rightSpoon.spoonNumber {
+        leftSpoon.pickUp()
         print("\(name) left spoon picked up")
-        rightSpoon?.pickUp()
+        rightSpoon.pickUp()
         print("\(name) right spoon picked up")
+        } else {
+            return
+        }
     }
     
     func eat() {
         print("\(name) started eating")
-        usleep(10)
+        usleep(1000)
         rightSpoon?.putDown()
+        print("\(name) right spoon put down")
         leftSpoon?.putDown()
+        print("\(name) left spoon put down")
         print("\(name) finished eating")
     }
     

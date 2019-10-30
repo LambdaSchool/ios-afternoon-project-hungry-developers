@@ -18,7 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		DD75A304236A31A600C111DC /* Hungry Developers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hungry Developers.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD75A304236A31A600C111DC /* HungryDevelopers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HungryDevelopers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD75A307236A31A600C111DC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DD75A309236A31A600C111DC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		DD75A30B236A31A600C111DC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -52,7 +52,7 @@
 		DD75A305236A31A600C111DC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DD75A304236A31A600C111DC /* Hungry Developers.app */,
+				DD75A304236A31A600C111DC /* HungryDevelopers.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -92,9 +92,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		DD75A303236A31A600C111DC /* Hungry Developers */ = {
+		DD75A303236A31A600C111DC /* HungryDevelopers */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DD75A318236A31AA00C111DC /* Build configuration list for PBXNativeTarget "Hungry Developers" */;
+			buildConfigurationList = DD75A318236A31AA00C111DC /* Build configuration list for PBXNativeTarget "HungryDevelopers" */;
 			buildPhases = (
 				DD75A300236A31A600C111DC /* Sources */,
 				DD75A301236A31A600C111DC /* Frameworks */,
@@ -104,9 +104,9 @@
 			);
 			dependencies = (
 			);
-			name = "Hungry Developers";
+			name = HungryDevelopers;
 			productName = "Hungry Developers";
-			productReference = DD75A304236A31A600C111DC /* Hungry Developers.app */;
+			productReference = DD75A304236A31A600C111DC /* HungryDevelopers.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -124,7 +124,7 @@
 					};
 				};
 			};
-			buildConfigurationList = DD75A2FF236A31A600C111DC /* Build configuration list for PBXProject "Hungry Developers" */;
+			buildConfigurationList = DD75A2FF236A31A600C111DC /* Build configuration list for PBXProject "HungryDevelopers" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -137,7 +137,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				DD75A303236A31A600C111DC /* Hungry Developers */,
+				DD75A303236A31A600C111DC /* HungryDevelopers */,
 			);
 		};
 /* End PBXProject section */
@@ -343,7 +343,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		DD75A2FF236A31A600C111DC /* Build configuration list for PBXProject "Hungry Developers" */ = {
+		DD75A2FF236A31A600C111DC /* Build configuration list for PBXProject "HungryDevelopers" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DD75A316236A31AA00C111DC /* Debug */,
@@ -352,7 +352,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DD75A318236A31AA00C111DC /* Build configuration list for PBXNativeTarget "Hungry Developers" */ = {
+		DD75A318236A31AA00C111DC /* Build configuration list for PBXNativeTarget "HungryDevelopers" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DD75A319236A31AA00C111DC /* Debug */,

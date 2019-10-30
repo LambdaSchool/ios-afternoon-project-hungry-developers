@@ -13,6 +13,7 @@ let lock = NSLock()
 class Spoon {
 
 	let index: Int
+	private var lock = NSLock()
 
 	init(index: Int) {
 		self.index = index
@@ -26,7 +27,7 @@ class Spoon {
 
 	}
 
-	private var lock = NSLock()
+
 
 }
 

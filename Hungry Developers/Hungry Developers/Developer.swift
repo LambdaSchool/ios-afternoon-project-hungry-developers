@@ -20,11 +20,17 @@ class Developer {
 
 	func think() {
 		leftSpoon.pickUp()
+		print("Pickup left spoon")
 		rightSpoon.pickUp()
+		print("Pickup right spoon")
 	}
 
 	func eat() {
+		print("Eating")
 		usleep(5000)
+		leftSpoon.putDown()
+		rightSpoon.putDown()
+
 	}
 
 	func run() {

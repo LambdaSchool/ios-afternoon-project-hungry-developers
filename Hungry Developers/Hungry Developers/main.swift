@@ -8,6 +8,8 @@
 
 import QuartzCore
 
+let developersAndSpoonsCount = 5
+
 class Spoon {
     let lock = NSLock()
     
@@ -23,21 +25,32 @@ class Spoon {
 class Developer {
     let leftSpoon: Spoon
     let rightSpoon: Spoon
+    let index: Int
     
-    init(leftSpoon: Spoon, rightSpoon: Spoon) {
+    init(leftSpoon: Spoon, rightSpoon: Spoon, index: Int) {
         self.leftSpoon = leftSpoon
         self.rightSpoon = rightSpoon
+        self.index = index
     }
     
     func think() {
-        leftSpoon.pickUp()
-        rightSpoon.pickUp()
+        print("Developer \(index) thinking.")
+        
+        if index == developersAndSpoonsCount - 1 {
+            rightSpoon.pickUp()
+            leftSpoon.pickUp()
+        } else {
+            leftSpoon.pickUp()
+            rightSpoon.pickUp()
+        }
     }
     
     func eat() {
-        let duration = UInt32.random(in: 10000...50000)
-        print("Eating.")
+        let duration = UInt32.random(in: 1000...5000)
+        print("Developer \(index) eating.")
         usleep(duration)
+        leftSpoon.putDown()
+        rightSpoon.putDown()
     }
     
     func run() {
@@ -47,8 +60,6 @@ class Developer {
         }
     }
 }
-
-let developersAndSpoonsCount = 5
 
 var spoons: [Spoon] = []
 
@@ -61,7 +72,7 @@ var developers: [Developer] = []
 for i in 0..<developersAndSpoonsCount {
     let leftSpoon = spoons[i]
     let rightSpoon = i + 1 == developersAndSpoonsCount ? spoons[0] : spoons [i + 1]
-    developers.append(Developer(leftSpoon: leftSpoon, rightSpoon: rightSpoon))
+    developers.append(Developer(leftSpoon: leftSpoon, rightSpoon: rightSpoon, index: i))
 }
 
 DispatchQueue.concurrentPerform(iterations: developersAndSpoonsCount) {

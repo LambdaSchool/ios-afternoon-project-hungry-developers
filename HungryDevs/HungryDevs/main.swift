@@ -15,12 +15,21 @@ let group = DispatchGroup()
 let numberOfIterations = 5
 
 class Spoon {
+    
+    private let lock = NSLock()
+    
+    var index: Int
+    
+    init(index: Int) {
+        self.index = index
+    }
+    
     func pickUp() {
-        
+        lock.lock()
     }
     
     func putDown() {
-        
+        lock.unlock()
     }
 }
 
@@ -37,25 +46,25 @@ class Developer {
     
     func think() {
         print("\(name) is thinking...")
-        sleep(1)
-        print("\(name) picks up left spoon")
+        sleep(3)
+        print("\(name) picks up the left spoon")
         leftSpoon?.pickUp()
         print("\(name) is thinking...")
-        sleep(1)
-        print("\(name) picks up right spoon")
+        sleep(3)
+        print("\(name) picks up the right spoon")
         rightSpoon?.pickUp()
-        sleep(1)
+        sleep(3)
     }
     
     func eat() {
         print("\(name) is eating...")
-        sleep(1)
-        print("\(name) puts down left spoon")
+        sleep(3)
+        print("\(name) puts down the left spoon")
         leftSpoon?.putDown()
-        sleep(1)
-        print("\(name) puts down right spoon")
+        sleep(3)
+        print("\(name) puts down the right spoon")
         rightSpoon?.putDown()
-        sleep(1)
+        sleep(3)
     }
     
     func run() {
@@ -76,22 +85,15 @@ var Ben: Developer = .init(name: "Ben")
 
 var arrayOfDevs: [Developer] = [Spencer, Jesse, Gi, Jon, Ben]
 
-var spoon1: Spoon?
-var spoon2: Spoon?
-var spoon3: Spoon?
-var spoon4: Spoon?
-var spoon5: Spoon?
+var spoon1 = Spoon.init(index: 1)
+var spoon2 = Spoon.init(index: 2)
+var spoon3 = Spoon.init(index: 3)
+var spoon4 = Spoon.init(index: 4)
+var spoon5 = Spoon.init(index: 5)
 
 
 DispatchQueue.concurrentPerform(iterations: numberOfIterations) {
-    group.enter()
-    lock.lock()
-    
     arrayOfDevs[$0].run()
-    
-    lock.unlock()
-    group.leave()
 }
 
-group.wait()
 

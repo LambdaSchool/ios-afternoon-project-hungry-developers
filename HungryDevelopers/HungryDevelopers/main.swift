@@ -38,13 +38,13 @@ class Developer {
     }
     
     func think () {
-        if (leftSpoon.index < rightSpoon.index) {
+        if let leftIndex = leftSpoon.index, let rightIndex = rightSpoon.index, leftIndex < rightIndex {
             rightSpoon.pickUp()
             //        print("\(dev) picked up right spoon")
             leftSpoon.pickUp()
             //        print("\(dev) picked up left spoon")
             return
-        } else {
+        } else if let leftIndex = leftSpoon.index, let rightIndex = rightSpoon.index, leftIndex > rightIndex {
             leftSpoon.pickUp()
             //        print("\(dev) picked up left spoon")
             rightSpoon.pickUp()

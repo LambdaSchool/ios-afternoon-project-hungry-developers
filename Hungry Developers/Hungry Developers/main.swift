@@ -35,7 +35,8 @@ class Developer {
     }
     
     func eat() {
-        let duration = UInt32.random(in: 1...20)
+        let duration = UInt32.random(in: 10000...50000)
+        print("Eating.")
         usleep(duration)
     }
     
@@ -47,4 +48,22 @@ class Developer {
     }
 }
 
+let developersAndSpoonsCount = 5
 
+var spoons: [Spoon] = []
+
+for _ in 0..<developersAndSpoonsCount {
+    spoons.append(Spoon())
+}
+
+var developers: [Developer] = []
+
+for i in 0..<developersAndSpoonsCount {
+    let leftSpoon = spoons[i]
+    let rightSpoon = i + 1 == developersAndSpoonsCount ? spoons[0] : spoons [i + 1]
+    developers.append(Developer(leftSpoon: leftSpoon, rightSpoon: rightSpoon))
+}
+
+DispatchQueue.concurrentPerform(iterations: developersAndSpoonsCount) {
+    developers[$0].run()
+}

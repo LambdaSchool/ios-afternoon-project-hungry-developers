@@ -13,7 +13,7 @@ class Spoon {
     var spoonPickedUp = false
     let lock = NSLock()
     
-    
+    var index: Int!
     
     func pickUp() {
         lock.lock()
@@ -38,10 +38,18 @@ class Developer {
     }
     
     func think () {
-        leftSpoon.pickUp()
-//        print("\(dev) picked up left spoon")
-        rightSpoon.pickUp()
-//        print("\(dev) picked up right spoon")
+        if (leftSpoon.index < rightSpoon.index) {
+            rightSpoon.pickUp()
+            //        print("\(dev) picked up right spoon")
+            leftSpoon.pickUp()
+            //        print("\(dev) picked up left spoon")
+            return
+        } else {
+            leftSpoon.pickUp()
+            //        print("\(dev) picked up left spoon")
+            rightSpoon.pickUp()
+            //        print("\(dev) picked up right spoon")
+        }
         return
     }
     
@@ -71,10 +79,15 @@ let dev4 = Developer()
 let dev5 = Developer()
 
 let spoon1 = Spoon()
+spoon1.index = 1
 let spoon2 = Spoon()
+spoon1.index = 2
 let spoon3 = Spoon()
+spoon1.index = 3
 let spoon4 = Spoon()
+spoon1.index = 4
 let spoon5 = Spoon()
+spoon1.index = 5
 
 dev1.leftSpoon = spoon1
 dev2.rightSpoon = spoon1

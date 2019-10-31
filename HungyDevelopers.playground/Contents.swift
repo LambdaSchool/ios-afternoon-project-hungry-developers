@@ -2,20 +2,18 @@ import Foundation
 
 
 
-let pickupLock = NSLock()
 
 class Spoon {
-    //
-    //
-    //    DispatchQueue.concurrentPerform(iterations: 100) { _ in
-    //
-        pickupLock.lock()
+ 
+    let pickupLock = NSLock()
+
     func pickup() {
+        pickupLock.lock()
         
         
+        pickupLock.unlock()
     }
-    //    }
-    pickupLock.unlock()
+
     
     func putDown() {
         

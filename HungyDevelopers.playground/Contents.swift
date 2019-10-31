@@ -39,7 +39,9 @@ class Developer {
     
     //think() should pick up both spoons before returning.
     func think() {
-        print("Picked up spoons")
+        leftSpoon.pickUp()
+        rightSpoon.pickUp()
+        print("\(name) picked up \(leftSpoon.spoonNumber) and \(rightSpoon.spoonNumber)")
         
         
     }
@@ -47,8 +49,10 @@ class Developer {
     //eat() should pause for a random amount of time before putting both spoons down.
     func eat() {
         sleep(2)
-        
-        
+        leftSpoon.putDown()
+        rightSpoon.putDown()
+        print("\(name) put down \(leftSpoon.spoonNumber) and \(rightSpoon.spoonNumber)")
+
     }
     
     func run() {

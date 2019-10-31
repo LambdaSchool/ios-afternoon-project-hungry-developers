@@ -2,20 +2,20 @@ import Foundation
 
 
 
+let pickupLock = NSLock()
 
 class Spoon {
     //
-    //    let pickupLock = NSLock()
     //
     //    DispatchQueue.concurrentPerform(iterations: 100) { _ in
     //
-    //    pickupLock.lock()
+        pickupLock.lock()
     func pickup() {
         
         
     }
     //    }
-    
+    pickupLock.unlock()
     
     func putDown() {
         
@@ -25,10 +25,12 @@ class Spoon {
 
 class Developer {
     
-    let leftSpoon: Spoon?
-    let rightSpoon: Spoon?
+    let name: String
+    let leftSpoon: Spoon
+    let rightSpoon: Spoon
     
-    init(leftSpoon: Spoon, rightSpoon: Spoon) {
+    init(name: String, leftSpoon: Spoon, rightSpoon: Spoon) {
+        self.name = name
         self.leftSpoon = leftSpoon
         self.rightSpoon = rightSpoon
     }
@@ -67,15 +69,17 @@ var spoon5 = Spoon()
 
 // 5 Developer:
 
-let mark = Developer(leftSpoon: <#T##Spoon#>, rightSpoon: <#T##Spoon#>)
+let mark = Developer(name: "Mark", leftSpoon: spoon1, rightSpoon: spoon2)
+let sonia = Developer(name: "Sonia", leftSpoon: mark.rightSpoon, rightSpoon: spoon3)
+let frank = Developer(name: "Frank", leftSpoon: sonia.rightSpoon, rightSpoon: spoon4)
+let kim = Developer(name: "Kim", leftSpoon: frank.rightSpoon, rightSpoon: spoon5)
+let james = Developer(name: "James", leftSpoon: kim.rightSpoon, rightSpoon: mark.leftSpoon)
 
-let sonia = Developer(leftSpoon: <#T##Spoon#>, rightSpoon: <#T##Spoon#>)
+var developers = [mark, sonia, frank, kim, james]
 
-let frank = Developer(leftSpoon: <#T##Spoon#>, rightSpoon: <#T##Spoon#>)
 
-let kim = Developer(leftSpoon: <#T##Spoon#>, rightSpoon: <#T##Spoon#>)
-
-let james = Developer(leftSpoon: <#T##Spoon#>, rightSpoon: <#T##Spoon#>)
-
+DispatchQueue.concurrentPerform(iterations: 5) {
+    developers[$0].run()
+}
 
 

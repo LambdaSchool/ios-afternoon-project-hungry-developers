@@ -7,9 +7,11 @@ let pickupLock = NSLock()
 class Spoon {
  
     let spoonNumber: String
+    let index: Int
     
-    init(spoonNumber: String) {
+    init(spoonNumber: String, index: Int) {
         self.spoonNumber = spoonNumber
+        self.index = index
     }
     
 
@@ -42,9 +44,24 @@ class Developer {
     //think() should pick up both spoons before returning.
     func think() {
         pickupLock.lock()
-        leftSpoon.pickUp()
-        rightSpoon.pickUp()
+//        leftSpoon.pickUp()
+//        rightSpoon.pickUp()
 //        pickupLock.unlock()
+        
+        if leftSpoon.index < rightSpoon.index {
+//            pickupLock.lock()
+            leftSpoon.pickUp()
+            rightSpoon.pickUp()
+
+        } else {
+//            pickupLock.lock()
+            rightSpoon.pickUp()
+            leftSpoon.pickUp()
+
+        }
+        
+        
+        
         print("\(name) picked up \(leftSpoon.spoonNumber) and \(rightSpoon.spoonNumber)")
         
         
@@ -70,11 +87,11 @@ class Developer {
 
 // 5 Spoons
 
-var spoon1 = Spoon(spoonNumber: "spoon1")
-var spoon2 = Spoon(spoonNumber: "spoon2")
-var spoon3 = Spoon(spoonNumber: "spoon3")
-var spoon4 = Spoon(spoonNumber: "spoon4")
-var spoon5 = Spoon(spoonNumber: "spoon5")
+var spoon1 = Spoon(spoonNumber: "spoon1", index: 1)
+var spoon2 = Spoon(spoonNumber: "spoon2", index: 2)
+var spoon3 = Spoon(spoonNumber: "spoon3", index: 3)
+var spoon4 = Spoon(spoonNumber: "spoon4", index: 4)
+var spoon5 = Spoon(spoonNumber: "spoon5", index: 5)
 
 
 

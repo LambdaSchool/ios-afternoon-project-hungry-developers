@@ -6,17 +6,21 @@ import Foundation
 class Spoon {
  
     let pickupLock = NSLock()
+    let spoonNumber: String
+    
+    init(spoonNumber: String) {
+        self.spoonNumber = spoonNumber
+    }
 
-    func pickup() {
+    func pickUp() {
         pickupLock.lock()
-        
-        
+        print("Picked up \(spoonNumber)")
         pickupLock.unlock()
     }
 
     
     func putDown() {
-        
+        print("Put down \(spoonNumber)")
     }
 }
 
@@ -56,11 +60,11 @@ class Developer {
 
 // 5 Spoons
 
-var spoon1 = Spoon()
-var spoon2 = Spoon()
-var spoon3 = Spoon()
-var spoon4 = Spoon()
-var spoon5 = Spoon()
+var spoon1 = Spoon(spoonNumber: "spoon1")
+var spoon2 = Spoon(spoonNumber: "spoon2")
+var spoon3 = Spoon(spoonNumber: "spoon3")
+var spoon4 = Spoon(spoonNumber: "spoon4")
+var spoon5 = Spoon(spoonNumber: "spoon5")
 
 
 

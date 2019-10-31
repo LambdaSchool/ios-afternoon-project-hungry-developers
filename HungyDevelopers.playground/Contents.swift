@@ -49,6 +49,7 @@ class Developer {
     //eat() should pause for a random amount of time before putting both spoons down.
     func eat() {
         sleep(2)
+        print("\(name) is now eating")
         leftSpoon.putDown()
         rightSpoon.putDown()
         print("\(name) put down \(leftSpoon.spoonNumber) and \(rightSpoon.spoonNumber)")

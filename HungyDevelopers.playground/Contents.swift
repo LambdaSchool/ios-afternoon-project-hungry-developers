@@ -1,25 +1,27 @@
 import Foundation
 
 
+let pickupLock = NSLock()
 
 
 class Spoon {
  
-    let pickupLock = NSLock()
     let spoonNumber: String
     
     init(spoonNumber: String) {
         self.spoonNumber = spoonNumber
     }
+    
 
     func pickUp() {
-        pickupLock.lock()
+//        pickupLock.lock()
         print("Picked up \(spoonNumber)")
-        pickupLock.unlock()
+//        pickupLock.unlock()
     }
 
     
     func putDown() {
+//        pickupLock.unlock()
         print("Put down \(spoonNumber)")
     }
 }
@@ -39,8 +41,10 @@ class Developer {
     
     //think() should pick up both spoons before returning.
     func think() {
+        pickupLock.lock()
         leftSpoon.pickUp()
         rightSpoon.pickUp()
+//        pickupLock.unlock()
         print("\(name) picked up \(leftSpoon.spoonNumber) and \(rightSpoon.spoonNumber)")
         
         
@@ -52,6 +56,7 @@ class Developer {
         print("\(name) is now eating")
         leftSpoon.putDown()
         rightSpoon.putDown()
+        pickupLock.unlock()
         print("\(name) put down \(leftSpoon.spoonNumber) and \(rightSpoon.spoonNumber)")
 
     }

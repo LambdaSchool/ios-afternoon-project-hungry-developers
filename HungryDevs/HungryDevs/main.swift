@@ -9,10 +9,7 @@
 import Foundation
 import QuartzCore
 
-var sharedResource = 0
 let lock = NSLock()
-let group = DispatchGroup()
-let numberOfIterations = 5
 
 class Spoon {
     
@@ -33,37 +30,59 @@ class Spoon {
     }
 }
 
+let spoon1 = Spoon(index: 1)
+let spoon2 = Spoon(index: 2)
+let spoon3 = Spoon(index: 3)
+let spoon4 = Spoon(index: 4)
+let spoon5 = Spoon(index: 5)
+let spoons: [Spoon] = [spoon1, spoon2, spoon3, spoon4, spoon5]
+
 
 class Developer {
     var name: String
     var leftSpoon: Spoon?
     var rightSpoon: Spoon?
     
-    init(name: String) {
+    init(name: String, leftSpoon: Spoon, rightSpoon: Spoon) {
         self.name = name
+        self.leftSpoon = leftSpoon
+        self.rightSpoon = rightSpoon
     }
     
     
     func think() {
-        print("\(name) is thinking...")
-        sleep(3)
-        print("\(name) picks up the left spoon")
-        leftSpoon?.pickUp()
-        print("\(name) is thinking...")
-        sleep(3)
-        print("\(name) picks up the right spoon")
-        rightSpoon?.pickUp()
-        sleep(3)
+        guard let leftSpoon = leftSpoon,
+            let rightSpoon = rightSpoon else { return }
+        if leftSpoon.index < rightSpoon.index {
+            lock.lock()
+            print("\(name) is thinking...")
+            sleep(3)
+            print("\(name) picks up the #\(leftSpoon.index) spoon")
+            leftSpoon.pickUp()
+            print("\(name) picks up the #\(rightSpoon.index) spoon")
+            rightSpoon.pickUp()
+            lock.unlock()
+        } else {
+            lock.lock()
+            print("\(name) is thinking...")
+            sleep(3)
+            print("\(name) picks up the #\(leftSpoon.index) spoon")
+            leftSpoon.pickUp()
+            print("\(name) picks up the #\(rightSpoon.index) spoon")
+            rightSpoon.pickUp()
+            lock.unlock()
+        }
     }
     
     func eat() {
+        guard let leftSpoon = leftSpoon,
+            let rightSpoon = rightSpoon else { return }
         print("\(name) is eating...")
         sleep(3)
-        print("\(name) puts down the left spoon")
-        leftSpoon?.putDown()
-        sleep(3)
-        print("\(name) puts down the right spoon")
-        rightSpoon?.putDown()
+        print("\(name) puts down the #\(leftSpoon.index) spoon")
+        leftSpoon.putDown()
+        print("\(name) puts down the #\(rightSpoon.index) spoon")
+        rightSpoon.putDown()
         sleep(3)
     }
     
@@ -77,22 +96,15 @@ class Developer {
 }
 
 
-var Jesse: Developer = .init(name: "Jesse")
-var Jon: Developer = .init(name: "Jon")
-var Gi: Developer = .init(name: "Gi")
-var Spencer: Developer = .init(name: "Spencer")
-var Ben: Developer = .init(name: "Ben")
+var Jesse: Developer = .init(name: "Jesse", leftSpoon: spoon1, rightSpoon: spoon2)
+var Jon: Developer = .init(name: "Jon", leftSpoon: spoon2, rightSpoon: spoon3)
+var Gi: Developer = .init(name: "Gi", leftSpoon: spoon3, rightSpoon: spoon4)
+var Spencer: Developer = .init(name: "Spencer", leftSpoon: spoon4, rightSpoon: spoon5)
+var Ben: Developer = .init(name: "Ben", leftSpoon: spoon5, rightSpoon: spoon1)
 
-var arrayOfDevs: [Developer] = [Spencer, Jesse, Gi, Jon, Ben]
+var arrayOfDevs: [Developer] = [Jesse, Jon, Gi, Spencer, Ben]
 
-var spoon1 = Spoon.init(index: 1)
-var spoon2 = Spoon.init(index: 2)
-var spoon3 = Spoon.init(index: 3)
-var spoon4 = Spoon.init(index: 4)
-var spoon5 = Spoon.init(index: 5)
-
-
-DispatchQueue.concurrentPerform(iterations: numberOfIterations) {
+DispatchQueue.concurrentPerform(iterations: 5) {
     arrayOfDevs[$0].run()
 }
 

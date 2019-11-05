@@ -32,7 +32,7 @@ This problem is trickier than it seems. However, you should start by writing a s
 3. Create a class called `Developer`. Each `Developer` should have a `leftSpoon` property and a `rightSpoon` property. It should also have `think()`, `eat()`, and `run()` methods. 
 4. `Developer.run()` should call `think()` then `eat()` over and over again forever.
 5. `think()` should pick up both spoons before returning.
-6. `eat()` should pause for a random amount of time before putting both spoons down. (Hint: use `usleep()` to pause for a given number of microseconds).
+6. `eat()` should pause for a random amount of time before putting both spoons down. (Hint: use `sleep()` to pause for a given number of microseconds).
 5. Create 5 `Spoon`s and 5 `Developer`s giving each developer a left and right spoon. Note that developers will of course share spoons. Every developer's right spoon is the next developer's left spoon.
 6. Call `run()` on each developer in a different queue/thread. You can do this with the following code assuming you put your developers in an array:
 
@@ -44,11 +44,16 @@ developers[$0].run()
 
 To recap the algorithm you're writing here, each developer will:
 
+//Pickup(LeftSpoon, RightSpoon)
 - think until the left spoon is available; when it is, pick it up;
 - think until the right spoon is available; when it is, pick it up;
+
 - when both spoons are held, eat for a fixed amount of time;
+
+//PutDown(RightSpoon, LeftSpoon)
 - then, put the right spoon down;
 - then, put the left spoon down;
+
 - repeat from the beginning.
 
 ## Part Two - Test and Analyze

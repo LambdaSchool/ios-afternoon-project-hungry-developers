@@ -31,19 +31,18 @@ class Developer {
     func think() {
         print("Developer\(self.id) is thinking to eat.")
         
-        // Caling first solution
-         self.firstSolution()
-//        if self.leftSpoon.index < self.rightSpoon.index {
-//        self.leftSpoon.pickUp()
-//        print("Developer\(self.id) picked up spoon \(leftSpoon.index).")
-//        self.rightSpoon.pickUp()
-//        print("Developer\(self.id) picked up spoon \(rightSpoon.index).")
-//        return
-//        }
+        /* First Solution (Part Four - Solution) -- Short version*/
+        // sorted the lowest index spoon to always be picked up first
+        let spoons = [leftSpoon, rightSpoon].sorted { $0.index < $1.index }
+        
+        for spoon in spoons {
+            print("Developer \(self.id) picked up spoon \(spoon.index)")
+            spoon.pickUp()
+        }
     }
     
     /* First Solution (Part Four - Solution) */
-    // a developer will always pick up their lower-numbered spoon first
+    // a developer will always pick up their lower-numbered spoon first -- Long version
     func firstSolution() {
         if self.leftSpoon.index < self.rightSpoon.index {
             self.leftSpoon.pickUp()

@@ -30,4 +30,17 @@ class Developer {
             leftSpoon.pickup()
         }
     }
+    
+    func eat() {
+        print("\(name) is eating")
+        usleep(1000000)
+        leftSpoon.putDown()
+        print("\(name) is putting down left spoon")
+        rightSpoon.putDown()
+        print("\(name) is putting down right spoon")
+        
+        eating = !eating
+    }
+    
+    
 }

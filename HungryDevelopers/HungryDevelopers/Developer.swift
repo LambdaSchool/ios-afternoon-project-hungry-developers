@@ -42,5 +42,13 @@ class Developer {
         eating = !eating
     }
     
-    
+    func run() {
+        let running: Bool = true
+        if running == true {
+            think()
+            eat()
+            run()
+        }
+        
+    }
 }

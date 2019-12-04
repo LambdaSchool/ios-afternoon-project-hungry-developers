@@ -11,11 +11,22 @@ import Foundation
 class Spoon {
     private let lock = NSLock()
     
-    func pickUp() -> Bool {
-        return lock.try()
+    private(set) weak var holdingDev: Developer?
+    
+    func willBePickedUp(by developer: Developer) -> Bool {
+        let canPickUp = lock.try()
+        if canPickUp && holdingDev == nil {
+            holdingDev = developer
+            return true
+        } else {
+            return false
+        }
     }
     
-    func putDown() {
+    @discardableResult func willBePutDown(by developer: Developer) -> Bool {
+        guard let holder = holdingDev, holder == developer else { return false }
+        holdingDev = nil
         lock.unlock()
+        return true
     }
 }

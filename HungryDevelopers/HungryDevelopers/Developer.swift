@@ -9,15 +9,20 @@
 import Foundation
 
 class Developer {
+    // MARK: - Properties
+    
     private(set) var id: Int
     
     private let lock = NSLock()
     
-    private let leftSpoon: Spoon
-    private let rightSpoon: Spoon
-    
-    private var hasLeftSpoon: Bool = false
-    private var hasRightSpoon: Bool = false
+    private var _leftHand: Hand! = nil
+    private var _rightHand: Hand! = nil
+    private var leftHand: Hand {
+        return _leftHand
+    }
+    private var rightHand: Hand {
+        return _rightHand
+    }
     
     private var _running: Bool = false
     private var running: Bool {
@@ -49,29 +54,43 @@ class Developer {
         }
     }
     
+    // MARK: - Init
+    
     init(id: Int, lSpoon: Spoon, rSpoon: Spoon) {
         self.id = id
-        self.leftSpoon = lSpoon
-        self.rightSpoon = rSpoon
+        self._leftHand = Hand(self)
+        self._rightHand = Hand(self)
+        
+        self.leftHand.spoon = lSpoon
+        self.rightHand.spoon = rSpoon
     }
     
     // MARK: - Public Methods
     
     func think() {
-        while !hasLeftSpoon || !hasRightSpoon {
-            if !hasLeftSpoon { hasLeftSpoon = leftSpoon.pickUp() }
-            if !hasRightSpoon { hasRightSpoon = rightSpoon.pickUp() }
+        leftHand.tryPickingUpSpoon()
+        rightHand.tryPickingUpSpoon()
+        let readyToEat = leftHand.holdingSpoon && rightHand.holdingSpoon
+        
+        if readyToEat {
+            return
+        } else {
+            leftHand.dropSpoonIfHolding()
+            rightHand.dropSpoonIfHolding()
         }
     }
     
     func eat() {
-        let eatTime = UInt32.random(in: 1...10)
+        let eatTime = UInt32.random(in: 1...100)
         usleep(eatTime)
         
         timesEaten += 1
         
-        leftSpoon.putDown()
-        rightSpoon.putDown()
+        leftHand.dropSpoonIfHolding()
+        rightHand.dropSpoonIfHolding()
+        
+        let stopTime = UInt32.random(in: 1...100)
+        usleep(stopTime)
     }
     
     func run() {
@@ -92,5 +111,13 @@ class Developer {
     
     func reset() {
         timesEaten = 0
+    }
+}
+
+// MARK: - Equatable
+
+extension Developer: Equatable {
+    static func == (lhs: Developer, rhs: Developer) -> Bool {
+        return lhs === rhs
     }
 }

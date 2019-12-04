@@ -20,9 +20,11 @@ class Spoon {
     }
 }
 
-class Developer: Equatable {
+class Developer {
     let leftSpoon: Spoon
     let rightSpoon: Spoon
+    
+    var id: Int?
     
     var hasLeftSpoon: Bool = false
     var hasRightSpoon: Bool = false
@@ -55,11 +57,11 @@ class Developer: Equatable {
             if !hasLeftSpoon { hasLeftSpoon = leftSpoon.pickUp() }
             if !hasRightSpoon { hasRightSpoon = rightSpoon.pickUp() }
         }
-        return
     }
     
     func eat() {
-        let eatTime = UInt32.random(in: 1...200)
+        let eatTime = UInt32.random(in: 1...10)
+        print("dev \(id?.description ?? "?") eating")
         usleep(eatTime)
         timesEaten += 1
         leftSpoon.putDown()
@@ -87,10 +89,6 @@ class Developer: Equatable {
         running = false
         lock.unlock()
     }
-    
-    static func == (lhs: Developer, rhs: Developer) -> Bool {
-        return lhs === rhs
-    }
 }
 
 let spoons = [
@@ -108,6 +106,10 @@ let developers = [
     Developer(lSpoon: spoons[3], rSpoon: spoons[4]),
     Developer(lSpoon: spoons[4], rSpoon: spoons[0])
 ]
+
+for i in 0..<developers.count {
+    developers[i].id = i
+}
 
 DispatchQueue.concurrentPerform(iterations: developers.count + 1) {
     if $0 < developers.count {

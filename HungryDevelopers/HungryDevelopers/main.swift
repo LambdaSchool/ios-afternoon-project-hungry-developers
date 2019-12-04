@@ -23,10 +23,12 @@ class Spoon {
 }
 
 class Developer: Equatable {
-    var leftSpoon: Spoon
-    var rightSpoon: Spoon
+    let leftSpoon: Spoon
+    let rightSpoon: Spoon
     
     var running: Bool = false
+    
+    var timesEaten: Int = 0
     
     init(lSpoon: Spoon, rSpoon: Spoon) {
         self.leftSpoon = lSpoon
@@ -44,20 +46,28 @@ class Developer: Equatable {
             let rightSpoonHeldBy = rightSpoon.holdingDev,
             rightSpoonHeldBy == self
         {
-            let eatTime = UInt32.random(in: 1...1000000)
+            let eatTime = UInt32.random(in: 1...100)
             usleep(eatTime)
+            timesEaten += 1
             leftSpoon.putDown()
             rightSpoon.putDown()
         } else {
-            print("can't eat")
+            while leftSpoon.holdingDev != nil || rightSpoon.holdingDev != nil {
+                eat()
+            }
         }
     }
     
     func run() {
+        running = true
         while running {
             think()
             eat()
         }
+    }
+    
+    func stop() {
+        running = false
     }
     
     static func == (lhs: Developer, rhs: Developer) -> Bool {
@@ -81,6 +91,15 @@ let developers = [
     Developer(lSpoon: spoons[4], rSpoon: spoons[0])
 ]
 
-DispatchQueue.concurrentPerform(iterations: 5) {
-    developers[$0].run()
+DispatchQueue.concurrentPerform(iterations: developers.count + 1) {
+    if $0 < developers.count {
+        print("running \($0)")
+        developers[$0].run()
+    } else {
+        sleep(5)
+        for i in 0..<developers.count {
+            developers[i].stop()
+            print("Dev \(i) ate: \(developers[i].timesEaten)")
+        }
+    }
 }

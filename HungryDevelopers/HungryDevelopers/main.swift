@@ -9,16 +9,14 @@
 import Foundation
 
 class Spoon {
-    private(set) var holdingDev: Developer?
+    private let lock = NSLock()
     
-    func pickUp(_ dev: Developer) {
-        if holdingDev == nil {
-            holdingDev = dev
-        }
+    func pickUp() -> Bool {
+        return lock.try()
     }
     
     func putDown() {
-        holdingDev = nil
+        lock.unlock()
     }
 }
 
@@ -36,26 +34,19 @@ class Developer: Equatable {
     }
     
     func think() {
-        leftSpoon.pickUp(self)
-        rightSpoon.pickUp(self)
+        while !hasLeftSpoon || !hasRightSpoon {
+            if !hasLeftSpoon { hasLeftSpoon = leftSpoon.pickUp() }
+            if !hasRightSpoon { hasRightSpoon = rightSpoon.pickUp() }
+        }
+        return
     }
     
     func eat() {
-        if let leftSpoonHeldBy = leftSpoon.holdingDev,
-            leftSpoonHeldBy == self,
-            let rightSpoonHeldBy = rightSpoon.holdingDev,
-            rightSpoonHeldBy == self
-        {
-            let eatTime = UInt32.random(in: 1...100)
-            usleep(eatTime)
-            timesEaten += 1
-            leftSpoon.putDown()
-            rightSpoon.putDown()
-        } else {
-            while leftSpoon.holdingDev != nil || rightSpoon.holdingDev != nil {
-                eat()
-            }
-        }
+        let eatTime = UInt32.random(in: 1...200)
+        usleep(eatTime)
+        timesEaten += 1
+        leftSpoon.putDown()
+        rightSpoon.putDown()
     }
     
     func run() {

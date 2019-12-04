@@ -24,9 +24,26 @@ class Developer: Equatable {
     let leftSpoon: Spoon
     let rightSpoon: Spoon
     
-    var running: Bool = false
+    var hasLeftSpoon: Bool = false
+    var hasRightSpoon: Bool = false
     
-    var timesEaten: Int = 0
+    var running: Bool = false
+    let lock = NSLock()
+    
+    private var _timesEaten: Int = 0
+    
+    var timesEaten: Int {
+        get {
+            lock.lock()
+            let timesEaten = _timesEaten
+            lock.unlock()
+            return timesEaten
+        } set(newValue) {
+            lock.lock()
+            _timesEaten = newValue
+            lock.unlock()
+        }
+    }
     
     init(lSpoon: Spoon, rSpoon: Spoon) {
         self.leftSpoon = lSpoon
@@ -50,15 +67,25 @@ class Developer: Equatable {
     }
     
     func run() {
+        lock.lock()
         running = true
-        while running {
+        var isRunning = running
+        lock.unlock()
+        
+        while isRunning {
             think()
             eat()
+            
+            lock.lock()
+            isRunning = running
+            lock.unlock()
         }
     }
     
     func stop() {
+        lock.lock()
         running = false
+        lock.unlock()
     }
     
     static func == (lhs: Developer, rhs: Developer) -> Bool {

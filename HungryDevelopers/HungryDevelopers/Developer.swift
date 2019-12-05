@@ -17,6 +17,23 @@ class Developer {
     
     private var _leftHand: Hand! = nil
     private var _rightHand: Hand! = nil
+    
+    private var _running: Bool = false
+    
+    private var _timesEaten: Int = 0
+    
+    // MARK: - Init
+    
+    init(id: Int, lSpoon: Spoon, rSpoon: Spoon) {
+        self.id = id
+        self._leftHand = Hand(self)
+        self._rightHand = Hand(self)
+        
+        self.leftHand.spoon = lSpoon
+        self.rightHand.spoon = rSpoon
+    }
+    
+    // MARK: - Computed Properties
     private var leftHand: Hand {
         return _leftHand
     }
@@ -24,7 +41,6 @@ class Developer {
         return _rightHand
     }
     
-    private var _running: Bool = false
     private var running: Bool {
         get {
             lock.lock()
@@ -39,7 +55,6 @@ class Developer {
         }
     }
     
-    private var _timesEaten: Int = 0
     private(set) var timesEaten: Int {
         get {
             lock.lock()
@@ -54,43 +69,35 @@ class Developer {
         }
     }
     
-    // MARK: - Init
-    
-    init(id: Int, lSpoon: Spoon, rSpoon: Spoon) {
-        self.id = id
-        self._leftHand = Hand(self)
-        self._rightHand = Hand(self)
-        
-        self.leftHand.spoon = lSpoon
-        self.rightHand.spoon = rSpoon
-    }
     
     // MARK: - Public Methods
     
     func think() {
-        leftHand.tryPickingUpSpoon()
-        rightHand.tryPickingUpSpoon()
-        let readyToEat = leftHand.holdingSpoon && rightHand.holdingSpoon
+        var readyToEat: Bool {
+            return leftHand.holdingSpoon && rightHand.holdingSpoon
+        }
         
-        if readyToEat {
-            return
-        } else {
-            leftHand.dropSpoonIfHolding()
-            rightHand.dropSpoonIfHolding()
+        usleep(UInt32.random(in: 1...100))
+        
+        while !readyToEat {
+            leftHand.tryPickingUpSpoon()
+            rightHand.tryPickingUpSpoon()
+            if readyToEat {
+                return
+            } else {
+                leftHand.dropSpoonIfHolding()
+                rightHand.dropSpoonIfHolding()
+            }
         }
     }
     
     func eat() {
-        let eatTime = UInt32.random(in: 1...100)
-        usleep(eatTime)
+        usleep(UInt32.random(in: 1...100))
         
         timesEaten += 1
         
         leftHand.dropSpoonIfHolding()
         rightHand.dropSpoonIfHolding()
-        
-        let stopTime = UInt32.random(in: 1...100)
-        usleep(stopTime)
     }
     
     func run() {

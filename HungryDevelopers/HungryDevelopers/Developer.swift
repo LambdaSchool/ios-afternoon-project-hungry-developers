@@ -13,6 +13,8 @@ class Developer {
     
     private(set) var id: Int
     
+    private(set) var loopStartTime = Date()
+    
     private let lock = NSLock()
     
     private var _leftHand: Hand! = nil
@@ -22,18 +24,8 @@ class Developer {
     
     private var _timesEaten: Int = 0
     
-    // MARK: - Init
-    
-    init(id: Int, lSpoon: Spoon, rSpoon: Spoon) {
-        self.id = id
-        self._leftHand = Hand(self)
-        self._rightHand = Hand(self)
-        
-        self.leftHand.spoon = lSpoon
-        self.rightHand.spoon = rSpoon
-    }
-    
     // MARK: - Computed Properties
+    
     private var leftHand: Hand {
         return _leftHand
     }
@@ -69,6 +61,16 @@ class Developer {
         }
     }
     
+    // MARK: - Init
+    
+    init(id: Int, lSpoon: Spoon, rSpoon: Spoon) {
+        self.id = id
+        self._leftHand = Hand(self)
+        self._rightHand = Hand(self)
+        
+        self.leftHand.spoon = lSpoon
+        self.rightHand.spoon = rSpoon
+    }
     
     // MARK: - Public Methods
     
@@ -80,8 +82,16 @@ class Developer {
         usleep(UInt32.random(in: 1...100))
         
         while !readyToEat {
-            leftHand.tryPickingUpSpoon()
-            rightHand.tryPickingUpSpoon()
+            if let leftId = leftHand.spoon?.id,
+                let rightid = rightHand.spoon?.id,
+                leftId < rightid
+            {
+                leftHand.tryPickingUpSpoon()
+                rightHand.tryPickingUpSpoon()
+            } else {
+                rightHand.tryPickingUpSpoon()
+                leftHand.tryPickingUpSpoon()
+            }
             if readyToEat {
                 return
             } else {
@@ -105,6 +115,8 @@ class Developer {
         var isRunning = running
         
         while isRunning {
+            loopStartTime = Date()
+            
             think()
             eat()
             

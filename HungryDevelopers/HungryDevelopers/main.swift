@@ -8,14 +8,16 @@
 
 import Foundation
 
+// MARK: - Setup
+
 let numberOfDevelopers = 5
 
 var eats = [[Int]]()
 var waitTimes = [[Double]]()
 
 var spoons = [Spoon]()
-for _ in 0 ..< numberOfDevelopers {
-    spoons.append(Spoon())
+for i in 0 ..< numberOfDevelopers {
+    spoons.append(Spoon(i))
 }
 
 var developers = [Developer]()
@@ -28,17 +30,27 @@ for i in 0 ..< numberOfDevelopers {
     waitTimes.append([])
 }
 
-for _ in 1...1000 {
+// MARK: - Run
+
+for _ in 1...10 {
     DispatchQueue.concurrentPerform(iterations: developers.count + 1) {
         if $0 < developers.count {
             print("running \($0)")
             developers[$0].run()
         } else {
-            usleep(10_000)
+            // report stats per run
+            sleep(2)
             for i in 0..<developers.count {
                 developers[i].stop()
+                
+                let timeSinceLastLoop = Date().timeIntervalSinceReferenceDate - developers[i].loopStartTime.timeIntervalSinceReferenceDate
+                waitTimes[i].append(timeSinceLastLoop)
+                
                 eats[i].append(developers[i].timesEaten)
-                print("Dev \(i) ate: \(developers[i].timesEaten)")
+                
+                print("Dev \(i) ate:  \(developers[i].timesEaten)")
+                print("Dev \(i) wait: \(timeSinceLastLoop)")
+                
                 if developers[i].timesEaten == 0 {
                     fatalError("dev \(i) didn't eat!!!")
                 }
@@ -48,13 +60,24 @@ for _ in 1...1000 {
     }
 }
 
+// MARK: - Post-run Reporting
+
 var averages = [Int]()
 
 for i in 0 ..< numberOfDevelopers {
-    var average = 0
+    var averageEats = 0
     for numEats in eats[i] {
-        average += numEats
+        averageEats += numEats
     }
-    average /= eats[i].count
-    print("dev \(i) average: \(average)")
+    averageEats /= eats[i].count
+    
+    var averageWaits = 0.0
+    for numWaits in waitTimes[i] {
+        averageWaits += numWaits
+    }
+    averageWaits /= Double(waitTimes[i].count)
+    
+    print("dev \(i) average eats:  \(averageEats)")
+    print("dev \(i) average waits: \(averageWaits)")
+    print("dev \(i) max wait:      \(waitTimes[i].max() ?? 0)")
 }

@@ -9,9 +9,15 @@
 import Foundation
 
 class Spoon {
+    let id: Int
+    
     private let lock = NSLock()
     
     private(set) weak var holdingDev: Developer?
+    
+    init(_ id: Int) {
+        self.id = id
+    }
     
     func willBePickedUp(by developer: Developer) -> Bool {
         let canPickUp = lock.try()

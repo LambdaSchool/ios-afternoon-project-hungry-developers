@@ -13,25 +13,28 @@ class Developer {
     
     private(set) var id: Int
     
-    private(set) var loopStartTime = Date()
+    private var leftHand = Hand()
+    private var rightHand = Hand()
     
     private let lock = NSLock()
     
-    private var _leftHand: Hand! = nil
-    private var _rightHand: Hand! = nil
+    private(set) var loopStartTime: Date? {
+        willSet {
+            lock.lock()
+            if let previousTime = loopStartTime?.timeIntervalSinceReferenceDate {
+                self.waitTimes.append(Date().timeIntervalSinceReferenceDate - previousTime)
+            }
+            lock.unlock()
+        }
+    }
+    
+    private(set) var waitTimes = [Double]()
     
     private var _running: Bool = false
     
     private var _timesEaten: Int = 0
     
     // MARK: - Computed Properties
-    
-    private var leftHand: Hand {
-        return _leftHand
-    }
-    private var rightHand: Hand {
-        return _rightHand
-    }
     
     private var running: Bool {
         get {
@@ -65,8 +68,6 @@ class Developer {
     
     init(id: Int, lSpoon: Spoon, rSpoon: Spoon) {
         self.id = id
-        self._leftHand = Hand(self)
-        self._rightHand = Hand(self)
         
         self.leftHand.spoon = lSpoon
         self.rightHand.spoon = rSpoon
@@ -130,6 +131,7 @@ class Developer {
     
     func reset() {
         timesEaten = 0
+        self.waitTimes = []
     }
 }
 

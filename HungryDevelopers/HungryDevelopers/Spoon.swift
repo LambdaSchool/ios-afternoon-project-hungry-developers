@@ -13,25 +13,20 @@ class Spoon {
     
     private let lock = NSLock()
     
-    private(set) weak var holdingDev: Developer?
-    
     init(_ id: Int) {
         self.id = id
     }
     
-    func willBePickedUp(by developer: Developer) -> Bool {
+    func willBePickedUp() -> Bool {
         let canPickUp = lock.try()
-        if canPickUp && holdingDev == nil {
-            holdingDev = developer
+        if canPickUp {
             return true
         } else {
             return false
         }
     }
     
-    @discardableResult func willBePutDown(by developer: Developer) -> Bool {
-        guard let holder = holdingDev, holder == developer else { return false }
-        holdingDev = nil
+    @discardableResult func willBePutDown() -> Bool {
         lock.unlock()
         return true
     }

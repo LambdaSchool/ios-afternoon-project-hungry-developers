@@ -32,24 +32,25 @@ for i in 0 ..< numberOfDevelopers {
 
 // MARK: - Run
 
-for _ in 1...10 {
+for _ in 1...4 {
     DispatchQueue.concurrentPerform(iterations: developers.count + 1) {
         if $0 < developers.count {
             print("running \($0)")
             developers[$0].run()
         } else {
             // report stats per run
-            sleep(2)
+            sleep(5)
             for i in 0..<developers.count {
                 developers[i].stop()
                 
-                let timeSinceLastLoop = Date().timeIntervalSinceReferenceDate - developers[i].loopStartTime.timeIntervalSinceReferenceDate
-                waitTimes[i].append(timeSinceLastLoop)
+                let maxWait = developers[i].waitTimes.max() ?? 0.0
+                
+                waitTimes[i].append(maxWait)
                 
                 eats[i].append(developers[i].timesEaten)
                 
-                print("Dev \(i) ate:  \(developers[i].timesEaten)")
-                print("Dev \(i) wait: \(timeSinceLastLoop)")
+                print("Dev \(i)     ate:  \(developers[i].timesEaten)")
+                print("Dev \(i) max wait: \(maxWait)")
                 
                 if developers[i].timesEaten == 0 {
                     fatalError("dev \(i) didn't eat!!!")

@@ -11,18 +11,13 @@ import Foundation
 class Hand {
     private let lock = NSLock()
     
-    private unowned let developer: Developer
     weak var spoon: Spoon?
     
     private(set) var holdingSpoon: Bool = false
     
-    init(_ developer: Developer) {
-        self.developer = developer
-    }
-    
     func tryPickingUpSpoon() {
         lock.lock()
-        if let didPickUpSpoon = spoon?.willBePickedUp(by: developer) {
+        if let didPickUpSpoon = spoon?.willBePickedUp() {
             holdingSpoon = didPickUpSpoon
         }
         lock.unlock()
@@ -30,7 +25,7 @@ class Hand {
     
     func dropSpoonIfHolding() {
         lock.lock()
-        if let didDropSpoon = spoon?.willBePutDown(by: developer) {
+        if let didDropSpoon = spoon?.willBePutDown() {
             holdingSpoon = !didDropSpoon
         }
         lock.unlock()

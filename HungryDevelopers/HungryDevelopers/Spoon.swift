@@ -18,12 +18,7 @@ class Spoon {
     }
     
     func willBePickedUp() -> Bool {
-        let canPickUp = lock.try()
-        if canPickUp {
-            return true
-        } else {
-            return false
-        }
+        return lock.try()
     }
     
     @discardableResult func willBePutDown() -> Bool {

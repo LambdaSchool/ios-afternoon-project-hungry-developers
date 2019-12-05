@@ -13,18 +13,19 @@ class Developer {
     
     private(set) var id: Int
     
-    private var leftHand = Hand()
-    private var rightHand = Hand()
+    private let hands: [Hand]
+    private let leftHand: Hand
+    private let rightHand: Hand
     
     private let lock = NSLock()
     
     private(set) var loopStartTime: Date? {
         willSet {
-            lock.lock()
             if let previousTime = loopStartTime?.timeIntervalSinceReferenceDate {
+                lock.lock()
                 self.waitTimes.append(Date().timeIntervalSinceReferenceDate - previousTime)
+                lock.unlock()
             }
-            lock.unlock()
         }
     }
     
@@ -64,40 +65,33 @@ class Developer {
         }
     }
     
+    var readyToEat: Bool {
+        return leftHand.holdingSpoon && rightHand.holdingSpoon
+    }
+    
     // MARK: - Init
     
     init(id: Int, lSpoon: Spoon, rSpoon: Spoon) {
         self.id = id
         
-        self.leftHand.spoon = lSpoon
-        self.rightHand.spoon = rSpoon
+        self.leftHand = Hand(spoon: lSpoon)
+        self.rightHand = Hand(spoon: rSpoon)
+        self.hands = [leftHand, rightHand].sorted { $0.spoon.id < $1.spoon.id }
     }
     
     // MARK: - Public Methods
     
     func think() {
-        var readyToEat: Bool {
-            return leftHand.holdingSpoon && rightHand.holdingSpoon
-        }
-        
         usleep(UInt32.random(in: 1...100))
         
         while !readyToEat {
-            if let leftId = leftHand.spoon?.id,
-                let rightid = rightHand.spoon?.id,
-                leftId < rightid
-            {
-                leftHand.tryPickingUpSpoon()
-                rightHand.tryPickingUpSpoon()
-            } else {
-                rightHand.tryPickingUpSpoon()
-                leftHand.tryPickingUpSpoon()
-            }
+            hands[0].tryPickingUpSpoon()
+            hands[1].tryPickingUpSpoon()
             if readyToEat {
                 return
             } else {
-                leftHand.dropSpoonIfHolding()
-                rightHand.dropSpoonIfHolding()
+                hands[0].dropSpoonIfHolding()
+                hands[1].dropSpoonIfHolding()
             }
         }
     }

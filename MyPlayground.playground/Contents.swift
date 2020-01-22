@@ -6,15 +6,25 @@ class Spoon {
     private let lock = NSLock()
     
     func pickUp() {
-
+        lock.lock()
     }
     
     func putDown() {
-        
+        lock.unlock()
+    }
+}
+
+extension NSLock {
+    func withLock(_ work: () -> Void) {
+        lock()
+        work()
+        unlock()
     }
 }
 
 class Developer {
+    
+    private let lock = NSLock()
     
     var leftSpoon: Spoon
     var rightSpoon: Spoon
@@ -32,21 +42,33 @@ class Developer {
         // when they have the left spoon, check if right one is available
         // if it is, pick it up and then eat
         // if not, wait until it's available.
-        
+        let randomSideSelector = Bool.random()
+        if randomSideSelector {
         leftSpoon.pickUp()
+        print("left spoon picked up true")
         rightSpoon.pickUp()
-            
+        print("right spoon picked up true")
+        } else {
+            rightSpoon.pickUp()
+            print("right spoon picked up false")
+            leftSpoon.pickUp()
+            print("left spoon picked up false")
+        }
+        eat()
+            return
     }
     
     func eat() {
         usleep(500)
         rightSpoon.putDown()
         leftSpoon.putDown()
+        return
     }
     
     func run() {
         think()
         eat()
+        print("I ate")
         run()
     }
 }

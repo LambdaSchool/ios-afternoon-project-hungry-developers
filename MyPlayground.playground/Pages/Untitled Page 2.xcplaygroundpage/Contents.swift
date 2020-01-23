@@ -40,17 +40,13 @@ class Developer {
     
     
     func think() {
-        let randomSideSelector = Bool.random()
-        if randomSideSelector {
-        leftSpoon.pickUp()
-        print("left spoon picked up true")
-        rightSpoon.pickUp()
-        print("right spoon picked up true")
-        } else {
+
+        if rightSpoon.index < leftSpoon.index {
             rightSpoon.pickUp()
-            print("right spoon picked up false")
             leftSpoon.pickUp()
-            print("left spoon picked up false")
+        } else {
+            leftSpoon.pickUp()
+            rightSpoon.pickUp()
         }
         eat()
             return
@@ -63,11 +59,11 @@ class Developer {
         return
     }
     
-    func run() {
+    func run(_ name: String) {
         think()
         eat()
-        print("I ate")
-        run()
+        print(name)
+        run(name)
     }
 }
 
@@ -85,7 +81,7 @@ let d4 = Developer(leftSpoon: s4, rightSpoon: s3)
 let d5 = Developer(leftSpoon: s5, rightSpoon: s4)
 let developers = [d1, d2, d3, d4, d5]
 
-DispatchQueue.concurrentPerform(iterations: 5) { developers[$0].run() }
+DispatchQueue.concurrentPerform(iterations: 5) { developers[$0].run($0.description) }
 
 
 //: [Next](@next)

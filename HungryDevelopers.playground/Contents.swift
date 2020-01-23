@@ -83,5 +83,6 @@ class Developer {
     developer5.leftSpoon = spoon5
     developer5.rightSpoon = spoon1
 
+
      DispatchQueue.concurrentPerform(iterations: 5) { developerArray[$0].run() }
 

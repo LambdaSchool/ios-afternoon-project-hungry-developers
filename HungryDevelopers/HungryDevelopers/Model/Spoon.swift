@@ -10,6 +10,7 @@ import Foundation
 
 class Spoon {
     private let lock = NSLock()
+    private let group = DispatchGroup()
     let id: Int
     
     init(id: Int) {

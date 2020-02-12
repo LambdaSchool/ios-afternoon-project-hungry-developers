@@ -9,6 +9,7 @@
 import Foundation
 
 class Developer {
+    
     var leftSpoon: Spoon?
     var rightSpoon: Spoon?
     var id: Int
@@ -18,26 +19,39 @@ class Developer {
     }
     
     func think() {
-        print("Developer \(id) has left spoon: \(leftSpoon!.id) and right spoon: \(rightSpoon!.id)")
+        guard let leftSpoon = leftSpoon,
+            let rightSpoon = rightSpoon
+        else { return }
         
-        leftSpoon?.pickUp()
-        print("Developer \(id) picked up their left Spoon (Spoon #\(leftSpoon!.id))")
-        rightSpoon?.pickUp()
-        print("Developer \(id) up their right Spoon (Spoon #\(rightSpoon!.id))")
+        let leftId = leftSpoon.id
+        let rightId = rightSpoon.id
+        
+        if leftId < rightId {
+            leftSpoon.pickUp()
+            print("Developer \(id) picked up their left Spoon")
+            rightSpoon.pickUp()
+            print("Developer \(id) up their right Spoon")
+        } else {
+            rightSpoon.pickUp()
+            print("Developer \(id) picked up their right Spoon")
+            leftSpoon.pickUp()
+            print("Developer \(id) picked up their left Spoon")
+        }
+        
     }
     
     func eat() {
-        let randomTime = useconds_t.random(in: 1000...3000)
-        usleep(randomTime)
-        
+        usleep(1_000_000)
         leftSpoon?.putDown()
-        print("I put down my left spoon")
+        print("Developer \(id) put down their left spoon")
         rightSpoon?.putDown()
-        print("I put down my right spoon")
+        print("Developer \(id) put down their right spoon")
     }
     
     func run() {
-        think()
-        eat()
+        while id <= 5 {
+            think()
+            eat()
+        }
     }
 }

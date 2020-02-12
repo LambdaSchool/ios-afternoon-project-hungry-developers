@@ -26,18 +26,19 @@ class ViewController: UIViewController {
         let spoon5 = Spoon(id: 5)
         
         dev5.rightSpoon = spoon1
+        
         dev1.leftSpoon = spoon1
-        
         dev1.rightSpoon = spoon2
+        
         dev2.leftSpoon = spoon2
-        
         dev2.rightSpoon = spoon3
+        
         dev3.leftSpoon = spoon3
-        
         dev3.rightSpoon = spoon4
-        dev4.leftSpoon = spoon4
         
+        dev4.leftSpoon = spoon4
         dev4.rightSpoon = spoon5
+        
         dev5.leftSpoon = spoon5
         
         developers = [
@@ -48,9 +49,9 @@ class ViewController: UIViewController {
             dev5
         ]
         
-        
-        DispatchQueue.concurrentPerform(iterations: 5) {
-            developers[$0].run()
+        //Everything in here runs at the same time
+        DispatchQueue.concurrentPerform(iterations: 5) { count in
+            developers[count].run() //this runs once per developer
         }
     }
     

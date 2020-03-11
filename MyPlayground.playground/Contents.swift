@@ -46,7 +46,7 @@ class Developer {
 
     func run() {
 
-        print("Starting philosoper \(index)")
+        print("Developer \(index) sat down at the table.")
 
         while (true) {
             firstSpoon = spoons[min(leftSpoonIndex, rightSpoonIndex)]

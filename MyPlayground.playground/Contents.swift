@@ -24,6 +24,9 @@ class Developer {
     let index: Int
     var firstSpoon: Spoon?
     var secondSpoon: Spoon?
+    var thirdSpoon: Spoon?
+    var fourthSpoon: Spoon?
+    var fifthSpoon: Spoon?
     var operation: BlockOperation!
     
     init(_ index: Int) {

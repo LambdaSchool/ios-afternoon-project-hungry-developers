@@ -34,4 +34,25 @@ class Developer {
         eat()
     }
     
+    init(leftSpoon: Spoon, rightSpoon: Spoon) {
+        self.leftSpoon = leftSpoon
+        self.rightSpoon = rightSpoon
+    }
 }
+
+let spoon1 = Spoon()
+let spoon2 = Spoon()
+let spoon3 = Spoon()
+let spoon4 = Spoon()
+let spoon5 = Spoon()
+
+let dev1 = Developer(leftSpoon: spoon1,
+                     rightSpoon: spoon2)
+let dev2 = Developer(leftSpoon: spoon2,
+                     rightSpoon: spoon3)
+let dev3 = Developer(leftSpoon: spoon3,
+                     rightSpoon: spoon4)
+let dev4 = Developer(leftSpoon: spoon4,
+                     rightSpoon: spoon5)
+let dev5 = Developer(leftSpoon: spoon5,
+                     rightSpoon: spoon1)

@@ -1,8 +1,5 @@
 import UIKit
 
-var str = "Hello, playground"
-
-
 class Spoon {
     
     private var lock = NSLock()
@@ -26,12 +23,22 @@ class Developer {
     }
     
     func eat() {
+        print("start eating")
         usleep(UInt32.random(in: 1...3))
+        print("finished eating")
+        rightSpoon.putDown()
+        leftSpoon.putDown()
     }
     
     func run() {
-        think()
-        eat()
+        let i = 0
+        print("called run()")
+        while i == 0 {
+            think()
+            print("call eat()")
+            eat()
+            print("finished eat()")
+        }
     }
     
     init(leftSpoon: Spoon, rightSpoon: Spoon) {
@@ -56,3 +63,9 @@ let dev4 = Developer(leftSpoon: spoon4,
                      rightSpoon: spoon5)
 let dev5 = Developer(leftSpoon: spoon5,
                      rightSpoon: spoon1)
+
+let developers = [dev1, dev2, dev3, dev4, dev5]
+
+DispatchQueue.concurrentPerform(iterations: 5) {
+    developers[$0].run()
+}

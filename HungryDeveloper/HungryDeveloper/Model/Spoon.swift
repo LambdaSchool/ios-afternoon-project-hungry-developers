@@ -8,11 +8,11 @@
 
 import Foundation
 
-
-
-
 class Spoon {
-    
+    var index : Int
+    init(index: Int) {
+        self.index = index
+    }
     private let lock = NSLock()
     
     func pickUp() {

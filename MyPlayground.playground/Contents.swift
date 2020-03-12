@@ -58,7 +58,7 @@ class Developer {
             print("Developer \(index) eating with Spoons \(firstSpoon!.index) and \(secondSpoon!.index)")
             
             //turned on a sleep of 6 so you can humanly read the compiler and watch which Devs pick up and put down spoons.
-            sleep(6)
+//            sleep(1)
             
             firstSpoon!.putDown()
             secondSpoon!.putDown()
@@ -76,9 +76,9 @@ for i in 0 ..< numDevelopers {
 }
 
 let queue = OperationQueue()
-//creating the devs to act out the function if they have spoons
+//creating the devs to act out the function if they have spoons, and manage the custom block on my built queue so it can go ahead and run it.
 developers.forEach { developer in
-    developer.operation = BlockOperation() {
+    developer.operation = BlockOperation {
         developer.run()
     }
     queue.addOperation(developer.operation)

@@ -2,16 +2,20 @@ import UIKit
 
 // Adjustable Inputs
 let eatTimeDelay: UInt32 = 500_000
-let numberOfDevelopers = 2
+let numberOfDevelopers = 5
 
 // Setup array for displaying the current state of the program in the console
-let s = "🥄"; let n = "  "; let tf = "🤔"; let ef = "🍜"
+let spoonEmoji = "🥄"; let emptySpace = "  "; let thinkingEmoji = "🤔"; let eatingEmoji = "🍜"
 var array: [String] = []
 for _ in 0..<numberOfDevelopers {
-    array += [n,tf,n,s]
+    array += [emptySpace,thinkingEmoji,emptySpace,spoonEmoji]
 }
+print(array.joined())
+
 enum SpoonSide { case left, right }
 let lockArray = NSLock()
+
+// Functions for updating and displaying the array in the console
 func spoonMovedBy(devID: Int, spoonSide: SpoonSide) {
     lockArray.lock()
     let offset = 4 * (devID - 1)
@@ -31,22 +35,21 @@ func spoonMovedBy(devID: Int, spoonSide: SpoonSide) {
 func devStartedEating(devID: Int) {
     lockArray.lock()
     let devIndex = (devID * 4) - 3
-    array[devIndex] = ef
+    array[devIndex] = eatingEmoji
     print(array.joined())
     lockArray.unlock()
 }
 func devFinishedEating(devID: Int) {
     lockArray.lock()
     let devIndex = (devID * 4) - 3
-    array[devIndex] = tf
+    array[devIndex] = thinkingEmoji
     print(array.joined())
     lockArray.unlock()
 }
-print(array.joined())
 
 
 
-// MARK: Spoon Class Definition
+// MARK: - Spoon Class Definition
 
 class Spoon {
     // Public Properties
@@ -65,9 +68,7 @@ class Spoon {
     }
 }
 
-
-
-// MARK: Developer Class Definition
+// MARK: - Developer Class Definition
 
 class Developer {
     // Public Properties
@@ -125,6 +126,8 @@ class Developer {
 }
 
 
+
+// MARK: - Setup & Run Program
 
 // Create spoons
 var spoons: [Spoon] = []

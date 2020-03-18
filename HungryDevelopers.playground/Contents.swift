@@ -19,7 +19,6 @@ class Developer {
     var leftSpoon: Spoon?
     var rightSpoon: Spoon?
     
-    
     func run() {
         // 4. Developer.run() should call think() then eat() over and over again forever.
         think()
@@ -27,6 +26,7 @@ class Developer {
     }
     func think() {
         //5. think() should pick up both spoons before returning.
+        print("Thinking")
         guard let ls = leftSpoon, let rs = rightSpoon else { return }
         
         if ls.index < rs.index {
@@ -39,6 +39,11 @@ class Developer {
     }
     
     func eat() {
+        //6. eat() should pause for a random amount of time before putting both spoons down.
+        print("Eating")
+        usleep(10000) // (Hint: use usleep() to pause for a given number of microseconds).
+        leftSpoon?.putDown()
+        rightSpoon?.putDown()
         
     }
 }

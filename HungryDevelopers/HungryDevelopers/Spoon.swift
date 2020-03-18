@@ -9,33 +9,38 @@
 import Foundation
 import UIKit
 
+ var hasSpoon: Bool = false
+ var sharedResource = hasSpoon
+ let group = DispatchGroup()
+ let myQueue = DispatchQueue(label: "Shared Access Queue")
+let spoonCount = 5
+let developerCount = 5
 
-class Spoon: Developer {
+
+class Spoon {
     
-    static var hasSpoon: Bool = false
-    var sharedResource = hasSpoon
-    let group = DispatchGroup()
-    let myQueue = DispatchQueue(label: "Shared Access Queue")
-    let spoonCount = 5
     let developer = Developer()
 //    var numberOfIterations = 0
+     
     
     func pickUp() {
         
-        for _ in 0..<spoonCount / developer.count {
+        for _ in 0..<spoonCount / developerCount{
             
-            self.group.enter()
+            group.enter()
             
             myQueue.async {
-                while self.sharedResource == true {
+                while sharedResource == true {
 //                    self.numberOfIterations += 1
+
                     self.developer.eat()
                     
-                    if self.sharedResource == false {
+                    if sharedResource == false {
                         self.putDown()
+                        break
                     }
                 }
-               self.group.leave()
+               group.leave()
             }
         }
     }
@@ -43,30 +48,50 @@ class Spoon: Developer {
     
     func putDown() {
         
-        for _ in 0..<developer.count / spoonCount {
+        for _ in 0..<developerCount / spoonCount {
             
-            self.group.enter()
+            group.enter()
             
         myQueue.async {
-            while self.sharedResource == false {
+            while sharedResource == false {
             self.developer.think()
+            
                 
-                if self.sharedResource == true {
+                if sharedResource == true {
                     self.pickUp()
+                    break
                 }
             }
-            self.group.leave()
+            group.leave()
             }
         }
     }
 }
 
 class Developer {
-    let count = 5
+   
     let leftSpoon: Bool = false
     let rightSpoon: Bool = false
+    let spoon = Spoon()
     
     func think() {
+        
+        for _ in 0..<spoonCount / developerCount {
+            group.enter()
+            spoon.pickUp()
+            group.leave()
+            
+            while leftSpoon.self && rightSpoon.self != true {
+                group.enter()
+                sharedResource = false
+                spoon.putDown()
+                
+                if sharedResource == true {
+                    spoon.pickUp()
+                    break
+                }
+            }
+        }
         
     }
     

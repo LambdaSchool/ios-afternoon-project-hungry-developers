@@ -4,6 +4,7 @@ import UIKit
 let eatTimeDelay: UInt32 = 500_000
 let numberOfDevelopers = 5
 
+
 // Setup array for displaying the current state of the program in the console
 let spoonEmoji = "🥄"; let emptySpace = "  "; let thinkingEmoji = "🤔"; let eatingEmoji = "🍜"
 var array: [String] = []
@@ -76,52 +77,82 @@ class Developer {
     let leftSpoon: Spoon
     let rightSpoon: Spoon
     
-    // Public Methods
-    func run() { while true { think(); eat() } }
-    
-    // Private Methods
-    private func think() {
-        if leftSpoon.index > rightSpoon.index {
-            leftSpoon.pickUp()
-            spoonMovedBy(devID: id, spoonSide: .left)
-            //print("Developer \(id) picked up the left spoon.")
-            
-            rightSpoon.pickUp()
-            spoonMovedBy(devID: id, spoonSide: .right)
-            //print("Developer \(id) picked up the right spoon.")
-            
-        } else {
-            rightSpoon.pickUp()
-            spoonMovedBy(devID: id, spoonSide: .right)
-            //print("Developer \(id) picked up the right spoon.")
-            
-            leftSpoon.pickUp()
-            spoonMovedBy(devID: id, spoonSide: .left)
-            //print("Developer \(id) picked up the left spoon.")
-        }
-    }
-    
-    private func eat() {
-        devStartedEating(devID: id)
-        //print("Developer \(id) started eating.")
-        usleep(eatTimeDelay)
-        devFinishedEating(devID: id)
-        //print("Developer \(id) finished eating.")
-        
-        rightSpoon.putDown()
-        spoonMovedBy(devID: id, spoonSide: .right)
-        //print("Developer \(id) put down the right spoon.")
-        
-        leftSpoon.putDown()
-        spoonMovedBy(devID: id, spoonSide: .left)
-        //print("Developer \(id) put down the left spoon.")
-    }
-    
     // Initializer
     init(leftSpoon: Spoon, rightSpoon: Spoon, id: Int) {
         self.leftSpoon = leftSpoon
         self.rightSpoon = rightSpoon
         self.id = id
+    }
+}
+
+// MARK: - Waiter Class Definition
+
+class Waiter {
+    static let shared = Waiter()
+    
+    // Public Methods
+    func requestPermissionToEat(for developer: Developer) {
+        lockPermission.lock()
+        
+        developer.leftSpoon.pickUp()
+        spoonMovedBy(devID: developer.id, spoonSide: .left) //print("Developer \(developer.id) picked up the left spoon.")
+        
+        developer.rightSpoon.pickUp()
+        spoonMovedBy(devID: developer.id, spoonSide: .right) //print("Developer \(developer.id) picked up the right spoon.")
+        
+        lockPermission.unlock()
+    }
+    
+    // Private Properties
+    private let lockPermission = NSLock()
+}
+
+
+
+// MARK: - Developer Class Extension
+
+extension Developer {
+    // Public Methods
+    func run() {
+        while true {
+            //think()
+            requestPermissionToEat()
+            eat()
+        }
+    }
+    
+    // Private Methods
+    private func requestPermissionToEat() {
+        Waiter.shared.requestPermissionToEat(for: self)
+    }
+    
+    private func think() {
+        if leftSpoon.index > rightSpoon.index {
+            leftSpoon.pickUp()
+            spoonMovedBy(devID: id, spoonSide: .left) //print("Developer \(id) picked up the left spoon.")
+            
+            rightSpoon.pickUp()
+            spoonMovedBy(devID: id, spoonSide: .right) //print("Developer \(id) picked up the right spoon.")
+            
+        } else {
+            rightSpoon.pickUp()
+            spoonMovedBy(devID: id, spoonSide: .right) //print("Developer \(id) picked up the right spoon.")
+            
+            leftSpoon.pickUp()
+            spoonMovedBy(devID: id, spoonSide: .left) //print("Developer \(id) picked up the left spoon.")
+        }
+    }
+    
+    private func eat() {
+        devStartedEating(devID: id) //print("Developer \(id) started eating.")
+        usleep(eatTimeDelay)
+        devFinishedEating(devID: id) //print("Developer \(id) finished eating.")
+        
+        rightSpoon.putDown()
+        spoonMovedBy(devID: id, spoonSide: .right) //print("Developer \(id) put down the right spoon.")
+        
+        leftSpoon.putDown()
+        spoonMovedBy(devID: id, spoonSide: .left) //print("Developer \(id) put down the left spoon.")
     }
 }
 

@@ -18,8 +18,8 @@ class Developer {
     var index: Int = 0
 
     let times = 0
-    let leftSpoon: Spoon
-    let rightSpoon: Spoon
+    var leftSpoon: Spoon
+    var rightSpoon: Spoon
 //    let seconds: UInt32 = UInt32.random(in: 0 ... 5)
     let seconds: UInt32 = 100000
     
@@ -31,6 +31,7 @@ class Developer {
         rightSpoon.index = self.index
     }
     
+    // TODO: Refactor so spoons are picked up based on lowest rank
     private func think() {
         print("Developer #\(index) is thinking")
         leftSpoon.pickUp()
@@ -44,7 +45,6 @@ class Developer {
         usleep(seconds)
         rightSpoon.putDown()
         print("Developer #\(index) put down RIGHT spoon")
-
         leftSpoon.putDown()
         print("Developer #\(index) put down left spoon")
     }
@@ -58,11 +58,20 @@ class Developer {
 }
 
 var developers: [Developer] = []
+var spoons: [Spoon] = []
+
 for i in 1...5 {
+    let spoon = Spoon()
+    spoon.index = i
+    spoons.append(spoon)
     let developer = Developer()
     developer.index = i
+    developer.leftSpoon.index = i
+    developer.rightSpoon.index = i + 1 // TODO: this needs work
     developers.append(developer)
+
 }
+
 
 DispatchQueue.concurrentPerform(iterations: 5) {
     developers[$0].run()

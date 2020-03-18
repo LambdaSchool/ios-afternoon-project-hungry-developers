@@ -3,28 +3,32 @@ import Foundation
 class Spoon {
     
     private let lock = NSLock()
+    var index: Int = 0
     
     func pickUp() {
         lock.lock()
     }
+    
     func putDown() {
         lock.unlock()
     }
-    
 }
 
 class Developer {
-    
+    var index: Int = 0
+
     let times = 0
     let leftSpoon: Spoon
     let rightSpoon: Spoon
 //    let seconds: UInt32 = UInt32.random(in: 0 ... 5)
     let seconds: UInt32 = 100000
-    let index: Int = Int.random(in: 1...5)
     
     init() {
+        self.index += 1
         leftSpoon = Spoon()
+        leftSpoon.index = self.index
         rightSpoon = Spoon()
+        rightSpoon.index = self.index
     }
     
     private func think() {
@@ -54,8 +58,9 @@ class Developer {
 }
 
 var developers: [Developer] = []
-for _ in 1...5 {
+for i in 1...5 {
     let developer = Developer()
+    developer.index = i
     developers.append(developer)
 }
 

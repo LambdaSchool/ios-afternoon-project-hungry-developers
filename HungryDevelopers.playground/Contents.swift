@@ -28,6 +28,8 @@ class Developer {
     }
     
     func run() {
-        
+    // 4. Developer.run() should call think() then eat() over and over again forever.
+        think()
+        eat()
     }
 }

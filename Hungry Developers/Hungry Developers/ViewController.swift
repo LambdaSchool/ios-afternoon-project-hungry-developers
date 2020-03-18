@@ -45,15 +45,26 @@ class ViewController: UIViewController {
         }
         
         func think() {
-            
+            //think() should pick up both spoons before returning.
+            guard let leftSpoon = leftSpoon,
+                let rightSpoon = rightSpoon else { return }
         }
         
         func eat() {
+            //should pause for a random amount of time before putting both spoons down. (Hint: use usleep() to pause for a given number of microseconds).
+            usleep(100000)
+            leftSpoon?.putDown()
+            // print ?
+            rightSpoon?.putDown()
             
         }
         
         func run() {
-            
+            //should call think() then eat() over and over again forever.
+            while id <= 5 {
+                think()
+                eat()
+            }
         }
         
     }

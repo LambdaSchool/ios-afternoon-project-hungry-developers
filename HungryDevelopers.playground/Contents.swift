@@ -1,7 +1,7 @@
 import UIKit
 // 1. Create a class called Spoon. It should have two methods, pickUp() and putDown().
 class Spoon {
-// 2. If pickUp() is called while the spoon is in use by another developer, pickUp() should wait until the other developer calls putDown(). You can implement this with a private lock property.
+    // 2. If pickUp() is called while the spoon is in use by another developer, pickUp() should wait until the other developer calls putDown(). You can implement this with a private lock property.
     let spoonLock = NSLock()
     var index = Int()
     
@@ -19,17 +19,26 @@ class Developer {
     var leftSpoon: Spoon?
     var rightSpoon: Spoon?
     
+    
+    func run() {
+        // 4. Developer.run() should call think() then eat() over and over again forever.
+        think()
+        eat()
+    }
     func think() {
+        //5. think() should pick up both spoons before returning.
+        guard let ls = leftSpoon, let rs = rightSpoon else { return }
         
+        if ls.index < rs.index {
+            ls.pickUp()
+            rs.pickUp()
+        } else {
+            rs.pickUp()
+            ls.pickUp()
+        }
     }
     
     func eat() {
         
-    }
-    
-    func run() {
-    // 4. Developer.run() should call think() then eat() over and over again forever.
-        think()
-        eat()
     }
 }

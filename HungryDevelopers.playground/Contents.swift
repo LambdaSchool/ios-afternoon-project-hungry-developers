@@ -62,4 +62,7 @@ developer5.rightSpoon = spoon1
 
 ///Call run() on each developer in a different queue/thread. You can do this with the following code assuming you put your developers in an array:
 
+var developers: [Developer] = []
+developers.append(contentsOf: [developer1, developer2, developer3, developer4, developer5])
+
 DispatchQueue.concurrentPerform(iterations: 5) { developers[$0].run() }

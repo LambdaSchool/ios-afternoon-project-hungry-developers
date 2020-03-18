@@ -3,13 +3,18 @@ import Foundation
 
 class Spoon {
     
-    var lock = NSLock()
+    private var lock = NSLock()
+    var spoonNumber = Int()
+    
     func pickUp() {
         ///If pickUp() is called while the spoon is in use by another developer, pickUp() should wait until the other developer calls putDown(). You can implement this with a private lock property.
+        lock.lock()
+        print("locked spoon \(spoonNumber)")
     }
     
     func putDown() {
-        
+        lock.unlock()
+        print("un locked spoon \(spoonNumber)")
     }
     
 }
@@ -17,17 +22,33 @@ class Spoon {
 class Developer {
     var leftSpoon: Spoon?
     var rightSpoon: Spoon?
+    var develperNumber = Int()
     
     func think() {
         ///think() should pick up both spoons before returning.
+        guard let rightSpoon = rightSpoon, let leftSpoon = leftSpoon else { return }
+        
+        leftSpoon.pickUp()
+        rightSpoon.pickUp()
+        
+        print("Developer number \(develperNumber) is THINKING and is holding left spoon \(leftSpoon.spoonNumber) and right spoon \(rightSpoon.spoonNumber)")
     }
     
     func eat() {
         ///eat() should pause for a random amount of time before putting both spoons down. (Hint: use usleep() to pause for a given number of microseconds).
+        guard let rightSpoon = rightSpoon, let leftSpoon = leftSpoon else { return }
+        
+        usleep(3200000)
+        print("Developer number \(develperNumber) FINISHED EATING and is PUT DOWN left spoon \(leftSpoon.spoonNumber) and right spoon \(rightSpoon.spoonNumber)")
+        leftSpoon.putDown()
+        rightSpoon.putDown()
+         
     }
     
     func run() {
         ///Developer.run() should call think() then eat() over and over again forever.
+        think()
+        eat()
     }
 }
 
@@ -38,11 +59,23 @@ var spoon3 = Spoon()
 var spoon4 = Spoon()
 var spoon5 = Spoon()
 
+spoon1.spoonNumber = 1
+spoon2.spoonNumber = 2
+spoon3.spoonNumber = 3
+spoon4.spoonNumber = 4
+spoon5.spoonNumber = 5
+
 let developer1 = Developer()
 let developer2 = Developer()
 let developer3 = Developer()
 let developer4 = Developer()
 let developer5 = Developer()
+
+developer1.develperNumber = 1
+developer2.develperNumber = 2
+developer3.develperNumber = 3
+developer4.develperNumber = 4
+developer5.develperNumber = 5
 
 developer1.leftSpoon = spoon1
 developer1.rightSpoon = spoon2

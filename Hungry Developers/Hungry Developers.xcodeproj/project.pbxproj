@@ -13,6 +13,7 @@
 		E04C96FE2421BF7900554E90 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E04C96FC2421BF7900554E90 /* Main.storyboard */; };
 		E04C97002421BF8000554E90 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E04C96FF2421BF8000554E90 /* Assets.xcassets */; };
 		E04C97032421BF8000554E90 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E04C97012421BF8000554E90 /* LaunchScreen.storyboard */; };
+		E04C970B2421C92600554E90 /* game.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04C970A2421C92600554E90 /* game.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		E04C96FF2421BF8000554E90 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E04C97022421BF8000554E90 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E04C97042421BF8000554E90 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E04C970A2421C92600554E90 /* game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = game.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 			children = (
 				E04C96F62421BF7900554E90 /* AppDelegate.swift */,
 				E04C96F82421BF7900554E90 /* SceneDelegate.swift */,
+				E04C970A2421C92600554E90 /* game.swift */,
 				E04C96FA2421BF7900554E90 /* ViewController.swift */,
 				E04C96FC2421BF7900554E90 /* Main.storyboard */,
 				E04C96FF2421BF8000554E90 /* Assets.xcassets */,
@@ -141,6 +144,7 @@
 				E04C96FB2421BF7900554E90 /* ViewController.swift in Sources */,
 				E04C96F72421BF7900554E90 /* AppDelegate.swift in Sources */,
 				E04C96F92421BF7900554E90 /* SceneDelegate.swift in Sources */,
+				E04C970B2421C92600554E90 /* game.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -4,17 +4,17 @@ import Foundation
 class Spoon {
     
     private var lock = NSLock()
-    var spoonNumber = Int()
+    var spoonIndex = Int()
     
     func pickUp() {
         ///If pickUp() is called while the spoon is in use by another developer, pickUp() should wait until the other developer calls putDown(). You can implement this with a private lock property.
         lock.lock()
-        print("locked spoon \(spoonNumber)")
+        print("locked spoon \(spoonIndex)")
     }
     
     func putDown() {
         lock.unlock()
-        print("un locked spoon \(spoonNumber)")
+        print("un locked spoon \(spoonIndex)")
     }
     
 }
@@ -28,10 +28,16 @@ class Developer {
         ///think() should pick up both spoons before returning.
         guard let rightSpoon = rightSpoon, let leftSpoon = leftSpoon else { return }
         
+        if leftSpoon.spoonIndex < rightSpoon.spoonIndex {
         leftSpoon.pickUp()
         rightSpoon.pickUp()
-        
-        print("Developer number \(develperNumber) is THINKING and is holding left spoon \(leftSpoon.spoonNumber) and right spoon \(rightSpoon.spoonNumber)")
+            print("left spoon: \(leftSpoon.spoonIndex), right spoon: \(rightSpoon.spoonIndex)")
+        } else {
+            rightSpoon.pickUp()
+            leftSpoon.pickUp()
+            print("right spoon: \(rightSpoon.spoonIndex), left spoon: \(leftSpoon.spoonIndex)")
+        }
+        print("Developer number \(develperNumber) is THINKING and is holding left spoon \(leftSpoon.spoonIndex) and right spoon \(rightSpoon.spoonIndex)")
     }
     
     func eat() {
@@ -39,7 +45,7 @@ class Developer {
         guard let rightSpoon = rightSpoon, let leftSpoon = leftSpoon else { return }
         
         usleep(3200000)
-        print("Developer number \(develperNumber) FINISHED EATING and is PUT DOWN left spoon \(leftSpoon.spoonNumber) and right spoon \(rightSpoon.spoonNumber)")
+        print("Developer number \(develperNumber) FINISHED EATING and is PUT DOWN left spoon \(leftSpoon.spoonIndex) and right spoon \(rightSpoon.spoonIndex)")
         leftSpoon.putDown()
         rightSpoon.putDown()
          
@@ -59,11 +65,11 @@ var spoon3 = Spoon()
 var spoon4 = Spoon()
 var spoon5 = Spoon()
 
-spoon1.spoonNumber = 1
-spoon2.spoonNumber = 2
-spoon3.spoonNumber = 3
-spoon4.spoonNumber = 4
-spoon5.spoonNumber = 5
+spoon1.spoonIndex = 1
+spoon2.spoonIndex = 2
+spoon3.spoonIndex = 3
+spoon4.spoonIndex = 4
+spoon5.spoonIndex = 5
 
 let developer1 = Developer()
 let developer2 = Developer()

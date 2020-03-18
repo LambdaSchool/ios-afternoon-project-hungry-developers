@@ -13,3 +13,21 @@ class Spoon {
         spoonLock.unlock()
     }
 }
+
+//3. Create a class called Developer. Each Developer should have a leftSpoon property and a rightSpoon property. It should also have think(), eat(), and run() methods.
+class Developer {
+    var leftSpoon: Spoon?
+    var rightSpoon: Spoon?
+    
+    func think() {
+        
+    }
+    
+    func eat() {
+        
+    }
+    
+    func run() {
+        
+    }
+}

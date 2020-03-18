@@ -30,14 +30,19 @@ class Developer {
     private func think() {
         print("Developer #\(index) is thinking")
         leftSpoon.pickUp()
+        print("Developer #\(index) picked up left spoon")
         rightSpoon.pickUp()
+        print("Developer #\(index) picked up RIGHT spoon")
     }
     
     private func eat() {
         print("Developer #\(index) is eating.")
         usleep(seconds)
         rightSpoon.putDown()
+        print("Developer #\(index) put down RIGHT spoon")
+
         leftSpoon.putDown()
+        print("Developer #\(index) put down left spoon")
     }
     
     func run() {

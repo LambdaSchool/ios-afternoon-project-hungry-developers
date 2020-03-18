@@ -68,6 +68,30 @@ class ViewController: UIViewController {
         }
         
     }
-
+    // create 5 spoons and 5 developers
+    
+    var developers : [Developer] = []
+    
+    let devo1 = Developer(id: 1)
+    let devo2 = Developer(id: 2)
+    let devo3 = Developer(id: 3)
+    let devo4 = Developer(id: 4)
+    let devo5 = Developer(id: 5)
+    
+    let spoon1 = Spoon(id: 1)
+    let spoon2 = Spoon(id: 2)
+    let spoon3 = Spoon(id: 3)
+    let spoon4 = Spoon(id: 4)
+    let spoon5 = Spoon(id: 5)
+    
+    
+    
+    
+    developers = [devo1, devo2, devo3, devo4, devo5]
+    
 }
+
+
+
+
 

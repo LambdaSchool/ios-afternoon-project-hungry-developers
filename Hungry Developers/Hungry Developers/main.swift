@@ -20,3 +20,21 @@ class Spoon {
         lock.unlock()
     }
 }
+
+class Developer {
+    
+    let leftSpoon = Spoon()
+    let rightSpoon = Spoon()
+    
+    func think() {
+        
+    }
+    
+    func eat() {
+        
+    }
+    
+    func run() {
+    
+    }
+}

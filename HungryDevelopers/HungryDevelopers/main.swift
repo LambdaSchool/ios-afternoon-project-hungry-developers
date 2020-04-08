@@ -64,7 +64,7 @@ class Developer {
 
 var spoons: [Spoon] = []
 
-for i in 0..<5 {
+for i in 1...5 {
     spoons.append(Spoon(id: i))
 }
 

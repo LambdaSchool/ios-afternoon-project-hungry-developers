@@ -36,5 +36,9 @@ class Developer {
     
     func run() {
     
+        while true {
+            think()
+            eat()
+        }
     }
 }

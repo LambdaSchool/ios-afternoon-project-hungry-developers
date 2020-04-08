@@ -12,13 +12,17 @@ class Spoon {
     
     private var spoonLock = NSLock()
     
+    var index: Int
+    
+    init(_ index: Int) {
+        self.index = index
+    }
+    
     func pickUp() {
         spoonLock.lock()
-        spoonLock.unlock()
     }
     
     func putDown() {
-        spoonLock.lock()
         spoonLock.unlock()
     }
     
@@ -31,15 +35,21 @@ class Developer {
     
     func think() {
         guard let leftSpoon = leftSpoon, let rightSpoon = rightSpoon else { return }
-        leftSpoon.pickUp()
-        rightSpoon.pickUp()
+        
+        if leftSpoon.index < rightSpoon.index {
+            leftSpoon.pickUp()
+            rightSpoon.pickUp()
+        } else {
+            rightSpoon.pickUp()
+            leftSpoon.pickUp()
+        }
         return
     }
     
     func eat() {
         guard let leftSpoon = leftSpoon, let rightSpoon = rightSpoon else { return }
         NSLog("Started Eating")
-        usleep(useconds_t(Int.random(in: 0...10000)))
+        usleep(useconds_t(Int.random(in: 1...1_000_000)))
         leftSpoon.putDown()
         rightSpoon.putDown()
         NSLog("Finsihed Eating")
@@ -53,11 +63,11 @@ class Developer {
     }
 }
 
-let spoon1 = Spoon()
-let spoon2 = Spoon()
-let spoon3 = Spoon()
-let spoon4 = Spoon()
-let spoon5 = Spoon()
+let spoon1 = Spoon(1)
+let spoon2 = Spoon(2)
+let spoon3 = Spoon(3)
+let spoon4 = Spoon(4)
+let spoon5 = Spoon(5)
 
 let developer1 = Developer()
 developer1.leftSpoon = spoon1

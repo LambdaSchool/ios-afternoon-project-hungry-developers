@@ -27,11 +27,17 @@ class Developer {
     let rightSpoon = Spoon()
     
     func think() {
-        
+        leftSpoon.pickUp()
+        rightSpoon.pickUp()
     }
     
     func eat() {
+        var microsecondsToSleep: UInt32 = arc4random_uniform(UInt32.max) % 1_000
+        microsecondsToSleep = 100 // FIXME: Remove before flight
+        usleep(microsecondsToSleep)
         
+        rightSpoon.putDown()
+        leftSpoon.putDown()
     }
     
     func run() {

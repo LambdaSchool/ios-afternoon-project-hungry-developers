@@ -42,34 +42,34 @@ let jeeves = Waiter()
 
 
 class Developer {
-    init(name: String, leftSpoon: Spoon, rightSpoon: Spoon) {
-        self.name = name
+    init(id: Int, leftSpoon: Spoon, rightSpoon: Spoon) {
+        self.id = id
         self.leftSpoon = leftSpoon
         self.rightSpoon = rightSpoon
     }
     
-    let name: String
+    let id: Int
     let leftSpoon: Spoon
     let rightSpoon: Spoon
     
     func think() {
-        print("\(name) is now thinking and waiting to pick up spoons \n")
+        print("Developer: \(id) is now thinking and waiting to pick up spoons \n")
         
         jeeves.askPermissionToPickUpSpoons()
         leftSpoon.pickUp()
-        print("\(name) has picked up spoon #\(leftSpoon.id) \n")
+        print("Developer: \(id) has picked up spoon #\(leftSpoon.id) \n")
         rightSpoon.pickUp()
-        print("\(name) has picked up spoon #\(rightSpoon.id) \n")
+        print("Developer: \(id) has picked up spoon #\(rightSpoon.id) \n")
         jeeves.signalDonePickingUpSpoons()
     }
     
     func eat() {
-        print("\(name) is now eating \n")
+        print("Developer: \(id) is now eating \n")
         usleep(UInt32.random(in: 10...100))
         rightSpoon.putDown()
-        print("\(name) has put down spoon #\(rightSpoon.id)")
+        print("Developer: \(id) has put down spoon #\(rightSpoon.id)")
         leftSpoon.putDown()
-        print("\(name) has put down spoon #\(leftSpoon.id) \n")
+        print("Developer: \(id) has put down spoon #\(leftSpoon.id) \n")
     }
     
     func run() {
@@ -88,11 +88,10 @@ for i in 1...5 {
     spoons.append(Spoon(id: i))
 }
 
-let developerNames = ["A", "B", "C", "D", "E"]
 var developers: [Developer] = []
 
 for i in 0..<5 {
-    developers.append(Developer(name: "Developer \(developerNames[i])", leftSpoon: spoons[i], rightSpoon: spoons[(i + 1) % spoons.count]))
+    developers.append(Developer(id: i, leftSpoon: spoons[i], rightSpoon: spoons[(i + 1) % spoons.count]))
 }
 
 DispatchQueue.concurrentPerform(iterations: 5) {

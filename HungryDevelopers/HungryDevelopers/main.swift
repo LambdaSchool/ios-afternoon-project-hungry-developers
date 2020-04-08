@@ -90,7 +90,7 @@ for i in 1...5 {
 
 var developers: [Developer] = []
 
-for i in 0..<5 {
+for i in 1...5 {
     developers.append(Developer(id: i, leftSpoon: spoons[i], rightSpoon: spoons[(i + 1) % spoons.count]))
 }
 

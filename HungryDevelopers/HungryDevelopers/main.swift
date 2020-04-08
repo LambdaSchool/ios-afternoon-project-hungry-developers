@@ -9,6 +9,12 @@
 import Foundation
 
 class Spoon {
+    init(id: Int) {
+        self.id = id
+    }
+    
+    let id: Int
+    
     func pickUp() {
         lock.lock()
     }
@@ -21,23 +27,31 @@ class Spoon {
 }
 
 class Developer {
-    init(leftSpoon: Spoon, rightSpoon: Spoon) {
+    init(name: String, leftSpoon: Spoon, rightSpoon: Spoon) {
+        self.name = name
         self.leftSpoon = leftSpoon
         self.rightSpoon = rightSpoon
     }
     
+    let name: String
     let leftSpoon: Spoon
     let rightSpoon: Spoon
     
     func think() {
+        print("\(name) is now thinking and waiting to pick up spoons \n")
         leftSpoon.pickUp()
+        print("\(name) has picked up spoon #\(leftSpoon.id) \n")
         rightSpoon.pickUp()
+        print("\(name) has picked up spoon #\(rightSpoon.id) \n")
     }
     
     func eat() {
+        print("\(name) is now eating \n")
         usleep(UInt32.random(in: 10...100))
-        leftSpoon.putDown()
         rightSpoon.putDown()
+        print("\(name) has put down spoon #\(rightSpoon.id)")
+        leftSpoon.putDown()
+        print("\(name) has put down spoon #\(leftSpoon.id) \n")
     }
     
     func run() {
@@ -50,12 +64,17 @@ class Developer {
 
 var spoons: [Spoon] = []
 
-for _ in 0..<5 {
-    spoons.append(Spoon())
+for i in 0..<5 {
+    spoons.append(Spoon(id: i))
 }
 
+let developerNames = ["A", "B", "C", "D", "E"]
 var developers: [Developer] = []
 
 for i in 0..<5 {
-    developers.append(Developer(leftSpoon: spoons[i], rightSpoon: spoons[(i + 1) % spoons.count]))
+    developers.append(Developer(name: "Developer \(developerNames[i])", leftSpoon: spoons[i], rightSpoon: spoons[(i + 1) % spoons.count]))
+}
+
+DispatchQueue.concurrentPerform(iterations: 5) {
+    developers[$0].run()
 }

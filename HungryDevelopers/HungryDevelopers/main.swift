@@ -39,10 +39,18 @@ class Developer {
     
     func think() {
         print("\(name) is now thinking and waiting to pick up spoons \n")
-        leftSpoon.pickUp()
-        print("\(name) has picked up spoon #\(leftSpoon.id) \n")
-        rightSpoon.pickUp()
-        print("\(name) has picked up spoon #\(rightSpoon.id) \n")
+        
+        if leftSpoon.id < rightSpoon.id {
+            leftSpoon.pickUp()
+            print("\(name) has picked up spoon #\(leftSpoon.id) \n")
+            rightSpoon.pickUp()
+            print("\(name) has picked up spoon #\(rightSpoon.id) \n")
+        } else {
+            rightSpoon.pickUp()
+            print("\(name) has picked up spoon #\(rightSpoon.id) \n")
+            leftSpoon.pickUp()
+            print("\(name) has picked up spoon #\(leftSpoon.id) \n")
+        }
     }
     
     func eat() {

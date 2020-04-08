@@ -95,7 +95,9 @@ let developer5 = Developer(id: "Developer 5")
 developer5.leftSpoon = spoon5
 developer5.rightSpoon = spoon1
 
+//let developers = [developer1, developer2, developer3, developer4]
 let developers = [developer1, developer2, developer3, developer4, developer5]
+
 
 DispatchQueue.concurrentPerform(iterations: 5) {
     developers[$0].run()

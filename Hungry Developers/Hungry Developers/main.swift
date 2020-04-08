@@ -23,8 +23,16 @@ class Spoon {
 
 class Developer {
     
-    let leftSpoon = Spoon()
-    let rightSpoon = Spoon()
+    let id: Int
+    
+    init(id: Int, leftSpoon: Spoon, rightSpoon: Spoon) {
+        self.id = id
+        self.leftSpoon = leftSpoon
+        self.rightSpoon = rightSpoon
+    }
+    
+    let leftSpoon: Spoon
+    let rightSpoon: Spoon
     
     func think() {
         leftSpoon.pickUp()
@@ -47,4 +55,26 @@ class Developer {
             eat()
         }
     }
+}
+
+var devs: [Developer] = []
+let numOfDevs = 5
+
+var leftSpoon: Spoon
+var rightSpoon = Spoon()
+
+for dev in 0..<numOfDevs {
+    
+    leftSpoon = rightSpoon
+    if dev == numOfDevs - 1 {
+        rightSpoon = devs[0].leftSpoon
+    } else {
+        rightSpoon = Spoon()
+    }
+    
+    devs.append(Developer(id: dev, leftSpoon: leftSpoon, rightSpoon: rightSpoon))
+}
+
+DispatchQueue.concurrentPerform(iterations: 5) {
+    devs[$0].run()
 }

@@ -26,6 +26,21 @@ class Spoon {
     private let lock = NSLock()
 }
 
+class Waiter {
+    func askPermissionToPickUpSpoons() {
+        pickUpSpoonsLock.lock()
+    }
+    
+    func signalDonePickingUpSpoons() {
+        pickUpSpoonsLock.unlock()
+    }
+    
+    private let pickUpSpoonsLock = NSLock()
+}
+
+let jeeves = Waiter()
+
+
 class Developer {
     init(name: String, leftSpoon: Spoon, rightSpoon: Spoon) {
         self.name = name
@@ -40,17 +55,12 @@ class Developer {
     func think() {
         print("\(name) is now thinking and waiting to pick up spoons \n")
         
-        if leftSpoon.id < rightSpoon.id {
-            leftSpoon.pickUp()
-            print("\(name) has picked up spoon #\(leftSpoon.id) \n")
-            rightSpoon.pickUp()
-            print("\(name) has picked up spoon #\(rightSpoon.id) \n")
-        } else {
-            rightSpoon.pickUp()
-            print("\(name) has picked up spoon #\(rightSpoon.id) \n")
-            leftSpoon.pickUp()
-            print("\(name) has picked up spoon #\(leftSpoon.id) \n")
-        }
+        jeeves.askPermissionToPickUpSpoons()
+        leftSpoon.pickUp()
+        print("\(name) has picked up spoon #\(leftSpoon.id) \n")
+        rightSpoon.pickUp()
+        print("\(name) has picked up spoon #\(rightSpoon.id) \n")
+        jeeves.signalDonePickingUpSpoons()
     }
     
     func eat() {
@@ -69,6 +79,8 @@ class Developer {
         }
     }
 }
+
+
 
 var spoons: [Spoon] = []
 

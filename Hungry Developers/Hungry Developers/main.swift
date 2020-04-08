@@ -8,5 +8,15 @@
 
 import Foundation
 
-print("Hello, World!")
+class Spoon {
 
+    let lock = NSLock()
+    
+    func pickUp() {
+        lock.lock()
+    }
+    
+    func putDown() {
+        lock.unlock()
+    }
+}

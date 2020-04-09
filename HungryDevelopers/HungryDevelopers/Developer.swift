@@ -15,7 +15,7 @@ class Request {
     }
     
     let developer: Developer
-    var fulfilled = false
+    var isFulfilled = false
 }
 
 class Developer {
@@ -51,12 +51,12 @@ class Developer {
         
         let dirtySpoons = spoons.filter { $0.isDirty }
         if !dirtySpoons.isEmpty {
-            if !request.fulfilled {
-                request.fulfilled = true
+            if !request.isFulfilled {
+                request.isFulfilled = true
                 send(spoon: dirtySpoons.last!, to: request.developer)
             }
         } else {
-            waitingList.append(request)
+            requestList.append(request)
         }
     }
     
@@ -70,7 +70,7 @@ class Developer {
     
     // MARK: - Private Properties
     
-    private var waitingList: [Request] = []
+    private var requestList: [Request] = []
     private lazy var personalQueue = DispatchQueue(label: "Developer #\(id)'s Personal Queue")
     private let waitingOnSpoonGroup = DispatchGroup()
     
@@ -86,14 +86,23 @@ class Developer {
     
     // MARK: - Private Methods
     
+    private func send(spoon: Spoon, to developer: Developer) {
+        personalQueue.sync {
+            guard let index = self.spoonsInPossession.firstIndex(of: spoon) else { return }
+            self.spoonsInPossession.remove(at: index)
+            spoon.isDirty = false
+        }
+        
+        developer.receive(spoon: spoon)
+        print("Developer #\(id) sent spoon #\(spoon.id) to developer #\(developer.id)")
+    }
+    
     private func think() {
         print("Developer #\(id) is now thinking \n")
         
-        
         var spoons: [Spoon] = []
         
-        // Read in spoons on personal queue
-        personalQueue.sync {
+        personalQueue.sync { // Read in spoons on personal queue
             spoons = spoonsInPossession
         }
         
@@ -117,8 +126,6 @@ class Developer {
                         print("Developer #\(id) picked up spoon #\(spoon.id)")
                     }
                     print("\n")
-                    
-                    return
                 }
             }
         }
@@ -132,27 +139,16 @@ class Developer {
             spoonsInPossession.forEach { $0.putDown() }
             let dirtySpoons = spoonsInPossession.filter { $0.isDirty }
             for spoon in dirtySpoons {
-                if !waitingList.isEmpty {
-                    let request = waitingList.removeFirst()
+                if !requestList.isEmpty {
+                    let request = requestList.removeFirst()
                     interactionQueue.async {
-                        if !request.fulfilled {
-                            request.fulfilled = true
+                        if !request.isFulfilled {
+                            request.isFulfilled = true
                             self.send(spoon: spoon, to: request.developer)
                         }
                     }
                 }
             }
         }
-    }
-    
-    private func send(spoon: Spoon, to developer: Developer) {
-        personalQueue.sync {
-            guard let index = self.spoonsInPossession.firstIndex(of: spoon) else { return }
-            self.spoonsInPossession.remove(at: index)
-            spoon.isDirty = false
-        }
-        
-        developer.receive(spoon: spoon)
-        print("Developer #\(id) sent spoon #\(spoon.id) to developer #\(developer.id)")
     }
 }

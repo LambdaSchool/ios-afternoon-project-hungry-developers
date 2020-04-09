@@ -8,9 +8,19 @@
 
 import Foundation
 
+class Request {
+    
+    init(developer: Developer) {
+        self.developer = developer
+    }
+    
+    let developer: Developer
+    var fulfilled = false
+}
+
 class Developer {
     
-    // MARK: - Properties
+    // MARK: - Public Properties
     
     let id: Int
     var spoonsInPossession: [Spoon] = []
@@ -21,7 +31,7 @@ class Developer {
         self.id = id
     }
     
-    // MARK: - Public
+    // MARK: - Public Methods
     
     func run() {
         while true {
@@ -30,8 +40,8 @@ class Developer {
         }
     }
     
-    func requestSpoon(for developer: Developer) {
-        print("Developer #\(developer.id) requested a spoon from developer #\(id) \n")
+    func process(request: Request) {
+        print("Developer #\(request.developer.id) requested a spoon from developer #\(id) \n")
         
         var spoons: [Spoon] = []
         
@@ -40,10 +50,13 @@ class Developer {
         }
         
         let dirtySpoons = spoons.filter { $0.isDirty }
-        if !dirtySpoons.isEmpty && spoons.count != 2 {
-            send(spoon: dirtySpoons.last!, to: developer)
+        if !dirtySpoons.isEmpty {
+            if !request.fulfilled {
+                request.fulfilled = true
+                send(spoon: dirtySpoons.last!, to: request.developer)
+            }
         } else {
-            waitingList.append(developer)
+            waitingList.append(request)
         }
     }
     
@@ -57,7 +70,7 @@ class Developer {
     
     // MARK: - Private Properties
     
-    private var waitingList: [Developer] = []
+    private var waitingList: [Request] = []
     private lazy var personalQueue = DispatchQueue(label: "Developer #\(id)'s Personal Queue")
     private let waitingOnSpoonGroup = DispatchGroup()
     
@@ -71,45 +84,42 @@ class Developer {
         return developers[rightId]
     }
     
+    // MARK: - Private Methods
+    
     private func think() {
         print("Developer #\(id) is now thinking \n")
         
         
-        var cleanSpoons: [Spoon] = []
+        var spoons: [Spoon] = []
         
         // Read in spoons on personal queue
         personalQueue.sync {
-            cleanSpoons = spoonsInPossession
+            spoons = spoonsInPossession
         }
         
-        let spoonsNeeded = 2 - cleanSpoons.count
         
-        if spoonsNeeded > 0 {
+        while spoons.count < 2 {
             waitingOnSpoonGroup.enter()
             interactionQueue.async {
-                self.devOnLeft.requestSpoon(for: self)
-                //self.devOnRight.requestSpoon(for: self)
+                let request = Request(developer: self)
+                self.devOnLeft.process(request: request)
+                self.devOnRight.process(request: request)
             }
-        }
-        
-        if spoonsNeeded > 1 {
-            waitingOnSpoonGroup.enter()
-            interactionQueue.async {
-                //.devOnLeft.requestSpoon(for: self)
-                self.devOnRight.requestSpoon(for: self)
-            }
-        }
-        
-        waitingOnSpoonGroup.wait() // Wait here for a spoon
-        
-        personalQueue.sync {
-            cleanSpoons = spoonsInPossession
-            if cleanSpoons.count == 2 {
-                for spoon in cleanSpoons {
-                    spoon.pickUp()
-                    print("Developer #\(id) picked up spoon #\(spoon.id)")
+            
+            waitingOnSpoonGroup.wait() // Wait here for a spoon
+            
+            personalQueue.sync {
+                spoons = spoonsInPossession
+                
+                if spoons.count == 2 {
+                    for spoon in spoons {
+                        spoon.pickUp()
+                        print("Developer #\(id) picked up spoon #\(spoon.id)")
+                    }
+                    print("\n")
+                    
+                    return
                 }
-                print("\n")
             }
         }
     }
@@ -123,9 +133,12 @@ class Developer {
             let dirtySpoons = spoonsInPossession.filter { $0.isDirty }
             for spoon in dirtySpoons {
                 if !waitingList.isEmpty {
-                    let developer = waitingList.removeFirst()
+                    let request = waitingList.removeFirst()
                     interactionQueue.async {
-                        self.send(spoon: spoon, to: developer)
+                        if !request.fulfilled {
+                            request.fulfilled = true
+                            self.send(spoon: spoon, to: request.developer)
+                        }
                     }
                 }
             }

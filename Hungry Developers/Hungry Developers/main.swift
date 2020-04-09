@@ -91,7 +91,7 @@ class Developer {
 }
 
 var devs: [Developer] = []
-let numOfDevs = 8
+let numOfDevs = 4
 var numOfSpoonsHeld = 0
 
 var leftSpoon: Spoon

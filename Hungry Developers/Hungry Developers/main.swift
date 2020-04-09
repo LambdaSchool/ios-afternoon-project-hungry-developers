@@ -10,7 +10,12 @@ import Foundation
 
 class Spoon {
 
+    let index: Int
     let lock = NSLock()
+    
+    init(index: Int) {
+        self.index = index
+    }
     
     func pickUp() {
         lock.lock()
@@ -70,15 +75,15 @@ var numOfLeftSpoonsHeld = 0
 var numOfRightSpoonsHeld = 0
 
 var leftSpoon: Spoon
-var rightSpoon = Spoon()
+var rightSpoon = Spoon(index: 0)
 
-for dev in 0..<numOfDevs {
+for dev in 1...numOfDevs {
     
     leftSpoon = rightSpoon
     if dev == numOfDevs - 1 {
         rightSpoon = devs[0].leftSpoon
     } else {
-        rightSpoon = Spoon()
+        rightSpoon = Spoon(index: dev)
     }
     
     devs.append(Developer(id: dev, leftSpoon: leftSpoon, rightSpoon: rightSpoon))

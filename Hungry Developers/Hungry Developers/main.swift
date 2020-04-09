@@ -33,9 +33,11 @@ class Spoon {
     
     func pickUp() {
         lock.lock()
+        incrementSpoonHeldCount()
     }
     
     func putDown() {
+        decrementSpoonHeldCount()
         lock.unlock()
     }
 }
@@ -54,13 +56,19 @@ class Developer {
     let rightSpoon: Spoon
     
     func think() {
-        leftSpoon.pickUp()
-        incrementSpoonHeldCount()
-        print("\(id) left pickup  \(numOfSpoonsHeld)")
-        
-        rightSpoon.pickUp()
-        incrementSpoonHeldCount()
-        print("\(id) right pickup \(numOfSpoonsHeld)")
+        if leftSpoon.index < rightSpoon.index {
+            leftSpoon.pickUp()
+            print("\(id) left pickup  \(numOfSpoonsHeld)")
+            
+            rightSpoon.pickUp()
+            print("\(id) right pickup \(numOfSpoonsHeld)")
+        } else {
+            rightSpoon.pickUp()
+            print("\(id) right pickup \(numOfSpoonsHeld)")
+
+            leftSpoon.pickUp()
+            print("\(id) left pickup  \(numOfSpoonsHeld)")
+        }
     }
     
     func eat() {
@@ -69,10 +77,8 @@ class Developer {
         usleep(microsecondsToSleep)
         
         rightSpoon.putDown()
-        decrementSpoonHeldCount()
         
         leftSpoon.putDown()
-        decrementSpoonHeldCount()
         
         print("\(id) ate          \(numOfSpoonsHeld)")
     }

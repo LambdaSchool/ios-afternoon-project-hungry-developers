@@ -8,79 +8,7 @@
 
 import Foundation
 
-class Spoon {
-    init(id: Int) {
-        self.id = id
-    }
-    
-    let id: Int
-    
-    func pickUp() {
-        lock.lock()
-    }
-    
-    func putDown() {
-        lock.unlock()
-    }
-    
-    private let lock = NSLock()
-}
-
-class Waiter {
-    func askPermissionToPickUpSpoons() {
-        pickUpSpoonsLock.lock()
-    }
-    
-    func signalDonePickingUpSpoons() {
-        pickUpSpoonsLock.unlock()
-    }
-    
-    private let pickUpSpoonsLock = NSLock()
-}
-
 let jeeves = Waiter()
-
-
-class Developer {
-    init(name: String, leftSpoon: Spoon, rightSpoon: Spoon) {
-        self.name = name
-        self.leftSpoon = leftSpoon
-        self.rightSpoon = rightSpoon
-    }
-    
-    let name: String
-    let leftSpoon: Spoon
-    let rightSpoon: Spoon
-    
-    func think() {
-        print("\(name) is now thinking and waiting to pick up spoons \n")
-        
-        jeeves.askPermissionToPickUpSpoons()
-        leftSpoon.pickUp()
-        print("\(name) has picked up spoon #\(leftSpoon.id) \n")
-        rightSpoon.pickUp()
-        print("\(name) has picked up spoon #\(rightSpoon.id) \n")
-        jeeves.signalDonePickingUpSpoons()
-    }
-    
-    func eat() {
-        print("\(name) is now eating \n")
-        usleep(UInt32.random(in: 10...100))
-        rightSpoon.putDown()
-        print("\(name) has put down spoon #\(rightSpoon.id)")
-        leftSpoon.putDown()
-        print("\(name) has put down spoon #\(leftSpoon.id) \n")
-    }
-    
-    func run() {
-        while true {
-            think()
-            eat()
-        }
-    }
-}
-
-
 
 var spoons: [Spoon] = []
 

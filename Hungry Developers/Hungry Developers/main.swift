@@ -84,6 +84,10 @@ for dev in 0..<numOfDevs {
     devs.append(Developer(id: dev, leftSpoon: leftSpoon, rightSpoon: rightSpoon))
 }
 
+let pi = ProcessInfo()
+print("processorCount = \(pi.processorCount)")
+
 DispatchQueue.concurrentPerform(iterations: 5) {
     devs[$0].run()
 }
+

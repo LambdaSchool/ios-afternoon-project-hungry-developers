@@ -36,16 +36,23 @@ class Developer {
     
     func think() {
         leftSpoon.pickUp()
+        numOfLeftSpoonsHeld += 1
+        print("\(id) left pickup  \(numOfLeftSpoonsHeld):\(numOfRightSpoonsHeld)")
         rightSpoon.pickUp()
+        numOfRightSpoonsHeld += 1
+        print("\(id) right pickup \(numOfLeftSpoonsHeld):\(numOfRightSpoonsHeld)")
     }
     
     func eat() {
         var microsecondsToSleep: UInt32 = arc4random_uniform(UInt32.max) % 1_000
-        microsecondsToSleep = 100 // FIXME: Remove before flight
+//        microsecondsToSleep = 100 // FIXME: Remove before flight
         usleep(microsecondsToSleep)
         
         rightSpoon.putDown()
+        numOfLeftSpoonsHeld -= 1
         leftSpoon.putDown()
+        numOfRightSpoonsHeld -= 1
+        print("\(id) ate          \(numOfLeftSpoonsHeld):\(numOfRightSpoonsHeld)")
     }
     
     func run() {
@@ -59,6 +66,8 @@ class Developer {
 
 var devs: [Developer] = []
 let numOfDevs = 5
+var numOfLeftSpoonsHeld = 0
+var numOfRightSpoonsHeld = 0
 
 var leftSpoon: Spoon
 var rightSpoon = Spoon()

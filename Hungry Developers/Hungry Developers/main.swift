@@ -45,15 +45,14 @@ class Spoon {
 class Developer {
     
     let id: Int
-    
+    let leftSpoon: Spoon
+    let rightSpoon: Spoon
+
     init(id: Int, leftSpoon: Spoon, rightSpoon: Spoon) {
         self.id = id
         self.leftSpoon = leftSpoon
         self.rightSpoon = rightSpoon
     }
-    
-    let leftSpoon: Spoon
-    let rightSpoon: Spoon
     
     func think() {
         if leftSpoon.index < rightSpoon.index {
@@ -112,7 +111,7 @@ for dev in 1...numOfDevs {
 let pi = ProcessInfo()
 print("processorCount = \(pi.processorCount)")
 
-DispatchQueue.concurrentPerform(iterations: 5) {
+DispatchQueue.concurrentPerform(iterations: numOfDevs) {
     devs[$0].run()
 }
 

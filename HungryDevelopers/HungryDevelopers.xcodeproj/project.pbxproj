@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0450B804243F4D8900E2B671 /* Developer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0450B803243F4D8900E2B671 /* Developer.swift */; };
 		0450B806243F591600E2B671 /* Spoon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0450B805243F591600E2B671 /* Spoon.swift */; };
+		0450B80E243F6C4400E2B671 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0450B80D243F6C4400E2B671 /* Request.swift */; };
 		049119DC243E591B0074A99A /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049119DB243E591B0074A99A /* main.swift */; };
 /* End PBXBuildFile section */
 
@@ -27,6 +28,7 @@
 /* Begin PBXFileReference section */
 		0450B803243F4D8900E2B671 /* Developer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Developer.swift; sourceTree = "<group>"; };
 		0450B805243F591600E2B671 /* Spoon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spoon.swift; sourceTree = "<group>"; };
+		0450B80D243F6C4400E2B671 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		049119D8243E591B0074A99A /* HungryDevelopers */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = HungryDevelopers; sourceTree = BUILT_PRODUCTS_DIR; };
 		049119DB243E591B0074A99A /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -63,6 +65,7 @@
 			children = (
 				049119DB243E591B0074A99A /* main.swift */,
 				0450B803243F4D8900E2B671 /* Developer.swift */,
+				0450B80D243F6C4400E2B671 /* Request.swift */,
 				0450B805243F591600E2B671 /* Spoon.swift */,
 			);
 			path = HungryDevelopers;
@@ -127,6 +130,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0450B804243F4D8900E2B671 /* Developer.swift in Sources */,
+				0450B80E243F6C4400E2B671 /* Request.swift in Sources */,
 				0450B806243F591600E2B671 /* Spoon.swift in Sources */,
 				049119DC243E591B0074A99A /* main.swift in Sources */,
 			);

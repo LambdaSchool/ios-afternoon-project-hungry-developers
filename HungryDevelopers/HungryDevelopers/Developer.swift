@@ -8,16 +8,6 @@
 
 import Foundation
 
-class Request {
-    
-    init(developer: Developer) {
-        self.developer = developer
-    }
-    
-    let developer: Developer
-    var isFulfilled = false
-}
-
 class Developer {
     
     // MARK: - Public Properties

@@ -8,6 +8,20 @@
 
 import Foundation
 
+let countLock = NSLock()
+
+func incrementSpoonHeldCount() {
+    countLock.lock()
+    numOfSpoonsHeld += 1
+    countLock.unlock()
+}
+
+func decrementSpoonHeldCount() {
+    countLock.lock()
+    numOfSpoonsHeld -= 1
+    countLock.unlock()
+}
+
 class Spoon {
 
     let index: Int
@@ -41,11 +55,12 @@ class Developer {
     
     func think() {
         leftSpoon.pickUp()
-        OSAtomicIncrement32(&numOfLeftSpoonsHeld)
-        print("\(id) left pickup  \(numOfLeftSpoonsHeld):\(numOfRightSpoonsHeld)")
+        incrementSpoonHeldCount()
+        print("\(id) left pickup  \(numOfSpoonsHeld)")
+        
         rightSpoon.pickUp()
-        OSAtomicIncrement32(&numOfRightSpoonsHeld)
-        print("\(id) right pickup \(numOfLeftSpoonsHeld):\(numOfRightSpoonsHeld)")
+        incrementSpoonHeldCount()
+        print("\(id) right pickup \(numOfSpoonsHeld)")
     }
     
     func eat() {
@@ -54,10 +69,12 @@ class Developer {
         usleep(microsecondsToSleep)
         
         rightSpoon.putDown()
-        OSAtomicDecrement32(&numOfLeftSpoonsHeld)
+        decrementSpoonHeldCount()
+        
         leftSpoon.putDown()
-        OSAtomicDecrement32(&numOfRightSpoonsHeld)
-        print("\(id) ate          \(numOfLeftSpoonsHeld):\(numOfRightSpoonsHeld)")
+        decrementSpoonHeldCount()
+        
+        print("\(id) ate          \(numOfSpoonsHeld)")
     }
     
     func run() {
@@ -71,8 +88,7 @@ class Developer {
 
 var devs: [Developer] = []
 let numOfDevs = 5
-var numOfLeftSpoonsHeld: Int32 = 0
-var numOfRightSpoonsHeld: Int32 = 0
+var numOfSpoonsHeld = 0
 
 var leftSpoon: Spoon
 var rightSpoon = Spoon(index: 0)
@@ -80,7 +96,7 @@ var rightSpoon = Spoon(index: 0)
 for dev in 1...numOfDevs {
     
     leftSpoon = rightSpoon
-    if dev == numOfDevs - 1 {
+    if dev == numOfDevs {
         rightSpoon = devs[0].leftSpoon
     } else {
         rightSpoon = Spoon(index: dev)

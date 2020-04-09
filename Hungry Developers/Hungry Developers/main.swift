@@ -58,29 +58,27 @@ class Developer {
     func think() {
         if leftSpoon.index < rightSpoon.index {
             leftSpoon.pickUp()
-            print("\(id) left pickup  \(numOfSpoonsHeld)")
+            print("\(id) left pickup  Held Count: \(numOfSpoonsHeld)")
             
             rightSpoon.pickUp()
-            print("\(id) right pickup \(numOfSpoonsHeld)")
+            print("\(id) right pickup Held Count: \(numOfSpoonsHeld)")
         } else {
             rightSpoon.pickUp()
-            print("\(id) right pickup \(numOfSpoonsHeld)")
+            print("\(id) right pickup Held Count: \(numOfSpoonsHeld)")
 
             leftSpoon.pickUp()
-            print("\(id) left pickup  \(numOfSpoonsHeld)")
+            print("\(id) left pickup  Held Count: \(numOfSpoonsHeld)")
         }
     }
     
     func eat() {
-        let microsecondsToSleep: UInt32 = arc4random_uniform(UInt32.max) % 1_000_000
-//        microsecondsToSleep = 100 // FIXME: Remove before flight
+        let microsecondsToSleep = arc4random_uniform(UInt32.max) % 1_000_000
         usleep(microsecondsToSleep)
         
         rightSpoon.putDown()
-        
         leftSpoon.putDown()
         
-        print("\(id) ate          \(numOfSpoonsHeld)")
+        print("\(id) ate          Held Count: \(numOfSpoonsHeld)")
     }
     
     func run() {
@@ -93,7 +91,7 @@ class Developer {
 }
 
 var devs: [Developer] = []
-let numOfDevs = 5
+let numOfDevs = 8
 var numOfSpoonsHeld = 0
 
 var leftSpoon: Spoon
@@ -102,7 +100,7 @@ var rightSpoon = Spoon(index: 0)
 for dev in 1...numOfDevs {
     
     leftSpoon = rightSpoon
-    if dev == numOfDevs {
+    if dev == numOfDevs { // Last dev, grab the spoon from the first dev
         rightSpoon = devs[0].leftSpoon
     } else {
         rightSpoon = Spoon(index: dev)

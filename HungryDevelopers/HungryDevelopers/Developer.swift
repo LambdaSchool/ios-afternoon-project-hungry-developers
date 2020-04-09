@@ -71,6 +71,7 @@ class Developer {
     // MARK: - Private Properties
     
     private var requestList: [Request] = []
+    
     private lazy var personalQueue = DispatchQueue(label: "Developer #\(id)'s Personal Queue")
     private let waitingOnSpoonGroup = DispatchGroup()
     
@@ -105,7 +106,6 @@ class Developer {
         personalQueue.sync { // Read in spoons on personal queue
             spoons = spoonsInPossession
         }
-        
         
         while spoons.count < 2 {
             waitingOnSpoonGroup.enter()

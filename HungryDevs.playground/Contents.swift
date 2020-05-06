@@ -6,43 +6,40 @@ import PlaygroundSupport
 class Spoon {
     
     // MARK: - Properties
-    let id: String
+    let id: Int
     // should prevent unavailable spoons from being picked up
     private let spoonLock = NSLock()
     
     // MARK: - Init
-    init(id: String) {
+    init(id: Int) {
         self.id = id
     }
     
     // MARK: - Methods
     // when spoon should be pickup up
     func pickUp() {
-        print("\(id) was picked up")
-        
         spoonLock.lock()
-        
+        print("Spoon\(id) was picked up")
     }
     
     // we spoon should be put down
     func putDown() {
-        print("\(id) was put down")
-        
         spoonLock.unlock()
+        print("Spoon\(id) was put down")
     }
     
 }
 
 class Developer {
     
-    let id: String
+    let id: Int
     
     // MARK: - Properties
     let leftSpoon: Spoon
     let rightSpoon: Spoon
     
     // MARK: - Init
-    init(leftSpoon: Spoon, rightSpoon: Spoon, id: String) {
+    init(leftSpoon: Spoon, rightSpoon: Spoon, id: Int) {
         self.leftSpoon = leftSpoon
         self.rightSpoon = rightSpoon
         self.id = id
@@ -51,7 +48,7 @@ class Developer {
     // MARK: - Run method
     // should start "running" the robotic developers
     func run() {
-        print("\(id) has started running")
+        print("Developer\(id) has started running")
         
         while true {
             think()
@@ -61,39 +58,71 @@ class Developer {
     
     // MARK: - Other methods
     func think() {
-        print("\(id) is thinking")
-
-        print("\(id) is trying to pick up their leftSpoon")
+        print("Developer\(id) is thinking")
+        if leftSpoon.id < rightSpoon.id {
+        print("Developer\(id) is trying to pick up their leftSpoon")
         leftSpoon.pickUp()
-        print("\(id) is trying to pick up their rightSpoon")
+        } else {
+        print("Developer\(id) is trying to pick up their rightSpoon")
         rightSpoon.pickUp()
+        }
     }
     
     func eat() {
-        print("\(id) is eating")
-
+        print("Developer\(id) is eating")
+        
         sleep(1)
+        leftSpoon.putDown()
+        rightSpoon.putDown()
     }
     
 }
 
+//// MARK: - Queue
+//
+//public struct Queue<T> {
+//
+//    fileprivate var queue = [T]()
+//
+//    public var isEmpty: Bool {
+//        return queue.isEmpty
+//    }
+//
+//    public mutating func enqueue(_ element: T) {
+//        queue.append(element)
+//    }
+//
+//    public mutating func dequeue() -> T? {
+//        guard !queue.isEmpty else { return nil }
+//        queue.removeFirst()
+//        return queue.first
+//    }
+//
+//    public func peek() -> T? {
+//        return queue.first
+//    }
+//}
+
 // MARK: - Create Spoons
 
-let spoon0 = Spoon(id: "Spoon0")
-let spoon1 = Spoon(id: "Spoon1")
-let spoon2 = Spoon(id: "Spoon2")
-let spoon3 = Spoon(id: "Spoon3")
-let spoon4 = Spoon(id: "Spoon4")
+let spoon0 = Spoon(id: 0)
+let spoon1 = Spoon(id: 1)
+let spoon2 = Spoon(id: 2)
+let spoon3 = Spoon(id: 3)
+let spoon4 = Spoon(id: 4)
 
 // MARK: - Create Developers
 
-let developer0 = Developer(leftSpoon: spoon0, rightSpoon: spoon1, id: "Developer0")
-let developer1 = Developer(leftSpoon: spoon1, rightSpoon: spoon2, id: "Developer1")
-let developer2 = Developer(leftSpoon: spoon2, rightSpoon: spoon3, id: "Developer2")
-let developer3 = Developer(leftSpoon: spoon3, rightSpoon: spoon4, id: "Developer3")
-let developer4 = Developer(leftSpoon: spoon4, rightSpoon: spoon0, id: "Developer4")
+let developer0 = Developer(leftSpoon: spoon0, rightSpoon: spoon1, id: 0)
+let developer1 = Developer(leftSpoon: spoon1, rightSpoon: spoon2, id: 1)
+let developer2 = Developer(leftSpoon: spoon2, rightSpoon: spoon3, id: 2)
+let developer3 = Developer(leftSpoon: spoon3, rightSpoon: spoon4, id: 3)
+let developer4 = Developer(leftSpoon: spoon4, rightSpoon: spoon0, id: 4)
 
 let allDevelopers = [developer0, developer1, developer2, developer3, developer4]
+
+//// MARK: - Create Queue
+//var queue = Queue<Developer>()
 
 // MARK: - Running The Program
 

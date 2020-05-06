@@ -1,3 +1,11 @@
 import Cocoa
 
-var str = "Hello, playground"
+class Spoon {
+    static func pickUp() {
+        
+    }
+    
+    static func putDown() {
+        
+    }
+}

@@ -12,3 +12,22 @@ class Spoon {
         lock.unlock()
     }
 }
+
+class Developer {
+    
+    let name: String
+    var leftSpoon: Spoon
+    var rightSpoon: Spoon
+    
+    func think() {
+        
+    }
+    
+    func eat() {
+        
+    }
+    
+    func run() {
+        
+    }
+}

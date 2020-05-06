@@ -3,8 +3,11 @@ import PlaygroundSupport
 
 class Spoon {
     
-    private var spoonLock = NSLock()
+    // MARK: - Properties
+    // should prevent unavailable spoons from being picked up
+    private let spoonLock = NSLock()
     
+    // MARK: - Methods
     // when spoon should be pickup up
     func pickUp() {
         print("Picking Up Spoon")
@@ -24,10 +27,18 @@ class Spoon {
 
 class Developer {
     
-    let leftSpoon = Spoon()
-    let rightSpoon = Spoon()
+    // MARK: - Properties
+    let leftSpoon: Spoon
+    let rightSpoon: Spoon
     
-    // runs infinitely on loop
+    // MARK: - Init
+    init(leftSpoon: Spoon, rightSpoon: Spoon) {
+        self.leftSpoon = leftSpoon
+        self.rightSpoon = rightSpoon
+    }
+    
+    // MARK: - Run method
+    // should start "running" the robotic developers
     func run() {
         print("running")
         
@@ -37,7 +48,7 @@ class Developer {
         }
     }
     
-    // methods below are used above in run()
+    // MARK: - Other methods
     func think() {
         print("thinking")
         

@@ -6,13 +6,19 @@ import PlaygroundSupport
 class Spoon {
     
     // MARK: - Properties
+    let id: String
     // should prevent unavailable spoons from being picked up
     private let spoonLock = NSLock()
+    
+    // MARK: - Init
+    init(id: String) {
+        self.id = id
+    }
     
     // MARK: - Methods
     // when spoon should be pickup up
     func pickUp() {
-        print("Picking Up Spoon")
+        print("\(id) was picked up")
         
         spoonLock.lock()
         
@@ -20,7 +26,7 @@ class Spoon {
     
     // we spoon should be put down
     func putDown() {
-        print("Putting Down Spoon")
+        print("\(id) was put down")
         
         spoonLock.unlock()
     }
@@ -29,20 +35,23 @@ class Spoon {
 
 class Developer {
     
+    let id: String
+    
     // MARK: - Properties
     let leftSpoon: Spoon
     let rightSpoon: Spoon
     
     // MARK: - Init
-    init(leftSpoon: Spoon, rightSpoon: Spoon) {
+    init(leftSpoon: Spoon, rightSpoon: Spoon, id: String) {
         self.leftSpoon = leftSpoon
         self.rightSpoon = rightSpoon
+        self.id = id
     }
     
     // MARK: - Run method
     // should start "running" the robotic developers
     func run() {
-        print("running")
+        print("\(id) has started running")
         
         while true {
             think()
@@ -52,15 +61,17 @@ class Developer {
     
     // MARK: - Other methods
     func think() {
-        print("thinking")
-        
+        print("\(id) is thinking")
+
+        print("\(id) is trying to pick up their leftSpoon")
         leftSpoon.pickUp()
+        print("\(id) is trying to pick up their rightSpoon")
         rightSpoon.pickUp()
     }
     
     func eat() {
-        print("eating")
-        
+        print("\(id) is eating")
+
         sleep(1)
     }
     
@@ -68,19 +79,19 @@ class Developer {
 
 // MARK: - Create Spoons
 
-let spoon0 = Spoon()
-let spoon1 = Spoon()
-let spoon2 = Spoon()
-let spoon3 = Spoon()
-let spoon4 = Spoon()
+let spoon0 = Spoon(id: "Spoon0")
+let spoon1 = Spoon(id: "Spoon1")
+let spoon2 = Spoon(id: "Spoon2")
+let spoon3 = Spoon(id: "Spoon3")
+let spoon4 = Spoon(id: "Spoon4")
 
 // MARK: - Create Developers
 
-let developer0 = Developer(leftSpoon: spoon0, rightSpoon: spoon1)
-let developer1 = Developer(leftSpoon: spoon1, rightSpoon: spoon2)
-let developer2 = Developer(leftSpoon: spoon2, rightSpoon: spoon3)
-let developer3 = Developer(leftSpoon: spoon3, rightSpoon: spoon4)
-let developer4 = Developer(leftSpoon: spoon4, rightSpoon: spoon0)
+let developer0 = Developer(leftSpoon: spoon0, rightSpoon: spoon1, id: "Developer0")
+let developer1 = Developer(leftSpoon: spoon1, rightSpoon: spoon2, id: "Developer1")
+let developer2 = Developer(leftSpoon: spoon2, rightSpoon: spoon3, id: "Developer2")
+let developer3 = Developer(leftSpoon: spoon3, rightSpoon: spoon4, id: "Developer3")
+let developer4 = Developer(leftSpoon: spoon4, rightSpoon: spoon0, id: "Developer4")
 
 let allDevelopers = [developer0, developer1, developer2, developer3, developer4]
 
@@ -89,6 +100,7 @@ let allDevelopers = [developer0, developer1, developer2, developer3, developer4]
 DispatchQueue.concurrentPerform(iterations: 5) {
     allDevelopers[$0].run()
 }
+
 
 //To recap the algorithm you're writing here, each developer will:
 //

@@ -32,7 +32,11 @@ class Developer {
     }
     
     func eat() {
+        print("\(name) started eating")
         usleep(100)
+        rightSpoon.putDown()
+        leftSpoon.putDown()
+        print("\(name) has finished eating!")
     }
     
     func run() {
@@ -57,7 +61,7 @@ let developer5 = Developer(name: "My Dog", leftSpoon: spoon5, rightSpoon: spoon1
 let developers = [developer1, developer2, developer3, developer4, developer5]
 
 
-// Calling each developer in a different thread/queue 
+// Calling each developer in a different thread/queue
 DispatchQueue.concurrentPerform(iterations: 5) {
 developers[$0].run()
 }

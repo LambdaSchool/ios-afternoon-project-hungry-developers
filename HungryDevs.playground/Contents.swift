@@ -24,15 +24,20 @@ class Developer {
     let leftSpoon = Spoon()
     let rightSpoon = Spoon()
     
+    // runs infinitely on loop
+    func run() {
+        while true {
+            think()
+            eat()
+        }
+    }
+    
+    // methods below are used above in run()
     func think() {
         
     }
     
     func eat() {
-        
-    }
-    
-    func run() {
         
     }
     

@@ -31,8 +31,14 @@ class Developer {
     }
     
     func think() {
-        leftSpoon.pickUp()
-        rightSpoon.putDown()
+        if leftSpoon.index < rightSpoon.index {
+            leftSpoon.pickUp()
+            rightSpoon.pickUp()
+        } else {
+            rightSpoon.pickUp()
+            leftSpoon.pickUp()
+        }
+        print("\(name) picked up \(leftSpoon) and \(rightSpoon)")
         return
     }
     
@@ -40,12 +46,15 @@ class Developer {
         usleep(1000)
         leftSpoon.putDown()
         rightSpoon.putDown()
+        print("\(name) is done eating!")
         return
     }
     
     func run() {
-        think()
-        eat()
+        while true {
+            think()
+            eat()
+        }
     }
 }
 

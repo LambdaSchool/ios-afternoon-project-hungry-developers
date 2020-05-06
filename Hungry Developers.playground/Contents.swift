@@ -28,6 +28,7 @@ class Developer {
     }
     
     func run() {
-        
+        think()
+        eat()
     }
 }

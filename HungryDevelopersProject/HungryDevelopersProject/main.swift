@@ -9,6 +9,13 @@
 import Foundation
 
 class Spoon {
+    private var lock = NSLock()
+    
+    var index = 0
+    
+    init(_ index: Int) {
+        self.index = index
+    }
     static func pickUp() {
         print("Picked up spoon")
     }
@@ -41,6 +48,10 @@ class Developer{
         eat()
         think()
     }
+    }
+    
+    func think() {
+        
     }
     
 }

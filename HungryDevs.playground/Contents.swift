@@ -19,7 +19,25 @@ class Spoon {
     
 }
 
-//Create a class called Developer. Each Developer should have a leftSpoon property and a rightSpoon property. It should also have think(), eat(), and run() methods.
+class Developer {
+    
+    let leftSpoon = Spoon()
+    let rightSpoon = Spoon()
+    
+    func think() {
+        
+    }
+    
+    func eat() {
+        
+    }
+    
+    func run() {
+        
+    }
+    
+}
+
 //Developer.run() should call think() then eat() over and over again forever.
 //think() should pick up both spoons before returning.
 //eat() should pause for a random amount of time before putting both spoons down. (Hint: use usleep() to pause for a given number of microseconds).

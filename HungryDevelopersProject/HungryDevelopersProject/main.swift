@@ -28,13 +28,15 @@ class Spoon {
 }
 
 class Developer{
+    var id: String
     let leftSpoon: Spoon
     let rightSpoon: Spoon
     var numberOfSpoon = 0
     
-    init(leftSpoon: Spoon, rightSpoon: Spoon) {
+    init(leftSpoon: Spoon, rightSpoon: Spoon, id: String) {
         self.leftSpoon = leftSpoon
         self.rightSpoon = rightSpoon
+        self.id = id
     }
     
     func eat() {
@@ -61,8 +63,18 @@ class Developer{
             think()
         }
     }
-    
-   
-    
 }
+
+let spoon1 = Spoon(1)
+let spoon2 = Spoon(2)
+let spoon3 = Spoon(3)
+let spoon4 = Spoon(4)
+let spoon5 = Spoon(5)
+
+
+
+
+
+
+
 

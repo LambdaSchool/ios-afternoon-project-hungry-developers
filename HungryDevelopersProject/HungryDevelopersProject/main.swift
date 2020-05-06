@@ -17,12 +17,10 @@ class Spoon {
         self.index = index
     }
     func pickUp() {
-        print("Picked up spoon")
         lock.lock()
     }
     
     func putDown() {
-        print("Put down spoon")
         lock.unlock()
     }
 }
@@ -44,15 +42,18 @@ class Developer{
         usleep(useconds_t(Int.random(in: 1...1_000_000)))
         leftSpoon.putDown()
         rightSpoon.putDown()
-        print("eating")
+       print("\(id) is eating")
     }
     
     func think() {
+        print("\(id) is thinking")
         guard let leftSpoon = leftSpoon,
             let rightSpoon = rightSpoon else { return }
         if leftSpoon.index < rightSpoon.index {
             leftSpoon.pickUp()
+            print("\(id) picked up left spoon")
             rightSpoon.pickUp()
+            print("\(id) picked up right spoon")
         } else {
             rightSpoon.pickUp()
             leftSpoon.pickUp()
@@ -60,11 +61,12 @@ class Developer{
     }
     
     func run() {
-        print("running")
+       
         while true {
-            eat()
+             print("running")
             think()
-        }
+            eat()
+    }
     }
 }
 
@@ -95,8 +97,10 @@ developer5.leftSpoon = spoon5
 developer5.rightSpoon = spoon1
 
 
+let developers = [developer1, developer2, developer3, developer4, developer5]
 
 
-
-
+DispatchQueue.concurrentPerform(iterations: 5) {
+    developers[$0].run()
+}
 

@@ -56,5 +56,10 @@ let developer3 = Developer(name: "Ariana", leftSpoon: spoon3, rightSpoon: spoon4
 let developer4 = Developer(name: "Jessica", leftSpoon: spoon4, rightSpoon: spoon5)
 let developer5 = Developer(name: "David", leftSpoon: spoon5, rightSpoon: spoon1)
 
-let developerArray = [developer1, developer2, developer3, developer4, developer5]
+let developers = [developer1, developer2, developer3, developer4, developer5]
+
+DispatchQueue.concurrentPerform(iterations: 5) {
+developers[$0].run()
+}
+
 

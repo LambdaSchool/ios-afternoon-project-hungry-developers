@@ -9,3 +9,7 @@ class Spoon {
         
     }
 }
+
+class Developer {
+    
+}

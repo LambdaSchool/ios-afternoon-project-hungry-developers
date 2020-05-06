@@ -3,6 +3,11 @@ import UIKit
 class Spoon {
     
     private let lock = NSLock()
+    var index: Int
+    
+    init(index: Int) {
+        self.index = index
+    }
     
     func pickUp() {
         lock.lock()
@@ -44,11 +49,11 @@ class Developer {
     }
 }
 
-let spoon1 = Spoon()
-let spoon2 = Spoon()
-let spoon3 = Spoon()
-let spoon4 = Spoon()
-let spoon5 = Spoon()
+let spoon1 = Spoon(index: 1)
+let spoon2 = Spoon(index: 2)
+let spoon3 = Spoon(index: 3)
+let spoon4 = Spoon(index: 4)
+let spoon5 = Spoon(index: 5)
 
 let developer1 = Developer(name: "Chris", leftSpoon: spoon1, rightSpoon: spoon2)
 let developer2 = Developer(name: "Tommy", leftSpoon: spoon2, rightSpoon: spoon3)

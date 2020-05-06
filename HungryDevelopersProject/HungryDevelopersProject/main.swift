@@ -18,10 +18,14 @@ class Spoon {
     }
 }
 
-class Developer {
-    let leftSpoon = ""
-    let rightSpoon = ""
+class Developer{
+    let leftSpoon: Spoon
+    let rightSpoon: Spoon
   
+    init(leftSpoon: Spoon, rightSpoon: Spoon) {
+        self.leftSpoon = leftSpoon
+        self.rightSpoon = rightSpoon
+    }
     
     static func run() {
         print("running")

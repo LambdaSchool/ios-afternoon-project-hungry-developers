@@ -42,7 +42,7 @@ class Developer{
         usleep(useconds_t(Int.random(in: 1...1_000_000)))
         leftSpoon.putDown()
         rightSpoon.putDown()
-       print("\(id) is eating")
+        print("\(id) is eating")
     }
     
     func think() {
@@ -61,12 +61,12 @@ class Developer{
     }
     
     func run() {
-       
+        
         while true {
-             print("running")
+            print("running")
             think()
             eat()
-    }
+        }
     }
 }
 

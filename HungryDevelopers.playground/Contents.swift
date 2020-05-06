@@ -11,5 +11,6 @@ class Spoon {
 }
 
 class Developer {
-    
+    let leftSpoon = ""
+    let rightSpoon = ""
 }

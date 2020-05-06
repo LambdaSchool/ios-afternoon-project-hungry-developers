@@ -32,8 +32,11 @@ class Developer {
     }
         
     func think() {
-        leftSpoon.pickUp()
-        rightSpoon.pickUp()
+        if leftSpoon.index < rightSpoon.index {
+            leftSpoon.pickUp()
+        } else {
+            rightSpoon.pickUp()
+        }
     }
     
     func eat() {
@@ -45,7 +48,10 @@ class Developer {
     }
     
     func run() {
-        
+        while true {
+            think()
+            eat()
+        }
     }
 }
 

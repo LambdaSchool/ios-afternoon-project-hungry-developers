@@ -1,8 +1,8 @@
 import Foundation
 
 //MARK: - Properties and Classes
-
 class Spoon {
+    var index: Int
     private var lock = NSLock()
     func pickUp() {
         lock.lock()
@@ -10,6 +10,10 @@ class Spoon {
     
     func putDown() {
         lock.unlock()
+    }
+    
+    init(index: Int) {
+        self.index = index
     }
 }
 
@@ -19,17 +23,24 @@ class Developer {
     var rightSpoon: Spoon
     
     func think() {
-        leftSpoon.pickUp()
-        rightSpoon.pickUp()
+        if leftSpoon.index < rightSpoon.index {
+            leftSpoon.pickUp()
+        } else {
+            rightSpoon.pickUp()
+        }
+        print("Thinking")
     }
     
     func eat() {
         usleep(5)
+        print("Eating")
     }
     
     func run() {
         think()
         eat()
+        leftSpoon.putDown()
+        rightSpoon.putDown()
     }
     
     init(leftSpoon: Spoon, rightSpoon: Spoon) {
@@ -39,10 +50,16 @@ class Developer {
 }
 
 //Creating Spoons and assigning them to developers
-var spoons: [Spoon] = [Spoon(), Spoon(), Spoon(), Spoon(), Spoon()]
-
+var spoons: [Spoon] = [Spoon(index: 1), Spoon(index: 2), Spoon(index: 3), Spoon(index: 4), Spoon(index: 5)]
 var developers: [Developer] = [Developer(leftSpoon: spoons[0], rightSpoon: spoons[1]),
                                Developer(leftSpoon: spoons[1], rightSpoon: spoons[2]),
                                Developer(leftSpoon: spoons[2], rightSpoon: spoons[3]),
                                Developer(leftSpoon: spoons[3], rightSpoon: spoons[4]),
                                Developer(leftSpoon: spoons[4], rightSpoon: spoons[1])]
+
+
+
+
+DispatchQueue.concurrentPerform(iterations: 5) {
+    developers[$0].run()
+}

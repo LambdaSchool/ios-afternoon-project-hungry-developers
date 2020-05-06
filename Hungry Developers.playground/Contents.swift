@@ -2,11 +2,13 @@ import UIKit
 
 class Spoon {
     
+    private let lock = NSLock()
+    
     func pickUp() {
-        
+        lock.lock()
     }
     
-    func putDown(0) {
-        
+    func putDown() {
+        lock.unlock()
     }
 }

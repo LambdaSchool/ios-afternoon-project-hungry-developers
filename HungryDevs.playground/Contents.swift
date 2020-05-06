@@ -3,20 +3,22 @@ import PlaygroundSupport
 
 class Spoon {
     
+    private var spoonLock = NSLock()
+    
     // when spoon should be pickup up
     func pickUp() {
+        spoonLock.lock()
         
     }
     
     // we spoon should be put down
     func putDown() {
         
+        spoonLock.unlock()
     }
     
 }
 
-//Create a class called Spoon. It should have two methods, pickUp() and putDown().
-//If pickUp() is called while the spoon is in use by another developer, pickUp() should wait until the other developer calls putDown(). You can implement this with a private lock property.
 //Create a class called Developer. Each Developer should have a leftSpoon property and a rightSpoon property. It should also have think(), eat(), and run() methods.
 //Developer.run() should call think() then eat() over and over again forever.
 //think() should pick up both spoons before returning.

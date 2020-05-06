@@ -21,7 +21,7 @@ class Spoon {
         lock.lock()
     }
     
-     func putDown() {
+    func putDown() {
         print("Put down spoon")
         lock.unlock()
     }
@@ -30,6 +30,7 @@ class Spoon {
 class Developer{
     let leftSpoon: Spoon
     let rightSpoon: Spoon
+    var numberOfSpoon = 0
     
     init(leftSpoon: Spoon, rightSpoon: Spoon) {
         self.leftSpoon = leftSpoon
@@ -41,20 +42,24 @@ class Developer{
     }
     
     func think() {
-        print("thinking")
-    }
-
-  func run() {
-        print("running")
-    while true {
-        eat()
-        think()
-    }
+        if leftSpoon.index < rightSpoon.index {
+            leftSpoon.pickUp()
+            rightSpoon.pickUp()
+        } else {
+            rightSpoon.pickUp()
+            leftSpoon.pickUp()
+        }
     }
     
-    func think() {
-        
+    func run() {
+        print("running")
+        while true {
+            eat()
+            think()
+        }
     }
+    
+   
     
 }
 

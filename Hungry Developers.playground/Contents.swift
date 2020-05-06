@@ -19,8 +19,15 @@ class Developer {
     var leftSpoon: Spoon
     var rightSpoon: Spoon
     
+    init(name: String, leftSpoon: Spoon, rightSpoon: Spoon) {
+        self.name = name
+        self.leftSpoon = leftSpoon
+        self.rightSpoon = rightSpoon
+    }
+    
     func think() {
-        
+        leftSpoon.pickUp()
+        rightSpoon.putDown()
     }
     
     func eat() {

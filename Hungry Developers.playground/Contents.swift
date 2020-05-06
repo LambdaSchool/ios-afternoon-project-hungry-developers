@@ -28,10 +28,14 @@ class Developer {
     func think() {
         leftSpoon.pickUp()
         rightSpoon.putDown()
+        return
     }
     
     func eat() {
-        
+        usleep(1000)
+        leftSpoon.putDown()
+        rightSpoon.putDown()
+        return
     }
     
     func run() {

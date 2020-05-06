@@ -16,12 +16,14 @@ class Spoon {
     init(_ index: Int) {
         self.index = index
     }
-    static func pickUp() {
+    func pickUp() {
         print("Picked up spoon")
+        lock.lock()
     }
     
-    static func putDown() {
+     func putDown() {
         print("Put down spoon")
+        lock.unlock()
     }
 }
 

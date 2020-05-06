@@ -38,7 +38,9 @@ class Developer{
     }
     
     func eat() {
-        usleep(1)
+        usleep(useconds_t(Int.random(in: 1...1_000_000)))
+        leftSpoon.putDown()
+        rightSpoon.putDown()
         print("eating")
     }
     

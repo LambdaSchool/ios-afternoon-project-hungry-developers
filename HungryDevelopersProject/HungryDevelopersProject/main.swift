@@ -21,23 +21,27 @@ class Spoon {
 class Developer{
     let leftSpoon: Spoon
     let rightSpoon: Spoon
-  
+    
     init(leftSpoon: Spoon, rightSpoon: Spoon) {
         self.leftSpoon = leftSpoon
         self.rightSpoon = rightSpoon
     }
     
-    static func run() {
+    func eat() {
+        print("eating")
+    }
+    
+    func think() {
+        print("thinking")
+    }
+
+  func run() {
         print("running")
-        
-          func eat() {
-              print("eating")
-          }
-          
-          func think() {
-              print("thinking")
-          }
+    while true {
+        eat()
+        think()
+    }
     }
     
 }
-Developer.run()
+

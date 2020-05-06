@@ -38,6 +38,7 @@ class Developer{
     }
     
     func eat() {
+        usleep(1)
         print("eating")
     }
     

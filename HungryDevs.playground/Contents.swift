@@ -60,11 +60,13 @@ class Developer {
     func think() {
         print("Developer\(id) is thinking")
         if leftSpoon.id < rightSpoon.id {
-        print("Developer\(id) is trying to pick up their leftSpoon")
-        leftSpoon.pickUp()
+            print("Developer\(id) is trying to pick up their leftSpoon")
+            leftSpoon.pickUp()
+            rightSpoon.pickUp()
         } else {
-        print("Developer\(id) is trying to pick up their rightSpoon")
-        rightSpoon.pickUp()
+            print("Developer\(id) is trying to pick up their rightSpoon")
+            rightSpoon.pickUp()
+            leftSpoon.pickUp()
         }
     }
     

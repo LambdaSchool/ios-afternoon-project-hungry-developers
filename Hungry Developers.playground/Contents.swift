@@ -3,7 +3,7 @@ import UIKit
 class Spoon {
     
     private let lock = NSLock()
-    var index: Int
+    let index: Int
     
     init(index: Int) {
         self.index = index
@@ -31,6 +31,7 @@ class Developer {
     }
     
     func think() {
+        print("\(name) is thinking about picking up their spoons!")
         if leftSpoon.index < rightSpoon.index {
             leftSpoon.pickUp()
             rightSpoon.pickUp()
@@ -38,12 +39,13 @@ class Developer {
             rightSpoon.pickUp()
             leftSpoon.pickUp()
         }
-        print("\(name) picked up \(leftSpoon) and \(rightSpoon)")
+        print("\(name) picked up spoon \(leftSpoon.index) and spoon \(rightSpoon.index)!")
         return
     }
     
     func eat() {
-        usleep(1000)
+        
+        sleep(1)
         leftSpoon.putDown()
         rightSpoon.putDown()
         print("\(name) is done eating!")
@@ -75,5 +77,6 @@ let developers = [developer1, developer2, developer3, developer4, developer5]
 DispatchQueue.concurrentPerform(iterations: 5) {
 developers[$0].run()
 }
+
 
 

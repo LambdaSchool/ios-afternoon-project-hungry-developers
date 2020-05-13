@@ -48,10 +48,12 @@ class Developer {
     func think(completion: @escaping () -> ()) {
         var spoonsArray: [Spoon] = [leftSpoon, rightSpoon]
         spoonsArray.sort()
+        
         spoonsArray[0].pickUp()
-        print("Picked up Spoon: \(spoonsArray[0].index)")
+        print("Dev:\(id) Picked up Spoon: \(spoonsArray[0].index)")
+        
         spoonsArray[1].pickUp()
-        print("Picked up Spoon: \(spoonsArray[1].index)")
+        print("Dev:\(id) Picked up Spoon: \(spoonsArray[1].index)")
         completion()
     }
     

@@ -38,12 +38,12 @@ class Developer {
         print("\(name) getting spoons")
         
         if leftSpoon.index < rightSpoon.index {
-        leftSpoon.pickUp()
-        print("\(name) picked up left spoon")
+            leftSpoon.pickUp()
+            print("\(name) picked up left spoon")
         } else {
-        rightSpoon.pickUp()
-        print("\(name) picked up right spoon")
-    }
+            rightSpoon.pickUp()
+            print("\(name) picked up right spoon")
+        }
     }
     
     func eat() {

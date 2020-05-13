@@ -1,81 +1,96 @@
 import UIKit
 
-
-class Spoon {
-    private var lock = NSLock()
-    var index = Int()
-    
-    func pickup() {
-        lock.lock()
-        print("Starting to eat with spoon \(index)")
-    }
-    
-    func putDown(){
-        lock.unlock()
-        print("Putting down spoon \(index)")
-    }
-    
-    
+func developerEating(developer: String) {
+    print("\(developer) is eating.")
+    usleep(1_000_000)
 }
 
-class Developer {
+let lock = NSLock()
+
+class Spoon {
+    var isBeingUsed = false
+    var index: Int
     
-    var leftSpoon = Spoon()
-    var rightSpoon =  Spoon()
-    var whichDev = String()
+    init(index: Int) {
+        self.index = index
+    }
+    func pickUp() {
+        if !isBeingUsed {
+            isBeingUsed = true
+        }
+    }
+    
+    func putDown() {
+        isBeingUsed = false
+    }
+}
+
+// 5 Spoons
+let oneOclockSpoon    = Spoon(index: 1)
+let threeOclockSpoon  = Spoon(index: 2)
+let sixOclockSpoon    = Spoon(index: 3)
+let nineOclockSpoon   = Spoon(index: 4)
+let elevenOclockSpoon = Spoon(index: 5)
+let spoons: [Spoon] = [oneOclockSpoon, threeOclockSpoon, sixOclockSpoon, nineOclockSpoon, elevenOclockSpoon]
+
+class Developer {
+    var name: String
+    var leftSpoon: Spoon
+    var rightSpoon: Spoon
+    
+    init(name: String, rightSpoon: Spoon, leftSpoon: Spoon) {
+        self.name = name
+        self.rightSpoon = rightSpoon
+        self.leftSpoon = leftSpoon
+    }
     
     func think() {
-        leftSpoon.pickup()
-        rightSpoon.pickup()
-        print("I'm done thinking")
+        lock.lock()
+        if !leftSpoon.isBeingUsed && !rightSpoon.isBeingUsed {
+            if leftSpoon.index < rightSpoon.index {
+                leftSpoon.pickUp()
+                print("\(name) picked up left spoon")
+            } else {
+                rightSpoon.pickUp()
+                print("\(name) picked up right spoon")
+            }
+            lock.unlock()
+            eat()
+        } else {
+            print("\(name) is thinking")
+            lock.unlock()
+            return
+        }
     }
     
     func eat() {
-        print("Time to eat")
-        usleep(10)
+        lock.lock()
+        developerEating(developer: "\(name)")
         leftSpoon.putDown()
+        print("\(name) put leftSpoon Down")
         rightSpoon.putDown()
-        print("Took a bite")
+        print("\(name) put rightSpoon Down")
+        lock.unlock()
+        print("\(name) is finished eating.")
     }
     
     func run() {
-        
-        think()
-        eat()
-        print("Next dev up")
-    }
-    
-    
-}
-var lock = NSLock()
-var mySpoon = Spoon()
-var yourSpoon = Spoon()
-var herSpoon = Spoon()
-var hisSpoon = Spoon()
-var theOtherGuysSpoon = Spoon()
-
-var myDev = Developer()
-var yourDev = Developer()
-var herDev = Developer()
-var hisDev = Developer()
-var theOtherDev = Developer()
-
-var developers = Array<Developer>([myDev, yourDev, herDev, hisDev, theOtherDev])
-//developers.append(myDev)
-//developers.append(yourDev)
-//developers.append(herDev)
-//developers.append(hisDev)
-//developers.append(theOtherDev)
-
-extension NSLock {
-    func withLock( _ work: () -> Void) {
-        lock()
-        work()
-        unlock()
+        while self != nil {
+            think()
+            eat()
+        }
     }
 }
+
+// 5 Developers
+let twelveOclockDev = Developer(name: "twelveOclockDev", rightSpoon: elevenOclockSpoon, leftSpoon: oneOclockSpoon)
+let twoOclockDev    = Developer(name: "twoOclockDev", rightSpoon: oneOclockSpoon, leftSpoon: threeOclockSpoon)
+let fiveOclockDev   = Developer(name: "fiveOclockDev", rightSpoon: threeOclockSpoon, leftSpoon: sixOclockSpoon)
+let sevenOclockDev  = Developer(name: "sevenOclockDev", rightSpoon: sixOclockSpoon, leftSpoon: nineOclockSpoon)
+let tenOclockDev    = Developer(name: "tenOclockDev", rightSpoon: nineOclockSpoon, leftSpoon: elevenOclockSpoon)
+let developers: [Developer] = [twelveOclockDev, twoOclockDev, fiveOclockDev, sevenOclockDev, tenOclockDev]
+
 
 DispatchQueue.concurrentPerform(iterations: 5) {
-        developers[$0].run()
-    print("\()just ate")
-}
+    developers[$0].run()
+    }

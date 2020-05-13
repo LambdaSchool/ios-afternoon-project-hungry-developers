@@ -1,3 +1,5 @@
+// Kevin Stewart
+
 import UIKit
 import Foundation
 
@@ -47,8 +49,10 @@ class Developer {
     }
     
     func run() {
-        eat()
-        think()
+        while true {
+            eat()
+            think()
+        }
     }
 }
 

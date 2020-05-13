@@ -5,6 +5,8 @@ class Spoon {
     let name: String
     let index: Int
     let lock = NSLock()
+    var pickedUp: Bool = false
+    weak var developer: Developer?
     
     init(name: String, index: Int) {
         self.name = name
@@ -13,20 +15,22 @@ class Spoon {
     
     func pickUp() {
         lock.lock()
-        //print("\(name) picked up")
+        pickedUp = true
+        print("\(name) picked up")
     }
     
     func putDown() {
         lock.unlock()
-        //print("\(name) put down")
+        pickedUp = false
+        print("\(name) put down")
     }
 }
 
 class Developer {
     
-    var name: String
-    var leftSpoon: Spoon
-    var rightSpoon: Spoon
+    let name: String
+    let leftSpoon: Spoon
+    let rightSpoon: Spoon
     
     init(name: String, leftSpoon: Spoon, rightSpoon: Spoon) {
         self.name = name
@@ -37,13 +41,18 @@ class Developer {
     func think() {
         //print("\(name) getting spoons")
         
-        if leftSpoon.index < rightSpoon.index {
+        if Waiter.canIPickUpTheseSpoons(spoon1: leftSpoon, spoon2: rightSpoon) {
             leftSpoon.pickUp()
-            //print("\(name) picked up left spoon")
-        } else {
             rightSpoon.pickUp()
-            //print("\(name) picked up right spoon")
         }
+        
+//        if leftSpoon.index < rightSpoon.index {
+//            leftSpoon.pickUp()
+//            print("\(name) picked up left spoon")
+//        } else {
+//            rightSpoon.pickUp()
+//            print("\(name) picked up right spoon")
+//        }
     }
     
     func eat() {
@@ -59,6 +68,13 @@ class Developer {
             think()
             eat()
         }
+    }
+}
+
+class Waiter {
+    
+    static func canIPickUpTheseSpoons(spoon1: Spoon, spoon2: Spoon) -> Bool {
+        return !spoon1.pickedUp && !spoon2.pickedUp
     }
 }
 

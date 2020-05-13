@@ -37,11 +37,13 @@ class Developer {
     func think() {
         print("\(name) getting spoons")
         
+        if leftSpoon.index < rightSpoon.index {
         leftSpoon.pickUp()
         print("\(name) picked up left spoon")
-        
+        } else {
         rightSpoon.pickUp()
         print("\(name) picked up right spoon")
+    }
     }
     
     func eat() {

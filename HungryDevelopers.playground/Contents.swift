@@ -5,6 +5,7 @@ var developers: [Developer] = []
 class Spoon {
     
     let lock = NSLock()
+    var index: Int
     
     func pickUp() {
         lock.lock()
@@ -14,56 +15,73 @@ class Spoon {
         lock.unlock()
     }
     
+    init(index: Int) {
+        self.index = index
+    }
+    
 }
 
 class Developer {
     
-    var leftSpoon: Spoon?
-    var rightSpoon: Spoon?
+    let name: String
+    var leftSpoon: Spoon
+    var rightSpoon: Spoon
+    
+    init(name: String, leftSpoon: Spoon, rightSpoon: Spoon) {
+        self.name = name
+        self.leftSpoon = leftSpoon
+        self.rightSpoon = rightSpoon
+    }
     
     func think() {
-        leftSpoon?.pickUp()
-        rightSpoon?.pickUp()
+        print("\(name) is thinking.")
+        
+        if leftSpoon.index < rightSpoon.index {
+            leftSpoon.pickUp()
+            rightSpoon.pickUp()
+        } else {
+            rightSpoon.pickUp()
+            leftSpoon.pickUp()
+        }
+        print("\(name) is done thinking.")
     }
     
     func eat() {
+        
+        print("\(name) started eating.")
         usleep(3)
-        leftSpoon?.putDown()
-        rightSpoon?.putDown()
+        leftSpoon.putDown()
+        rightSpoon.putDown()
+        print("\(name) stopped eating.")
     }
     
     func run() {
         think()
         eat()
+        run()
     }
     
 }
 
-let developerOne = Developer()
-let developerTwo = Developer()
-let developerThree = Developer()
-let developerFour = Developer()
-let developerFive = Developer()
+let spoonOne = Spoon(index: 1)
+let spoonTwo = Spoon(index: 2)
+let spoonThree = Spoon(index: 3)
+let spoonFour = Spoon(index: 4)
+let spoonFive = Spoon(index: 5)
 
-let spoonOne = Spoon()
-let spoonTwo = Spoon()
-let spoonThree = Spoon()
-let spoonFour = Spoon()
-let spoonFive = Spoon()
+let developerOne = Developer(name: "Joe", leftSpoon: spoonFive, rightSpoon: spoonOne)
+let developerTwo = Developer(name: "Jim", leftSpoon: spoonOne, rightSpoon: spoonTwo)
+let developerThree = Developer(name: "James", leftSpoon: spoonTwo, rightSpoon: spoonThree)
+let developerFour = Developer(name: "John", leftSpoon: spoonThree, rightSpoon: spoonFour)
+let developerFive = Developer(name: "Jack", leftSpoon: spoonFour, rightSpoon: spoonFive)
 
-developerOne.leftSpoon = spoonFive
-developerOne.rightSpoon = spoonOne
-
-developerTwo.leftSpoon = spoonOne
-developerTwo.rightSpoon = spoonTwo
-
-developerThree.leftSpoon = spoonTwo
-developerThree.rightSpoon = spoonThree
-
-developerFour.leftSpoon = spoonThree
-developerFour.rightSpoon = spoonFour
-
-developerFive.leftSpoon = spoonFour
-developerFive.rightSpoon = spoonFive
+developers.append(developerOne)
+developers.append(developerTwo)
+developers.append(developerThree)
+developers.append(developerFour)
+developers.append(developerFive)
 
 
+DispatchQueue.concurrentPerform(iterations: 5) {
+    developers[$0].run()
+}

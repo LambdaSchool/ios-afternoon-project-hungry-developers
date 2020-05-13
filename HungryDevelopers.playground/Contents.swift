@@ -13,12 +13,12 @@ class Spoon {
     
     func pickUp() {
         lock.lock()
-        print("\(name) picked up")
+        //print("\(name) picked up")
     }
     
     func putDown() {
         lock.unlock()
-        print("\(name) put down")
+        //print("\(name) put down")
     }
 }
 
@@ -35,14 +35,14 @@ class Developer {
     }
     
     func think() {
-        print("\(name) getting spoons")
+        //print("\(name) getting spoons")
         
         if leftSpoon.index < rightSpoon.index {
             leftSpoon.pickUp()
-            print("\(name) picked up left spoon")
+            //print("\(name) picked up left spoon")
         } else {
             rightSpoon.pickUp()
-            print("\(name) picked up right spoon")
+            //print("\(name) picked up right spoon")
         }
     }
     
@@ -51,7 +51,7 @@ class Developer {
         usleep(50)
         leftSpoon.putDown()
         rightSpoon.putDown()
-        print("\(name) finished eating")
+        //print("\(name) finished eating")
     }
     
     func run() {

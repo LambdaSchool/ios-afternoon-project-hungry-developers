@@ -16,13 +16,15 @@ class Spoon {
 // 3. Create a class called Developer. Each Developer should have a leftSpoon property and a rightSpoon property. It should also have think(), eat(), and run() methods.
 class Developer {
     
-    init(leftSpoon: Spoon, rightSpoon: Spoon) {
+    init(leftSpoon: Spoon, rightSpoon: Spoon, name: String) {
         self.leftSpoon = leftSpoon
         self.rightSpoon = rightSpoon
+        self.name = name
     }
     
     var leftSpoon: Spoon
     var rightSpoon: Spoon
+    var name: String
     
     func run() {
         // 4. Developer.run() should call think() then eat() over and over again forever.
@@ -34,15 +36,21 @@ class Developer {
     
     func think() {
         // 5. think() should pick up both spoons before returning.
+        print("\(name) is waiting to pickup his spoons")
         leftSpoon.pickUp()
+        print("\(name) picked up the left spoon")
         rightSpoon.pickUp()
+        print("\(name) picked up the right spoon")
     }
     
     func eat() {
         // 6. eat() should pause for a random amount of time before putting both spoons down. (Hint: use usleep() to pause for a given number of microseconds).
+        print("\(name) is eating")
         usleep(UInt32.random(in: 1...100))
         leftSpoon.putDown()
+        print("\(name) put down the left spoon")
         rightSpoon.putDown()
+        print("\(name) put down the right spoon")
     }
     
 }
@@ -53,16 +61,12 @@ for _ in 0...4 {
     spoons.append(Spoon())
 }
 
+var developerNames = ["One", "Two", "Three", "Four", "Five"]
 var developers: [Developer] = []
 for i in 0...4 {
-    developers.append(Developer(leftSpoon: spoons[i], rightSpoon: spoons[(i + 1) % spoons.count]))
+    developers.append(Developer(leftSpoon: spoons[i], rightSpoon: spoons[(i + 1) % spoons.count], name: developerNames[i]))
 }
 
-print(spoons)
-print(developers)
-for i in 0...4 {
-    print(developers[i].leftSpoon)
-}
 // 8. Call run() on each developer in a different queue/thread. You can do this with the following code assuming you put your developers in an array:
 DispatchQueue.concurrentPerform(iterations: 5) {
     developers[$0].run()

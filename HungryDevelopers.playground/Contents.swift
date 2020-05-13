@@ -41,10 +41,19 @@ class Developer {
     func think() {
         // 5. think() should pick up both spoons before returning.
         print("\(name) is waiting to pickup his spoons")
-        leftSpoon.pickUp()
-        print("\(name) picked up the left spoon \(leftSpoon.id)")
-        rightSpoon.pickUp()
-        print("\(name) picked up the right spoon \(rightSpoon.id)")
+        
+        //Developer should pick up the lower numbered spoon first
+        if leftSpoon.id < rightSpoon.id {
+            leftSpoon.pickUp()
+            print("\(name) picked up the left spoon \(leftSpoon.id)")
+            rightSpoon.pickUp()
+            print("\(name) picked up the right spoon \(rightSpoon.id)")
+        } else {
+            rightSpoon.pickUp()
+            print("\(name) picked up the right spoon \(rightSpoon.id)")
+            leftSpoon.pickUp()
+            print("\(name) picked up the left spoon \(leftSpoon.id)")
+        }
     }
     
     func eat() {

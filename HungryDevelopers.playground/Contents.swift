@@ -2,8 +2,12 @@ import Foundation
 
 // 1. Create a class called Spoon. It should have two methods, pickUp() and putDown().
 class Spoon {
+    init(id: Int) {
+        self.id = id
+    }
     // 2. If pickUp() is called while the spoon is in use by another developer, pickUp() should wait until the other developer calls putDown(). You can implement this with a private lock property.
     private let lock = NSLock()
+    let id: Int
     
     func pickUp() {
         lock.lock()
@@ -38,9 +42,9 @@ class Developer {
         // 5. think() should pick up both spoons before returning.
         print("\(name) is waiting to pickup his spoons")
         leftSpoon.pickUp()
-        print("\(name) picked up the left spoon")
+        print("\(name) picked up the left spoon \(leftSpoon.id)")
         rightSpoon.pickUp()
-        print("\(name) picked up the right spoon")
+        print("\(name) picked up the right spoon \(rightSpoon.id)")
     }
     
     func eat() {
@@ -48,17 +52,17 @@ class Developer {
         print("\(name) is eating")
         usleep(UInt32.random(in: 1...100))
         leftSpoon.putDown()
-        print("\(name) put down the left spoon")
+        print("\(name) put down the left spoon \(leftSpoon.id)")
         rightSpoon.putDown()
-        print("\(name) put down the right spoon")
+        print("\(name) put down the right spoon \(rightSpoon.id)")
     }
     
 }
 
 // 7. Create 5 Spoons and 5 Developers giving each developer a left and right spoon. Note that developers will of course share spoons. Every developer's right spoon is the next developer's left spoon.
 var spoons: [Spoon] = []
-for _ in 0...4 {
-    spoons.append(Spoon())
+for i in 1...5 {
+    spoons.append(Spoon(id: i))
 }
 
 var developerNames = ["One", "Two", "Three", "Four", "Five"]

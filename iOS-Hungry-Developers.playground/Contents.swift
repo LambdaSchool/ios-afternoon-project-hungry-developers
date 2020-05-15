@@ -37,12 +37,12 @@ class Developer {
     
         guard let name = name else { return }
         let startedEating = CACurrentMediaTime()
-        sleep(2)
+        sleep(1)
         rightSpoon?.putDown()
         leftSpoon?.putDown()
         let finishedEating = CACurrentMediaTime()
         let elapsedTime = finishedEating - startedEating
-        print("\(name) spent \(elapsedTime) eating.")
+        print("\(name) ate.")
     }
     
     func run() {

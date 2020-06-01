@@ -11,3 +11,23 @@ class Spoon {
         lock.unlock()
     }
 }
+
+class Developer {
+    var name: String
+    var leftSpoon: Spoon
+    var rightSpoon: Spoon
+
+    init(name: String, leftSpoon: Spoon, rightSpoon: Spoon) {
+        self.name = name
+        self.leftSpoon = leftSpoon
+        self.rightSpoon = rightSpoon
+    }
+    
+    func think() {
+
+    }
+
+    func eat() {
+
+    }
+}

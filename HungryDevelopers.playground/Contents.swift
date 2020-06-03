@@ -1,23 +1,21 @@
 import UIKit
 
 class Spoon {
-    var isUp: Bool = false
+    let id: Int
     var spoonLock = NSLock()
+    var whoHasMe: UUID?
     
-    func pickUp(){
-        if self.isUp == false {
-            spoonLock.lock()
-            self.isUp = true
-        } else {
-            return }
+    init(_ id: Int) {
+        self.id = id
     }
     
+    func pickUp(){
+        spoonLock.lock()
+    }
+       
+    
     func putDown(){
-        if self.isUp == true {
-            self.isUp = false
-            spoonLock.unlock()
-        } else {
-            return }
+        spoonLock.unlock()
     }
 }
 
@@ -25,10 +23,10 @@ class Spoon {
 
 class Developer {
     
+    let id = UUID()
     var leftSpoon: Spoon
     var rightSpoon: Spoon
     let name: String
-    var isEating: Bool = false
     
     
     
@@ -39,24 +37,25 @@ class Developer {
     }
     
     func think(){
-        if !leftSpoon.isUp && !rightSpoon.isUp {
-            rightSpoon.pickUp()
-            leftSpoon.pickUp()
-        }
-        return
+        leftSpoon.pickUp()
+        leftSpoon.whoHasMe = self.id
+        print("\(self.name) picked up \(leftSpoon.id)")
+        
+        rightSpoon.pickUp()
+        rightSpoon.whoHasMe = self.id
+        print("\(self.name) picked up \(rightSpoon.id)")
     }
     
     func eat(){
-        isEating = true
-        if rightSpoon.isUp && leftSpoon.isUp {
+        if rightSpoon.whoHasMe == self.id && leftSpoon.whoHasMe == self.id {
             print("\(self.name) is eating")
             usleep(200_000)
+            print("\(self.name) finished eating")
             leftSpoon.putDown()
             rightSpoon.putDown()
-            print("\(self.name) finished eating")
+        } else {
+            return
         }
-        isEating = false
-        
     }
     
     func run(){
@@ -69,11 +68,11 @@ class Developer {
 
 
 //Spoons
-let spoon1 = Spoon()
-let spoon2 = Spoon()
-let spoon3 = Spoon()
-let spoon4 = Spoon()
-let spoon5 = Spoon()
+let spoon1 = Spoon(1)
+let spoon2 = Spoon(2)
+let spoon3 = Spoon(3)
+let spoon4 = Spoon(4)
+let spoon5 = Spoon(5)
 
 
 //Devs
@@ -85,6 +84,10 @@ let dev5 = Developer(spoon5, spoon1, name: "Edith")
 
 let diningTable = [dev1, dev2, dev3, dev4, dev5]
 
+
+
 DispatchQueue.concurrentPerform(iterations: 5) {
+    print("\(diningTable[$0].name) has joined the meal.")
     diningTable[$0].run()
 }
+

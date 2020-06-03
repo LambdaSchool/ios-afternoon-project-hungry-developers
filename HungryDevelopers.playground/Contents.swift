@@ -1,13 +1,14 @@
 import UIKit
 
 class Spoon {
+    var isUp: Bool = false
     
     func pickUp(){
-        
+        self.isUp = true
     }
     
     func putDown(){
-        
+        self.isUp = false
     }
 }
 
@@ -15,8 +16,10 @@ class Spoon {
 
 class Developer {
     
-    var leftSpoon: Spoon
-    var rightSpoon: Spoon
+    var leftSpoon: Spoon?
+    var rightSpoon: Spoon?
+    var isEating: Bool = false
+    
     
     init(_ leftSpoon: Spoon, _ rightSpoon: Spoon) {
         self.leftSpoon = leftSpoon

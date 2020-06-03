@@ -66,11 +66,11 @@ let spoon3 = Spoon(index: 3)
 let spoon4 = Spoon(index: 4)
 let spoon5 = Spoon(index: 5)
 
-let developer1 = Developer(name: "Chris", leftSpoon: spoon1, rightSpoon: spoon2)
-let developer2 = Developer(name: "Tommy", leftSpoon: spoon2, rightSpoon: spoon3)
-let developer3 = Developer(name: "Ariana", leftSpoon: spoon3, rightSpoon: spoon4)
-let developer4 = Developer(name: "Jessica", leftSpoon: spoon4, rightSpoon: spoon5)
-let developer5 = Developer(name: "David", leftSpoon: spoon5, rightSpoon: spoon1)
+let developer1 = Developer(name: "Joe", leftSpoon: spoon1, rightSpoon: spoon2)
+let developer2 = Developer(name: "Ben", leftSpoon: spoon2, rightSpoon: spoon3)
+let developer3 = Developer(name: "Chris", leftSpoon: spoon3, rightSpoon: spoon4)
+let developer4 = Developer(name: "James", leftSpoon: spoon4, rightSpoon: spoon5)
+let developer5 = Developer(name: "Skyler", leftSpoon: spoon5, rightSpoon: spoon1)
 
 let developers = [developer1, developer2, developer3, developer4, developer5]
 

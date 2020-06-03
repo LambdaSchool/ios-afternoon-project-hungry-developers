@@ -22,8 +22,8 @@ class Spoon {
 
 class Developer {
     
-    var leftSpoon: Spoon?
-    var rightSpoon: Spoon?
+    var leftSpoon: Spoon
+    var rightSpoon: Spoon
     var isEating: Bool = false
     
     

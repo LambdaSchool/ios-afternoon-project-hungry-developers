@@ -4,11 +4,17 @@ class Spoon {
     var isUp: Bool = false
     
     func pickUp(){
-        self.isUp = true
+        if self.isUp == false {
+            self.isUp = true
+        } else {
+            return }
     }
     
     func putDown(){
-        self.isUp = false
+        if self.isUp == true {
+            self.isUp = false
+        } else {
+            return }
     }
 }
 

@@ -2,7 +2,7 @@ import UIKit
 
 class Spoon {
     let id: Int
-    var spoonLock = NSLock()
+    private var spoonLock = NSLock()
     var whoHasMe: UUID?
     
     init(_ id: Int) {
@@ -47,12 +47,14 @@ class Developer {
     }
     
     func eat(){
-        if rightSpoon.whoHasMe == self.id && leftSpoon.whoHasMe == self.id {
+        if rightSpoon.whoHasMe == leftSpoon.whoHasMe {
             print("\(self.name) is eating")
             usleep(200_000)
             print("\(self.name) finished eating")
             leftSpoon.putDown()
+            print("\(self.name) put down \(leftSpoon.id)")
             rightSpoon.putDown()
+            print("\(self.name) put down \(rightSpoon.id)")
         } else {
             return
         }
@@ -75,6 +77,7 @@ let spoon4 = Spoon(4)
 let spoon5 = Spoon(5)
 
 
+
 //Devs
 let dev1 = Developer(spoon1, spoon2, name: "Adam")
 let dev2 = Developer(spoon2, spoon3, name: "Bob")
@@ -82,12 +85,40 @@ let dev3 = Developer(spoon3, spoon4, name: "Charlie")
 let dev4 = Developer(spoon4, spoon5, name: "Donna")
 let dev5 = Developer(spoon5, spoon1, name: "Edith")
 
+
 let diningTable = [dev1, dev2, dev3, dev4, dev5]
 
 
+let newDev1 = Developer(spoon1, spoon2, name: "Anne")
+let newDev2 = Developer(spoon2, spoon3, name: "Blanche")
+let newDev3 = Developer(spoon3, spoon4, name: "Carla")
+let newDev4 = Developer(spoon4, spoon5, name: "Diane")
+let newDev5 = Developer(spoon5, spoon1, name: "Ellen")
 
-DispatchQueue.concurrentPerform(iterations: 5) {
-    print("\(diningTable[$0].name) has joined the meal.")
-    diningTable[$0].run()
+let potluck = [newDev1, newDev2, newDev3, newDev4, newDev5]
+
+//Group
+let devGroup = DispatchGroup()
+
+for dev in diningTable {
+    devGroup.enter()
+    DispatchQueue.global(qos: .background).async {
+        dev.run()
+    }
+    devGroup.leave()
 }
+
+//
+//DispatchQueue.concurrentPerform(iterations: 5) {
+//    potluck[$0].run()
+//}
+//
+//
+//DispatchQueue.concurrentPerform(iterations: 5) {
+//    print("\(diningTable[$0].name) has joined the meal.")
+//    diningTable[$0].run()
+//}
+
+
+
 

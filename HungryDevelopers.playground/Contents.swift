@@ -34,11 +34,28 @@ class Developer {
     }
     
     func think() {
-        pickUp()
+        leftSpoon.pickUp()
+        leftSpoon.whichDevIsEating = self.id
+        print("\(self.name) picked up \(leftSpoon.id)")
+        
+        rightSpoon.pickUp()
+        rightSpoon.whichDevIsEating = self.id
+        print("\(self.name) picked up \(rightSpoon.id)")
     }
     
     func eat() {
-        usleep(2)
+        if rightSpoon.whichDevIsEating == leftSpoon.whichDevIsEating {
+            print("\(self.name) is eating")
+            usleep(200_000)
+            print("\(self.name) finished eating")
+            leftSpoon.putDown()
+            print("\(self.name) put down \(leftSpoon.id)")
+            rightSpoon.putDown()
+            print("\(self.name) put down \(rightSpoon.id)")
+        } else {
+            return
+        }
+        
     }
     
     func run() {
@@ -56,14 +73,30 @@ let spoon3 = Spoon(3)
 let spoon4 = Spoon(4)
 let spoon5 = Spoon(5)
 
-let developer1 =
-let developer2 =
-let developer3 =
-let developer4 =
-let developer5 =
+let developer1 = Developer(spoon1, spoon2, name: "Stephanie")
+let developer2 = Developer(spoon2, spoon3, name: "Tim")
+let developer3 = Developer(spoon3, spoon4, name: "Chloe")
+let developer4 = Developer(spoon4, spoon5, name: "Tracy")
+let developer5 = Developer(spoon5, spoon1, name: "Julie")
 
 let developers = [developer1, developer2, developer3, developer4, developer5]
 
-DispatchQueue.concurrentPerform(iterations: 5) {
-developers[$0].run()
+//DispatchQueue.concurrentPerform(iterations: 5) {
+//    developers[$0].run()
+//
+//}
+
+//DispatchQueue.concurrentPerform(iterations: 5) {
+//    print("\(developers[$0].name) has joined the meal.")
+//    developers[$0].run()
+//}
+
+let developerGroup = DispatchGroup()
+
+for developer in developers {
+    developerGroup.enter()
+    DispatchQueue.global(qos: .background).async {
+        developer.run()
+    }
+    developerGroup.leave()
 }

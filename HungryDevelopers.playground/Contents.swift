@@ -50,11 +50,11 @@ class Developer {
         
         highPrioritySpoon.pickUp()
         highPrioritySpoon.whoHasMe = self.id
-        print("\(self.name) picked up \(leftSpoon.id)")
+        print("\(self.name) picked up \(highPrioritySpoon.id)")
         
         lowPrioritySpoon.pickUp()
         lowPrioritySpoon.whoHasMe = self.id
-        print("\(self.name) picked up \(rightSpoon.id)")
+        print("\(self.name) picked up \(lowPrioritySpoon.id)")
     }
     
     func eat(){

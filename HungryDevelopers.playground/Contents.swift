@@ -37,12 +37,23 @@ class Developer {
     }
     
     func think(){
-        leftSpoon.pickUp()
-        leftSpoon.whoHasMe = self.id
+        let lowPrioritySpoon: Spoon
+        let highPrioritySpoon: Spoon
+        
+        if rightSpoon.id < leftSpoon.id {
+            lowPrioritySpoon = rightSpoon
+            highPrioritySpoon = leftSpoon
+        } else {
+            lowPrioritySpoon = leftSpoon
+            highPrioritySpoon = rightSpoon
+        }
+        
+        highPrioritySpoon.pickUp()
+        highPrioritySpoon.whoHasMe = self.id
         print("\(self.name) picked up \(leftSpoon.id)")
         
-        rightSpoon.pickUp()
-        rightSpoon.whoHasMe = self.id
+        lowPrioritySpoon.pickUp()
+        lowPrioritySpoon.whoHasMe = self.id
         print("\(self.name) picked up \(rightSpoon.id)")
     }
     

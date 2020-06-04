@@ -34,13 +34,25 @@ class Developer {
     }
     
     func think() {
-        leftSpoon.pickUp()
-        leftSpoon.whichDevIsEating = self.id
-        print("\(self.name) picked up \(leftSpoon.id)")
-        
-        rightSpoon.pickUp()
-        rightSpoon.whichDevIsEating = self.id
-        print("\(self.name) picked up \(rightSpoon.id)")
+        let lowerSpoon: Spoon
+        let higherSpoon: Spoon
+        if rightSpoon.id < leftSpoon.id {
+            lowerSpoon = rightSpoon
+            higherSpoon = leftSpoon
+        } else {
+            lowerSpoon = leftSpoon
+            higherSpoon = rightSpoon
+        }
+        lowerSpoon.pickUp()
+        higherSpoon.pickUp()
+
+//        leftSpoon.pickUp()
+//        leftSpoon.whichDevIsEating = self.id
+//        print("\(self.name) picked up \(leftSpoon.id)")
+//
+//        rightSpoon.pickUp()
+//        rightSpoon.whichDevIsEating = self.id
+//        print("\(self.name) picked up \(rightSpoon.id)")
     }
     
     func eat() {
@@ -81,22 +93,23 @@ let developer5 = Developer(spoon5, spoon1, name: "Julie")
 
 let developers = [developer1, developer2, developer3, developer4, developer5]
 
-//DispatchQueue.concurrentPerform(iterations: 5) {
-//    developers[$0].run()
-//
-//}
+DispatchQueue.concurrentPerform(iterations: 5) {
+    developers[$0].run()
+
+}
 
 //DispatchQueue.concurrentPerform(iterations: 5) {
 //    print("\(developers[$0].name) has joined the meal.")
 //    developers[$0].run()
 //}
 
-let developerGroup = DispatchGroup()
-
-for developer in developers {
-    developerGroup.enter()
-    DispatchQueue.global(qos: .background).async {
-        developer.run()
-    }
-    developerGroup.leave()
-}
+// for an ios app this would be the best choice to make sure the UI stays running correctly on the mainqueue.
+//let developerGroup = DispatchGroup()
+//
+//for developer in developers {
+//    developerGroup.enter()
+//    DispatchQueue.global(qos: .background).async {
+//        developer.run()
+//    }
+//    developerGroup.leave()
+//}

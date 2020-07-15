@@ -1,23 +1,22 @@
 import UIKit
 
-
 class Spoon {
+    
     let lock = NSLock()
-    var index: Int
+    var spoonIndex: Int
     
     init(index: Int) {
-        self.index = index
+        self.spoonIndex = index
     }
     
     func pickUp() {
-        print("pickUp Locked")
         lock.lock()
     }
     
     func putDown() {
         lock.unlock()
-        print("putDown Unlocked")
     }
+    
 }
 
 class Developer {
@@ -31,31 +30,21 @@ class Developer {
         self.name = name
     }
     
+    func think() {
+        leftSpoon.pickUp()
+        print("\(name) has picked up Left Spoon.")
+        rightSpoon.pickUp()
+        print("\(name) has picked up Right Spoon.")
+        usleep(500)
+    }
+    
     func eat() {
         usleep(500)
         rightSpoon.putDown()
-        print("\(name) has put Right spoon down")
+        print("\(name) has put down Right Spoon.")
         leftSpoon.putDown()
-        print("\(name) has put Left spoon down")
+        print("\(name) has put down Left Spoon.")
         
-    }
-    
-    func think() {
-        if leftSpoon.index < rightSpoon.index {
-            leftSpoon.pickUp()
-            print("\(name) picked up Left Spoon")
-        } else {
-            rightSpoon.pickUp()
-            print("\(name) picked up Right Spoon")
-        }
-        
-//        print("\(name) is now eating.")
-//        leftSpoon.pickUp()
-//        print("\(name) began eating with Left Spoon..")
-//
-//        rightSpoon.pickUp()
-//        print("\(name) began eating with Right Spoon..")
-        return
     }
     
     func run() {
@@ -66,29 +55,25 @@ class Developer {
 
 let spoon1 = Spoon(index: 1)
 let spoon2 = Spoon(index: 2)
-let spoon3 = Spoon(index: 3)
-let spoon4 = Spoon(index: 4)
-let spoon5 = Spoon(index: 5)
 
 var developers: [Developer] = []
 
-let developer1 = Developer(leftSpoon: spoon1, rightSpoon: spoon2, name: "Dev 1")
-let developer2 = Developer(leftSpoon: spoon2, rightSpoon: spoon3, name: "Dev 2")
-let developer3 = Developer(leftSpoon: spoon3, rightSpoon: spoon4, name: "Dev 3")
-let developer4 = Developer(leftSpoon: spoon4, rightSpoon: spoon5, name: "Dev 4")
-let developer5 = Developer(leftSpoon: spoon5, rightSpoon: spoon1, name: "Dev 5")
+let developer1 = Developer(leftSpoon: spoon1, rightSpoon: spoon2, name: "Dev1")
+let developer2 = Developer(leftSpoon: spoon1, rightSpoon: spoon2, name: "Dev2")
+let developer3 = Developer(leftSpoon: spoon1, rightSpoon: spoon2, name: "Dev3")
+let developer4 = Developer(leftSpoon: spoon1, rightSpoon: spoon2, name: "Dev4")
 
 developers.append(developer1)
 developers.append(developer2)
 developers.append(developer3)
 developers.append(developer4)
-developers.append(developer5)
 
 let begin = Date()
 
-DispatchQueue.concurrentPerform(iterations: 5) {
+DispatchQueue.concurrentPerform(iterations: 4) {
     developers[$0].run()
 }
 let endDate = Date()
 
 print("It took: \(endDate.timeIntervalSince(begin)) seconds.")
+

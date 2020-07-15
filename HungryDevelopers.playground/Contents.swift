@@ -1,7 +1,5 @@
 import Foundation
 
-var developers: [Developer] = []
-
 class Spoon {
     
     let lock = NSLock()
@@ -75,12 +73,7 @@ let developerThree = Developer(name: "James", leftSpoon: spoonTwo, rightSpoon: s
 let developerFour = Developer(name: "John", leftSpoon: spoonThree, rightSpoon: spoonFour)
 let developerFive = Developer(name: "Jack", leftSpoon: spoonFour, rightSpoon: spoonFive)
 
-developers.append(developerOne)
-developers.append(developerTwo)
-developers.append(developerThree)
-developers.append(developerFour)
-developers.append(developerFive)
-
+var developers: [Developer] = [developerOne, developerTwo, developerThree, developerFour, developerFive]
 
 DispatchQueue.concurrentPerform(iterations: 5) {
     developers[$0].run()

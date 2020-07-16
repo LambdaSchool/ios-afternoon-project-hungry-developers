@@ -2,8 +2,8 @@
 //  AppDelegate.swift
 //  HungryDevelopers
 //
-//  Created by Waseem Idelbi on 5/12/20.
-//  Copyright © 2020 WaseemID. All rights reserved.
+//  Created by Waseem Idelbi on 7/14/20.
+//  Copyright © 2020 Waseem Idelbi. All rights reserved.
 //
 
 import UIKit

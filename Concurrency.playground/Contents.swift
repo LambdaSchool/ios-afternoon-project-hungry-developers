@@ -41,7 +41,7 @@ class Developer {
     
     func eat() {
         
-        usleep(useconds_t(Int.random(in: 150000...500000)))
+        usleep(1_000_000)
         leftSpoon.putDown()
         rightSpoon.putDown()
     }
@@ -66,7 +66,7 @@ var spoon3 = Spoon(index: 3)
 var spoon4 = Spoon(index: 4)
 var spoon5 = Spoon(index: 5)
 
-let allDev: [Developer] = [developerOne, developerTwo, developerThree, developerFour, developerFive]
+
 
 // Developers
 var developerOne = Developer(leftSpoon: spoon1, rightSpoon: spoon2)
@@ -74,6 +74,8 @@ var developerTwo = Developer(leftSpoon: spoon2, rightSpoon: spoon3)
 var developerThree = Developer(leftSpoon: spoon3, rightSpoon: spoon4)
 var developerFour = Developer(leftSpoon: spoon4, rightSpoon: spoon5)
 var developerFive = Developer(leftSpoon: spoon5, rightSpoon: spoon1)
+
+let allDev: [Developer] = [developerOne, developerTwo, developerThree, developerFour, developerFive]
 
 
 DispatchQueue.concurrentPerform(iterations: 5) {

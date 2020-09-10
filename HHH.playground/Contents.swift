@@ -27,8 +27,10 @@ class Developer {
     func think() {
         if rightSpoon.index > leftSpoon.index {
             leftSpoon.pickUp()
+            rightSpoon.pickUp()
         } else {
             rightSpoon.pickUp()
+            leftSpoon.pickUp()
         }
         
         return
